@@ -15,9 +15,9 @@ const bots = [
     visual: {
       label: "PROBE — ACTIVE SESSION",
       items: [
-        { label: "Code access needed", value: "0", suffix: "" },
-        { label: "Setup time", value: "0", suffix: "min" },
-        { label: "Runs simultaneously", value: "100", suffix: "+" },
+        { label: "Code access needed", value: "None", suffix: "" },
+        { label: "Training data needed", value: "None", suffix: "" },
+        { label: "Parallel instances", value: "100", suffix: "+" },
         { label: "Uptime", value: "24", suffix: "/7" },
       ],
     },
@@ -111,12 +111,28 @@ function FlipNumber({
   color: string;
   shouldAnimate: boolean;
 }) {
+  const isNumeric = /^\d+$/.test(value);
+
+  // Text values (Auto, Yes, etc.) — no flip animation, just fade in
+  if (!isNumeric) {
+    return (
+      <motion.span
+        style={{ color }}
+        initial={{ opacity: 0 }}
+        animate={shouldAnimate ? { opacity: 1 } : {}}
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
+        {value}{suffix}
+      </motion.span>
+    );
+  }
+
   if (!shouldAnimate) {
     return (
       <span style={{ color }}>
         <span className="opacity-30">{"0".repeat(Math.max(0, 4 - value.length))}</span>
         {value}
-        {suffix}
+        <span className="opacity-60">{suffix}</span>
       </span>
     );
   }
@@ -130,16 +146,9 @@ function FlipNumber({
         </span>
       ))}
       {/* Actual digits */}
-      {value.split("").map((char, i) => {
-        if (/\d/.test(char)) {
-          return <FlipDigit key={i} digit={char} delay={i * 80} color={color} />;
-        }
-        return (
-          <span key={i} style={{ color }}>
-            {char}
-          </span>
-        );
-      })}
+      {value.split("").map((char, i) => (
+        <FlipDigit key={i} digit={char} delay={i * 80} color={color} />
+      ))}
       <span style={{ color }} className="opacity-60">{suffix}</span>
     </span>
   );
