@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
+import { BotModel } from "@/components/home/BotModel";
 
 const bots = [
   {
@@ -54,6 +55,160 @@ const bots = [
         { label: "Severity rating", value: "Auto", suffix: "" },
         { label: "Export ready", value: "Yes", suffix: "" },
       ],
+    },
+  },
+  {
+    name: "Wayfinder",
+    role: "The Navigator",
+    headline: "Maps every path and hidden route",
+    description:
+      "Wayfinder systematically charts game worlds, uncovering hidden paths, unreachable areas, and navigation inconsistencies. It builds a complete map of traversable space so no corner goes untested.",
+    color: "#38BDF8",
+    visual: {
+      label: "WAYFINDER — NAVIGATING",
+      items: [
+        { label: "Areas mapped", value: "100", suffix: "%" },
+        { label: "Hidden paths found", value: "Auto", suffix: "" },
+        { label: "Nav mesh coverage", value: "100", suffix: "%" },
+        { label: "Boundary checks", value: "24", suffix: "/7" },
+      ],
+    },
+    model: {
+      path: "/models/Wayfinder",
+      obj: "Meshy_AI_Wayfinder_0317142818_texture.obj",
+      png: "Meshy_AI_Wayfinder_0317142818_texture.png",
+    },
+  },
+  {
+    name: "Gladiator",
+    role: "The Fighter",
+    headline: "Stress-tests combat and mechanics",
+    description:
+      "Gladiator throws itself into every fight, tests every weapon combo, and pushes combat systems to their limits. It finds balance issues, exploits, and edge cases in your game mechanics.",
+    color: "#F97316",
+    visual: {
+      label: "GLADIATOR — IN COMBAT",
+      items: [
+        { label: "Combat scenarios", value: "1000", suffix: "+" },
+        { label: "Exploit detection", value: "Auto", suffix: "" },
+        { label: "Balance analysis", value: "100", suffix: "%" },
+        { label: "Combo coverage", value: "100", suffix: "%" },
+      ],
+    },
+    model: {
+      path: "/models/Gladiator",
+      obj: "Meshy_AI_Gladiator_0317142924_texture.obj",
+      png: "Meshy_AI_Gladiator_0317142924_texture.png",
+    },
+  },
+  {
+    name: "Replicator",
+    role: "The Cloner",
+    headline: "Reproduces bugs with precision",
+    description:
+      "Replicator takes any reported issue and runs it thousands of times with variations, confirming reproducibility, identifying root causes, and establishing exact conditions for failure.",
+    color: "#22D3EE",
+    visual: {
+      label: "REPLICATOR — REPRODUCING",
+      items: [
+        { label: "Repro attempts", value: "1000", suffix: "+" },
+        { label: "Variation coverage", value: "100", suffix: "%" },
+        { label: "Root cause ID", value: "Auto", suffix: "" },
+        { label: "Confidence", value: "99", suffix: "%" },
+      ],
+    },
+    model: {
+      path: "/models/Replicator",
+      obj: "Meshy_AI_Replicator_0317142846_texture.obj",
+      png: "Meshy_AI_Replicator_0317142846_texture.png",
+    },
+  },
+  {
+    name: "Rosetta",
+    role: "The Translator",
+    headline: "Tests every language and locale",
+    description:
+      "Rosetta validates localisation across every supported language — catching text overflow, missing translations, encoding issues, and cultural context errors automatically.",
+    color: "#E879F9",
+    visual: {
+      label: "ROSETTA — TRANSLATING",
+      items: [
+        { label: "Languages tested", value: "100", suffix: "+" },
+        { label: "Text overflow", value: "Auto", suffix: "" },
+        { label: "Missing strings", value: "Auto", suffix: "" },
+        { label: "Encoding issues", value: "Auto", suffix: "" },
+      ],
+    },
+    model: {
+      path: "/models/Rosetta",
+      obj: "Meshy_AI_Rosetta_0317143009_texture.obj",
+      png: "Meshy_AI_Rosetta_0317143009_texture.png",
+    },
+  },
+  {
+    name: "Merchant",
+    role: "The Economist",
+    headline: "Audits economies and transactions",
+    description:
+      "Merchant tests in-game economies, shop systems, loot tables, and transaction flows. It finds pricing exploits, duplication glitches, and economic imbalances before players do.",
+    color: "#FBBF24",
+    visual: {
+      label: "MERCHANT — TRADING",
+      items: [
+        { label: "Transactions tested", value: "1000", suffix: "+" },
+        { label: "Exploit detection", value: "Auto", suffix: "" },
+        { label: "Economy balance", value: "100", suffix: "%" },
+        { label: "Loot validation", value: "Auto", suffix: "" },
+      ],
+    },
+    model: {
+      path: "/models/Merchant",
+      obj: "Meshy_AI_Merchant_0317143101_texture.obj",
+      png: "Meshy_AI_Merchant_0317143101_texture.png",
+    },
+  },
+  {
+    name: "Trailblazer",
+    role: "The Pioneer",
+    headline: "Finds the unexpected edge cases",
+    description:
+      "Trailblazer goes where no tester has gone before — combining unusual actions, sequence-breaking, and creative problem-solving to discover the bugs that scripted tests never catch.",
+    color: "#34D399",
+    visual: {
+      label: "TRAILBLAZER — EXPLORING",
+      items: [
+        { label: "Edge cases found", value: "Auto", suffix: "" },
+        { label: "Sequence breaks", value: "Auto", suffix: "" },
+        { label: "Creative paths", value: "1000", suffix: "+" },
+        { label: "Coverage depth", value: "100", suffix: "%" },
+      ],
+    },
+    model: {
+      path: "/models/Trailblazer",
+      obj: "Meshy_AI_Trailblazer_0317142900_texture.obj",
+      png: "Meshy_AI_Trailblazer_0317142900_texture.png",
+    },
+  },
+  {
+    name: "Stressor",
+    role: "The Breaker",
+    headline: "Pushes your game to the breaking point",
+    description:
+      "Stressor applies extreme load, rapid inputs, and resource pressure to find performance bottlenecks, memory leaks, and crash conditions under stress.",
+    color: "#FB7185",
+    visual: {
+      label: "STRESSOR — STRESS TESTING",
+      items: [
+        { label: "Load scenarios", value: "1000", suffix: "+" },
+        { label: "Crash detection", value: "Auto", suffix: "" },
+        { label: "Memory profiling", value: "24", suffix: "/7" },
+        { label: "Performance data", value: "100", suffix: "%" },
+      ],
+    },
+    model: {
+      path: "/models/Stressor",
+      obj: "Meshy_AI_Stressor_0317143024_texture.obj",
+      png: "Meshy_AI_Stressor_0317143024_texture.png",
     },
   },
 ];
@@ -160,6 +315,18 @@ function BotVisual({ bot, inView }: { bot: (typeof bots)[0]; inView: boolean }) 
       {/* Scanline overlay */}
       <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.015)_2px,rgba(255,255,255,0.015)_4px)]" />
 
+      {/* 3D Model */}
+      {bot.model && (
+        <div className="border-b border-white/5">
+          <BotModel
+            modelPath={bot.model.path}
+            objFile={bot.model.obj}
+            pngFile={bot.model.png}
+            color={bot.color}
+          />
+        </div>
+      )}
+
       {/* Top bar */}
       <div className="flex items-center gap-2 border-b border-white/5 px-5 py-3">
         <motion.span
@@ -200,10 +367,10 @@ export function BotSection() {
         <FadeInView>
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              The Tri-Bot System
+              The Bot Arsenal
             </span>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-              Three bots. One mission.
+              Ten bots. One mission.
             </h2>
             <p className="mt-4 text-lg text-text-muted">
               Each agent has a distinct role. Together, they deliver fully

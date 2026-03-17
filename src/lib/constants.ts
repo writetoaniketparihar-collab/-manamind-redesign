@@ -45,6 +45,34 @@ export const BOTS = [
     name: "Scribe",
     description: "Documents every finding with detailed reports, screenshots, reproduction steps, and severity classifications — ready for your QA team.",
   },
+  {
+    name: "Wayfinder",
+    description: "Systematically charts game worlds, uncovering hidden paths, unreachable areas, and navigation inconsistencies to ensure no corner goes untested.",
+  },
+  {
+    name: "Gladiator",
+    description: "Stress-tests combat systems, weapon combos, and game mechanics to find balance issues, exploits, and edge cases.",
+  },
+  {
+    name: "Replicator",
+    description: "Reproduces reported issues thousands of times with variations, confirming reproducibility and identifying exact failure conditions.",
+  },
+  {
+    name: "Rosetta",
+    description: "Validates localisation across every supported language — catching text overflow, missing translations, and encoding issues automatically.",
+  },
+  {
+    name: "Merchant",
+    description: "Tests in-game economies, shop systems, loot tables, and transaction flows to find pricing exploits and economic imbalances.",
+  },
+  {
+    name: "Trailblazer",
+    description: "Goes where no tester has gone before — combining unusual actions and sequence-breaking to discover bugs that scripted tests never catch.",
+  },
+  {
+    name: "Stressor",
+    description: "Applies extreme load, rapid inputs, and resource pressure to find performance bottlenecks, memory leaks, and crash conditions.",
+  },
 ];
 
 export const VALUE_PROPS = [
@@ -77,7 +105,7 @@ export const ARCHITECTURE = {
   },
   bots: {
     name: "Bots",
-    description: "Autonomous agents (Probe, Overseer, Scribe) that interact with your game, find bugs, and report findings — all without human intervention.",
+    description: "Ten autonomous agents — from Probe and Overseer to Gladiator, Rosetta, and more — that interact with your game, find bugs, and report findings without human intervention.",
   },
 };
 
