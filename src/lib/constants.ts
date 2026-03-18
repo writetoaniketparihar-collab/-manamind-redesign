@@ -34,18 +34,6 @@ export const PRESS_MENTIONS = [
 
 export const BOTS = [
   {
-    name: "Probe",
-    description: "Autonomous explorer that navigates game worlds, interacts with objects, and discovers bugs through intelligent exploration — no scripting required.",
-  },
-  {
-    name: "Overseer",
-    description: "Monitors and coordinates testing sessions, analysing bot behaviour, prioritising discoveries, and ensuring comprehensive coverage across the game.",
-  },
-  {
-    name: "Scribe",
-    description: "Documents every finding with detailed reports, screenshots, reproduction steps, and severity classifications — ready for your QA team.",
-  },
-  {
     name: "Wayfinder",
     description: "Systematically charts game worlds, uncovering hidden paths, unreachable areas, and navigation inconsistencies to ensure no corner goes untested.",
   },

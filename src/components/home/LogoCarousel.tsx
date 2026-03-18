@@ -155,7 +155,7 @@ function OrbitalNode({
         fontSize="1.4"
         fontFamily="monospace"
         opacity="0.5"
-        textTransform="uppercase"
+        style={{ textTransform: "uppercase" }}
       >
         {type === "both" ? "INVESTOR & PARTNER" : type.toUpperCase()}
       </text>
