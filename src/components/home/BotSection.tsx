@@ -50,7 +50,7 @@ const bots = [
     role: "The Translator",
     headline: "Tests every language and locale",
     description:
-      "Rosetta validates localisation across every supported language — catching text overflow, missing translations, encoding issues, and cultural context errors automatically.",
+      "Rosetta validates localisation across every supported language - catching text overflow, missing translations, encoding issues, and cultural context errors automatically.",
     color: "#E879F9",
     model: {
       path: "/models/Rosetta",
@@ -76,7 +76,7 @@ const bots = [
     role: "The Pioneer",
     headline: "Finds the unexpected edge cases",
     description:
-      "Trailblazer goes where no tester has gone before — combining unusual actions, sequence-breaking, and creative problem-solving to discover the bugs that scripted tests never catch.",
+      "Trailblazer goes where no tester has gone before - combining unusual actions, sequence-breaking, and creative problem-solving to discover the bugs that scripted tests never catch.",
     color: "#34D399",
     model: {
       path: "/models/Trailblazer",
@@ -153,7 +153,7 @@ function BotRow({ bot, index }: { bot: (typeof bots)[number]; index: number }) {
               className="text-sm font-semibold uppercase tracking-widest"
               style={{ color: bot.color }}
             >
-              {bot.name} — {bot.role}
+              {bot.name} - {bot.role}
             </p>
             <h3 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
               {bot.headline}

@@ -26,7 +26,7 @@ export function HeroSection() {
           transition={{ delay: 2.1, duration: 0.6 }}
           className="mt-10 flex flex-wrap gap-4"
         >
-          <CTAButton href="/contact">Request Demo</CTAButton>
+          <CTAButton href="/contact">Book a Demo</CTAButton>
           <CTAButton href="/product" variant="outline">
             Learn More
           </CTAButton>

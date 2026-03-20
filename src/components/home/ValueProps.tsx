@@ -6,29 +6,34 @@ import { FadeInView } from "@/components/animations/FadeInView";
 
 const comparisons = [
   {
-    metric: "Test Coverage",
+    metric: "Test Exploration",
     manual: { value: "~15%", detail: "of game surface tested per cycle" },
-    mana: { value: "98%+", detail: "autonomous coverage in a single run" },
+    mana: { value: "99%", detail: "gameplay explored in a single run" },
   },
   {
-    metric: "Time to First Bug",
-    manual: { value: "Days", detail: "of scripted test writing & execution" },
-    mana: { value: "Minutes", detail: "from deploy to first discovery" },
+    metric: "Availability",
+    manual: { value: "Limited", detail: "Working hours" },
+    mana: { value: "24/7", detail: "365 autonomous testing" },
   },
   {
     metric: "Parallel Sessions",
-    manual: { value: "1", detail: "human tester per session" },
-    mana: { value: "100+", detail: "concurrent autonomous agents" },
+    manual: { value: "Limited", detail: "by available testers and machines" },
+    mana: { value: "100s", detail: "of concurrent gameplay sessions" },
   },
   {
-    metric: "Integration Required",
-    manual: { value: "Weeks", detail: "of SDK setup, scripting, maintenance" },
-    mana: { value: "Zero", detail: "no code access, no SDK, no API keys" },
+    metric: "Integration",
+    manual: { value: "Weeks", detail: "of SDK setup, scripting, and maintenance" },
+    mana: { value: "Zero", detail: "runs directly on your game build - no SDKs, scripts, or engine access required" },
   },
   {
-    metric: "Regression Testing",
-    manual: { value: "Repeat", detail: "the same scripts every release" },
-    mana: { value: "Adaptive", detail: "bots learn and explore new paths" },
+    metric: "Cost Reduction",
+    manual: { value: "Linear", detail: "with team size and testing hours" },
+    mana: { value: "65%", detail: "reduction in QA operating costs" },
+  },
+  {
+    metric: "Scalability",
+    manual: { value: "Slow", detail: "scale by hiring, outsourcing, or expanding test infrastructure" },
+    mana: { value: "Instant", detail: "scale by running more autonomous sessions in parallel" },
   },
 ];
 
@@ -81,7 +86,7 @@ function ComparisonRow({
         <div className="relative overflow-hidden rounded-xl border border-white/5 bg-[#1a0a22] p-5">
           <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent" />
           <div className="relative">
-            <p className="font-mono text-2xl font-bold text-red-400/80 md:text-3xl">
+            <p className="font-mono text-lg font-bold text-red-400/80 md:text-xl">
               <AnimatedCounter text={item.manual.value} inView={inView} />
             </p>
             <p className="mt-1 text-xs leading-relaxed text-text-muted/70">
@@ -100,7 +105,7 @@ function ComparisonRow({
             transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
           />
           <div className="relative">
-            <p className="font-mono text-2xl font-bold text-primary md:text-3xl">
+            <p className="font-mono text-lg font-bold text-primary md:text-xl">
               <AnimatedCounter text={item.mana.value} inView={inView} />
             </p>
             <p className="mt-1 text-xs leading-relaxed text-text-muted">
@@ -144,13 +149,13 @@ export function ValueProps() {
         <FadeInView>
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              Why ManaMind
+              Manual Testing vs Autonomous Testing
             </span>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-              The old way is broken
+              Why teams are moving beyond manual QA
             </h2>
             <p className="mt-4 text-lg text-text-muted">
-              Manual QA can&apos;t keep up. Here&apos;s what changes when AI takes over.
+              Manual testing alone can&apos;t keep up with modern game complexity. ManaMind augments your QA process with autonomous, continuous testing.
             </p>
           </div>
         </FadeInView>
@@ -164,13 +169,13 @@ export function ValueProps() {
         >
           <div className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-2.5">
             <div className="h-2 w-2 rounded-full bg-red-400/60" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-red-400/70">
+            <span className="font-mono text-sm font-semibold uppercase tracking-widest text-red-400/70">
               Manual QA
             </span>
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/[0.03] px-4 py-2.5">
             <div className="h-2 w-2 rounded-full bg-primary" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-primary">
+            <span className="font-mono text-sm font-semibold uppercase tracking-widest text-primary">
               ManaMind
             </span>
             <LivePulse />
@@ -195,15 +200,15 @@ export function ValueProps() {
             <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-8 py-5">
               <div className="text-left">
                 <p className="text-sm font-semibold text-foreground">
-                  Still running manual test scripts?
+                  See what your current testing process is missing
                 </p>
                 <p className="text-xs text-text-muted">
-                  See how ManaMind finds bugs your team never will.
+                  Watch ManaMind explore your game and surface issues in real time.
                 </p>
               </div>
               <motion.a
                 href="/contact"
-                className="ml-4 shrink-0 rounded-lg bg-primary px-5 py-2.5 text-sm font-bold text-[#0D0515] transition-colors hover:bg-primary/90"
+                className="ml-4 shrink-0 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-background transition-all hover:shadow-[0_0_20px_rgba(0,255,150,0.3)]"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >

@@ -10,7 +10,7 @@ import { ProductCTA } from "@/components/product/ProductCTA";
 export const metadata = {
   title: "Product | ManaMind",
   description:
-    "Hivemind, Command Centre, Legion, and autonomous bots — four layers powering fully autonomous AI game testing at machine scale.",
+    "Hivemind, Command Centre, Legion, and autonomous bots - four layers powering fully autonomous AI game testing at machine scale.",
 };
 
 export default function ProductPage() {

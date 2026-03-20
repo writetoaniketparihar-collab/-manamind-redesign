@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   Product: [
@@ -13,7 +14,7 @@ const footerLinks = {
   ],
   Connect: [
     { label: "Contact", href: "/contact" },
-    { label: "Request Demo", href: "/contact" },
+    { label: "Book a Demo", href: "/contact" },
   ],
 };
 
@@ -24,9 +25,13 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div>
-            <Link href="/" className="text-2xl font-bold tracking-tight">
-              <span className="text-primary">Mana</span>
-              <span className="text-foreground">Mind</span>
+            <Link href="/">
+              <Image
+                src="/manamind-logo.png"
+                alt="ManaMind"
+                width={160}
+                height={33}
+              />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-text-muted">
               Autonomous AI quality assurance for video games. Human-like

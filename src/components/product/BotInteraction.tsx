@@ -10,7 +10,7 @@ const pipeline = [
     step: "01",
     label: "Capture",
     title: "See the Screen",
-    description: "Our bots receive raw video frames from the game — exactly what a human player sees. No code hooks, no debug APIs.",
+    description: "Bots watch the game exactly as a player would with no engine hooks or APIs required.",
     color: "#38BDF8",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -24,8 +24,8 @@ const pipeline = [
   {
     step: "02",
     label: "Understand",
-    title: "Read & Reason",
-    description: "Hivemind processes frames with multi-modal AI — reading text, recognising UI elements, understanding spatial context, and building a mental model.",
+    title: "Reason",
+    description: "The system reads UI, recognises objects, and tracks game state to understand what's going on in each frame.",
     color: "#00FF96",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -39,8 +39,8 @@ const pipeline = [
   {
     step: "03",
     label: "Decide",
-    title: "Plan & Act",
-    description: "Like a human player, the bot decides what to do next — click a button, navigate a menu, explore a new area, or test an edge case.",
+    title: "Plan the Next Action",
+    description: "Based on what it sees, each bot chooses what to do next, navigate menus, explore new areas, or test edge cases.",
     color: "#A78BFA",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -54,8 +54,8 @@ const pipeline = [
   {
     step: "04",
     label: "Report",
-    title: "Document Everything",
-    description: "Every action, anomaly, and bug is logged with video evidence, reproduction steps, and severity — ready for your QA pipeline.",
+    title: "Log and Report Issues",
+    description: "When something goes wrong, ManaMind records the session, generates reproduction steps, and logs a structured bug report.",
     color: "#FF4C54",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -71,56 +71,14 @@ const pipeline = [
 function PipelineStep({
   step,
   index,
-  total,
   inView,
 }: {
   step: (typeof pipeline)[0];
   index: number;
-  total: number;
   inView: boolean;
 }) {
   return (
     <div className="relative">
-      {/* Connecting arrow (desktop: horizontal, mobile: vertical) */}
-      {index < total - 1 && (
-        <>
-          {/* Desktop arrow */}
-          <motion.div
-            className="absolute -right-6 top-1/2 hidden -translate-y-1/2 lg:block"
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={inView ? { opacity: 1, scaleX: 1 } : {}}
-            transition={{ delay: 0.5 + index * 0.2, duration: 0.4 }}
-          >
-            <svg width="12" height="24" viewBox="0 0 12 24" fill="none">
-              <path d="M2 4v16M2 20l4-4M2 20l-0-0" stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeLinecap="round" transform="rotate(-90 6 12) translate(-6, -6)" />
-              <motion.circle
-                cx="6"
-                cy="12"
-                r="2"
-                fill={step.color}
-                animate={{ opacity: [0.3, 0.8, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-              />
-            </svg>
-          </motion.div>
-
-          {/* Mobile arrow */}
-          <motion.div
-            className="mx-auto my-3 flex justify-center lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.5 + index * 0.2 }}
-          >
-            <motion.div
-              className="h-6 w-px"
-              style={{ backgroundColor: `${step.color}40` }}
-              animate={{ opacity: [0.3, 0.7, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
-        </>
-      )}
-
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -190,30 +148,18 @@ export function BotInteraction() {
         <FadeInView>
           <SectionHeading
             label="How It Works"
-            title="Vision in. Intelligence out."
-            description="Our bots interact with your game exactly like a human player — through the screen."
+            title="From gameplay to actionable bug reports"
+            description="ManaMind watches and plays your game through the screen, just like a human tester."
           />
         </FadeInView>
 
-        {/* Pipeline flow label */}
-        <FadeInView delay={0.3}>
-          <div className="mx-auto mt-14 mb-10 flex items-center justify-center gap-3">
-            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-r from-transparent to-white/10" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-widest text-text-muted">
-              The Pipeline
-            </span>
-            <div className="h-px flex-1 max-w-[60px] bg-gradient-to-l from-transparent to-white/10" />
-          </div>
-        </FadeInView>
-
         {/* Pipeline grid */}
-        <div className="grid gap-6 lg:grid-cols-4 lg:gap-12">
+        <div className="mt-16 grid gap-6 lg:grid-cols-4 lg:gap-8">
           {pipeline.map((step, i) => (
             <PipelineStep
               key={step.step}
               step={step}
               index={i}
-              total={pipeline.length}
               inView={inView}
             />
           ))}
@@ -229,7 +175,7 @@ export function BotInteraction() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium text-primary">
-                This entire loop runs autonomously — zero human intervention
+                This entire loop runs continuously and autonomously, without the need for manual input or supervision
               </span>
             </div>
           </div>

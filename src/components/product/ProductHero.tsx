@@ -158,8 +158,8 @@ export function ProductHero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-6 max-w-xl text-lg text-text-muted"
           >
-            Four layers of AI — from our proprietary Hivemind model to ten
-            autonomous bots — working together to test your game with
+            Four layers of AI - from our proprietary Hivemind model to ten
+            autonomous bots - working together to test your game with
             human-like intelligence at machine scale.
           </motion.p>
 
@@ -169,7 +169,7 @@ export function ProductHero() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mt-10 flex flex-wrap gap-4"
           >
-            <CTAButton href="/contact">Request Demo</CTAButton>
+            <CTAButton href="/contact">Book a Demo</CTAButton>
             <CTAButton href="#architecture" variant="outline">
               Explore Architecture
             </CTAButton>

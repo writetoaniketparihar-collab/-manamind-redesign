@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/lib/constants";
 
@@ -25,9 +26,14 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold tracking-tight">
-          <span className="text-primary">Mana</span>
-          <span className="text-foreground">Mind</span>
+        <Link href="/">
+          <Image
+            src="/manamind-logo.png"
+            alt="ManaMind"
+            width={160}
+            height={33}
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -48,7 +54,7 @@ export function Navbar() {
           href="/contact"
           className="hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-background transition-all hover:shadow-[0_0_20px_rgba(0,255,150,0.3)] lg:block"
         >
-          Request Demo
+          Book a Demo
         </Link>
 
         {/* Mobile Hamburger */}
@@ -100,7 +106,7 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-background"
               >
-                Request Demo
+                Book a Demo
               </Link>
             </div>
           </motion.div>

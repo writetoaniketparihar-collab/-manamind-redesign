@@ -13,9 +13,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ManaMind — Autonomous AI Quality Assurance for Video Games",
+  title: "ManaMind - Autonomous AI Quality Assurance for Video Games",
   description:
-    "Human-like testing at machine scale. ManaMind delivers fully autonomous QA testing for video games — zero-shot, no code access, infinitely scalable.",
+    "Human-like testing at machine scale. ManaMind delivers fully autonomous QA testing for video games - zero-shot, no code access, infinitely scalable.",
 };
 
 export default function RootLayout({

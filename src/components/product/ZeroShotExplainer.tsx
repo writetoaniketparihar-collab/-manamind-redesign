@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 
-// Traditional setup steps — shown as a painful terminal log
+// Traditional setup steps - shown as a painful terminal log
 const traditionalSteps = [
   { text: "$ npm install game-testing-sdk", delay: 0, status: "run" },
   { text: "Installing 847 dependencies...", delay: 0.4, status: "wait" },
@@ -20,7 +20,7 @@ const traditionalSteps = [
   { text: "47 scripts broken by last update", delay: 6.0, status: "error" },
 ];
 
-// ManaMind — just works
+// ManaMind - just works
 const manamindSteps = [
   { text: "$ manamind connect", delay: 0, status: "run" },
   { text: "Connecting to game stream...", delay: 0.3, status: "wait" },
@@ -105,7 +105,7 @@ export function ZeroShotExplainer() {
             </h2>
             <p className="mt-4 text-lg text-text-muted">
               No SDK. No API keys. No training data. No scripts. Our bots see the screen
-              and play — just like a human.
+              and play - just like a human.
             </p>
           </div>
         </FadeInView>

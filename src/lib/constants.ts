@@ -47,7 +47,7 @@ export const BOTS = [
   },
   {
     name: "Rosetta",
-    description: "Validates localisation across every supported language — catching text overflow, missing translations, and encoding issues automatically.",
+    description: "Validates localisation across every supported language - catching text overflow, missing translations, and encoding issues automatically.",
   },
   {
     name: "Merchant",
@@ -55,7 +55,7 @@ export const BOTS = [
   },
   {
     name: "Trailblazer",
-    description: "Goes where no tester has gone before — combining unusual actions and sequence-breaking to discover bugs that scripted tests never catch.",
+    description: "Goes where no tester has gone before - combining unusual actions and sequence-breaking to discover bugs that scripted tests never catch.",
   },
   {
     name: "Stressor",
@@ -81,7 +81,7 @@ export const VALUE_PROPS = [
 export const ARCHITECTURE = {
   hivemind: {
     name: "Hivemind",
-    description: "Our proprietary AI model — the core intelligence that powers autonomous decision-making, learning, and adaptation across all bots.",
+    description: "Our proprietary AI model - the core intelligence that powers autonomous decision-making, learning, and adaptation across all bots.",
   },
   commandCentre: {
     name: "Command Centre",
@@ -93,22 +93,22 @@ export const ARCHITECTURE = {
   },
   bots: {
     name: "Bots",
-    description: "Ten autonomous agents — from Probe and Overseer to Gladiator, Rosetta, and more — that interact with your game, find bugs, and report findings without human intervention.",
+    description: "Ten autonomous agents - from Probe and Overseer to Gladiator, Rosetta, and more - that interact with your game, find bugs, and report findings without human intervention.",
   },
 };
 
 export const FEATURES = [
   {
     title: "Exploration",
-    description: "Bots autonomously navigate game worlds, discovering areas, interacting with objects, and testing boundaries — just like a real player.",
+    description: "Bots autonomously navigate game worlds, discovering areas, interacting with objects, and testing boundaries - just like a real player.",
   },
   {
     title: "Detection",
-    description: "Visual anomalies, physics glitches, UI bugs, crash triggers — our bots identify issues across every layer of the game.",
+    description: "Visual anomalies, physics glitches, UI bugs, crash triggers - our bots identify issues across every layer of the game.",
   },
   {
     title: "Reporting",
-    description: "Every bug comes with video evidence, reproduction steps, severity classification, and contextual metadata — ready for your team.",
+    description: "Every bug comes with video evidence, reproduction steps, severity classification, and contextual metadata - ready for your team.",
   },
 ];
 

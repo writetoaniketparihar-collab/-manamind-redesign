@@ -10,7 +10,7 @@ const features = [
     title: "Exploration",
     headline: "Every corner. Every path.",
     description:
-      "Bots autonomously navigate game worlds, discovering areas, interacting with objects, and testing boundaries — just like a real player. They build spatial maps and remember where they've been.",
+      "Bots autonomously navigate game worlds, discovering areas, interacting with objects, and testing boundaries - just like a real player. They build spatial maps and remember where they've been.",
     color: "#00FF96",
     visual: ExplorationVisual,
   },
@@ -18,7 +18,7 @@ const features = [
     title: "Detection",
     headline: "See what humans miss.",
     description:
-      "Visual anomalies, physics glitches, UI bugs, crash triggers, z-fighting, texture pop-in — our bots identify issues across every layer of the game simultaneously.",
+      "Visual anomalies, physics glitches, UI bugs, crash triggers, z-fighting, texture pop-in - our bots identify issues across every layer of the game simultaneously.",
     color: "#FF4C54",
     visual: DetectionVisual,
   },
@@ -26,7 +26,7 @@ const features = [
     title: "Reporting",
     headline: "Actionable from the start.",
     description:
-      "Every bug comes with video evidence, step-by-step reproduction, severity classification, and contextual metadata. Your dev team gets actionable tickets — not noise.",
+      "Every bug comes with video evidence, step-by-step reproduction, severity classification, and contextual metadata. Your dev team gets actionable tickets - not noise.",
     color: "#A78BFA",
     visual: ReportingVisual,
   },
