@@ -2,6 +2,7 @@
 
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FadeInView } from "@/components/animations/FadeInView";
+import { motion } from "framer-motion";
 
 export function DemoReel() {
   return (
@@ -10,8 +11,8 @@ export function DemoReel() {
         <FadeInView>
           <SectionHeading
             label="See It In Action"
-            title="Watch our bots play"
-            description="Autonomous AI agents exploring, testing, and documenting — in real time."
+            title="Watch ManaMind test a live game build"
+            description="See how our agents play, discover bugs, and surface issues without any scripts or human input."
           />
         </FadeInView>
 
@@ -35,8 +36,25 @@ export function DemoReel() {
                     Demo reel coming soon
                   </p>
                 </div>
+
+                {/* Request Demo overlay -shown at end of video */}
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80">
+                  <motion.a
+                    href="/contact"
+                    className="rounded-full bg-primary px-8 py-3 text-sm font-semibold text-background transition-all hover:shadow-[0_0_20px_rgba(0,255,150,0.3)]"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Request Demo
+                  </motion.a>
+                </div>
               </div>
             </div>
+
+            {/* One-liner caption */}
+            <p className="mt-4 text-center text-xs text-text-muted/60">
+              Footage captured from an unmodified production build
+            </p>
           </div>
         </FadeInView>
       </div>

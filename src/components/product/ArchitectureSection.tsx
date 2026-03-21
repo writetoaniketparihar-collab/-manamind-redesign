@@ -76,7 +76,7 @@ const layers = [
     details: [
       "10 specialised agents: Probe, Overseer, Scribe, and more",
       "Each bot has a distinct role and testing methodology",
-      "Vision-only interaction — no code access required",
+      "Vision-only interaction. No code access required",
       "Human-like gameplay with machine-speed execution",
     ],
   },

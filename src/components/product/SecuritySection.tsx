@@ -8,7 +8,7 @@ const pillars = [
   {
     title: "Zero Code Access",
     description:
-      "We never touch your source code. Our bots interact through the game's visual output only — like watching a stream.",
+      "We never touch your source code. Our bots interact through the game's visual output only. Like watching a stream.",
     color: "#00FF96",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">

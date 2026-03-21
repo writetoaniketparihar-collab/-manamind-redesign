@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { CTAButton } from "@/components/shared/CTAButton";
 
 const pipeline = [
   {
@@ -177,6 +178,9 @@ export function BotInteraction() {
               <span className="text-sm font-medium text-primary">
                 This entire loop runs continuously and autonomously, without the need for manual input or supervision
               </span>
+            </div>
+            <div className="mt-8">
+              <CTAButton href="/product">Explore the Product</CTAButton>
             </div>
           </div>
         </FadeInView>

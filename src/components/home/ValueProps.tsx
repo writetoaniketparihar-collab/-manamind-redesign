@@ -8,32 +8,32 @@ const comparisons = [
   {
     metric: "Test Exploration",
     manual: { value: "~15%", detail: "of game surface tested per cycle" },
-    mana: { value: "99%", detail: "gameplay explored in a single run" },
+    mana: { value: "Up to 99%", detail: "gameplay explored in a single run" },
   },
   {
     metric: "Availability",
-    manual: { value: "Limited", detail: "Working hours" },
-    mana: { value: "24/7", detail: "365 autonomous testing" },
+    manual: { value: "Working Hours", detail: "" },
+    mana: { value: "24/7/365", detail: "autonomous testing" },
   },
   {
     metric: "Parallel Sessions",
     manual: { value: "Limited", detail: "by available testers and machines" },
-    mana: { value: "100s", detail: "of concurrent gameplay sessions" },
+    mana: { value: "Hundreds", detail: "of concurrent gameplay sessions" },
   },
   {
     metric: "Integration",
     manual: { value: "Weeks", detail: "of SDK setup, scripting, and maintenance" },
-    mana: { value: "Zero", detail: "runs directly on your game build - no SDKs, scripts, or engine access required" },
+    mana: { value: "Runs directly", detail: "on your game build - no SDKs, scripts, or engine access required" },
   },
   {
     metric: "Cost Reduction",
     manual: { value: "Linear", detail: "with team size and testing hours" },
-    mana: { value: "65%", detail: "reduction in QA operating costs" },
+    mana: { value: "Up to 65%", detail: "reduction in QA operating costs" },
   },
   {
     metric: "Scalability",
-    manual: { value: "Slow", detail: "scale by hiring, outsourcing, or expanding test infrastructure" },
-    mana: { value: "Instant", detail: "scale by running more autonomous sessions in parallel" },
+    manual: { value: "Scale", detail: "by hiring, outsourcing, or expanding test infrastructure" },
+    mana: { value: "Scale instantly", detail: "by running more autonomous sessions in parallel" },
   },
 ];
 
@@ -147,7 +147,7 @@ export function ValueProps() {
       <div className="relative mx-auto max-w-7xl px-6">
         {/* Header */}
         <FadeInView>
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-4xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
               Manual Testing vs Autonomous Testing
             </span>

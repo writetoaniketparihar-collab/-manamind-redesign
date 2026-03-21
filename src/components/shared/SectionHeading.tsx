@@ -12,7 +12,7 @@ export function SectionHeading({
   className = "",
 }: SectionHeadingProps) {
   return (
-    <div className={`mx-auto max-w-3xl text-center ${className}`}>
+    <div className={`mx-auto max-w-4xl text-center ${className}`}>
       {label && (
         <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
           {label}

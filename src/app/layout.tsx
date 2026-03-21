@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GA_MEASUREMENT_ID } from "@/lib/constants";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+const swiza = localFont({
+  variable: "--font-swiza",
+  src: [
+    { path: "../../public/fonts/swiza-thin-webfont.woff2", weight: "100", style: "normal" },
+    { path: "../../public/fonts/swiza-thinitalic-webfont.woff2", weight: "100", style: "italic" },
+    { path: "../../public/fonts/swiza-extralight-webfont.woff2", weight: "200", style: "normal" },
+    { path: "../../public/fonts/swiza-extralightitalic-webfont.woff2", weight: "200", style: "italic" },
+    { path: "../../public/fonts/swiza-light-webfont.woff2", weight: "300", style: "normal" },
+    { path: "../../public/fonts/swiza-lightitalic-webfont.woff2", weight: "300", style: "italic" },
+    { path: "../../public/fonts/swiza-regular-webfont.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/swiza-regularitalic-webfont.woff2", weight: "400", style: "italic" },
+    { path: "../../public/fonts/swiza-medium-webfont.woff2", weight: "500", style: "normal" },
+    { path: "../../public/fonts/swiza-mediumitalic-webfont.woff2", weight: "500", style: "italic" },
+    { path: "../../public/fonts/swiza-semibold-webfont.woff2", weight: "600", style: "normal" },
+    { path: "../../public/fonts/swiza-bold-webfont.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/swiza-bolditalic-webfont.woff2", weight: "700", style: "italic" },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -34,15 +48,19 @@ export default function RootLayout({
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+            });
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${swiza.variable} font-sans antialiased`}>
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );

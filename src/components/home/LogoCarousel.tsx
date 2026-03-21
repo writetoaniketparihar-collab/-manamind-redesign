@@ -60,7 +60,7 @@ export function LogoCarousel() {
     <section className="relative py-24 md:py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-4xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
               Our Ecosystem
             </span>

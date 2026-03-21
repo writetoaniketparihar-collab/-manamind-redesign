@@ -38,8 +38,8 @@ export function ParticleCanvas() {
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.15,
+        vy: (Math.random() - 0.5) * 0.15,
         radius: Math.random() * 1.5 + 0.5,
       }));
     };
@@ -53,14 +53,14 @@ export function ParticleCanvas() {
         const p = particles[i];
 
         // Gentle drift
-        p.vx += Math.sin(time + i * 0.1) * 0.003;
-        p.vy += Math.cos(time + i * 0.13) * 0.003;
+        p.vx += Math.sin(time + i * 0.1) * 0.001;
+        p.vy += Math.cos(time + i * 0.13) * 0.001;
 
         // Clamp speed
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > 0.5) {
-          p.vx = (p.vx / speed) * 0.5;
-          p.vy = (p.vy / speed) * 0.5;
+        if (speed > 0.2) {
+          p.vx = (p.vx / speed) * 0.2;
+          p.vy = (p.vy / speed) * 0.2;
         }
 
         // Dampen

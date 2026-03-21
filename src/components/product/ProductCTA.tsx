@@ -40,7 +40,7 @@ export function ProductCTA() {
             Ready to see it in action?
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg text-text-muted">
-            Book a demo and watch our bots find bugs in your game — live. No
+            Book a demo and watch our bots find bugs in your game, live. No
             integration required. No commitment.
           </p>
 

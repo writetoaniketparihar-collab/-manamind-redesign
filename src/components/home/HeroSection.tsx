@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ParticleCanvas } from "./ParticleCanvas";
-import { StrikeoutHeadline } from "./StrikeoutHeadline";
 import { CTAButton } from "@/components/shared/CTAButton";
 
 export function HeroSection() {
@@ -10,25 +9,33 @@ export function HeroSection() {
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <ParticleCanvas />
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-32">
-        <StrikeoutHeadline />
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-7xl"
+        >
+          AI Agents That Test Your Game
+          <br />
+          <span className="text-primary">So You Can Ship It</span>
+        </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
-          className="mt-6 max-w-xl text-lg text-text-muted md:text-xl"
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mt-6 max-w-2xl text-lg text-text-muted md:text-xl"
         >
-          Human-like testing at machine scale. Zero-shot, no code access,
-          infinitely scalable.
+          Autonomous QA that plays like real players. No scripts. No SDKs. 24/7.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.1, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
           className="mt-10 flex flex-wrap gap-4"
         >
-          <CTAButton href="/contact">Book a Demo</CTAButton>
-          <CTAButton href="/product" variant="outline">
-            Learn More
+          <CTAButton href="/contact">Request Demo</CTAButton>
+          <CTAButton href="/how-it-works" variant="outline">
+            See How It Works
           </CTAButton>
         </motion.div>
       </div>
