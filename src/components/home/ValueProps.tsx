@@ -151,7 +151,7 @@ export function ValueProps() {
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
               Manual Testing vs Autonomous Testing
             </span>
-            <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
               Why teams are moving beyond manual QA
             </h2>
             <p className="mt-4 text-lg text-text-muted">

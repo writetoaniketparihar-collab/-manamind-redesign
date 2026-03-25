@@ -28,16 +28,7 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    label: "X (Twitter)",
-    href: "https://x.com/manamind_ai",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-  },
-  {
+{
     label: "Discord",
     href: "https://discord.com/invite/PBJEwNPRkH",
     icon: (
@@ -120,15 +111,18 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-text-muted sm:flex-row">
           <p>&copy; 2024&ndash;{new Date().getFullYear()} ManaMind. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/terms" className="transition-colors hover:text-primary">
+            <Link href="/terms" className="text-primary transition-colors hover:text-primary/80">
               Terms of Use
             </Link>
-            <Link href="/cookies" className="transition-colors hover:text-primary">
+            <Link href="/privacy" className="text-primary transition-colors hover:text-primary/80">
+              Privacy Policy
+            </Link>
+            <Link href="/cookies" className="text-primary transition-colors hover:text-primary/80">
               Cookie Policy
             </Link>
             <button
               id="cookie-settings-trigger"
-              className="transition-colors hover:text-primary"
+              className="text-primary transition-colors hover:text-primary/80"
             >
               Cookie Settings
             </button>

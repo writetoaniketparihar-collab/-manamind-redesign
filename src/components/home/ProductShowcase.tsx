@@ -49,7 +49,7 @@ export function ProductShowcase() {
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
               Command Centre
             </span>
-            <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
               Your autonomous QA team, reporting in real time.
             </h2>
             <p className="mt-4 text-lg text-text-muted">
@@ -85,35 +85,37 @@ export function ProductShowcase() {
                 onMouseEnter={() => setActive(i)}
                 onMouseLeave={() => setActive(null)}
               >
-                {/* Pulse ring */}
+                {/* Orbit ring */}
                 <motion.div
-                  className="absolute rounded-full"
+                  className="absolute rounded-full border"
                   style={{
-                    width: 16,
-                    height: 16,
-                    left: -8,
-                    top: -8,
-                    background: item.bot.color,
+                    width: 20,
+                    height: 20,
+                    left: -10,
+                    top: -10,
+                    borderColor: item.bot.color,
+                    opacity: 0.5,
                   }}
                   animate={{
-                    scale: [1, 2.2],
-                    opacity: [0.4, 0],
+                    scale: [1, 1.3, 1],
+                    opacity: [0.5, 0.2, 0.5],
                   }}
                   transition={{
-                    duration: 2,
+                    duration: 3,
                     repeat: Infinity,
-                    ease: "easeOut",
+                    ease: "easeInOut",
                     delay: i * 0.4,
                   }}
                 />
 
-                {/* Core dot */}
+                {/* Core dot — positioned upper-right of orbit like ManaMind logo */}
                 <div
-                  className="relative z-10 h-2 w-2 rounded-full cursor-pointer"
+                  className="absolute z-10 h-2.5 w-2.5 rounded-full cursor-pointer"
                   style={{
                     background: item.bot.color,
-                    boxShadow: `0 0 6px ${item.bot.color}`,
-                    opacity: 0.7,
+                    boxShadow: `0 0 8px ${item.bot.color}`,
+                    top: -10,
+                    right: -10,
                   }}
                 />
 
@@ -136,17 +138,6 @@ export function ProductShowcase() {
                       }}
                     >
                       <div className="bg-bg-card border border-white/10 rounded-lg px-3 py-2.5 shadow-xl">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div
-                            className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-background shrink-0"
-                            style={{ background: item.bot.color }}
-                          >
-                            {item.bot.initial}
-                          </div>
-                          <span className="text-[11px] font-semibold" style={{ color: item.bot.color }}>
-                            {item.bot.name}
-                          </span>
-                        </div>
                         <p className="text-[11px] text-foreground leading-relaxed">{item.annotation}</p>
                       </div>
                       {/* Arrow pointing down */}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FadeInView } from "@/components/animations/FadeInView";
 
 export default function CookiePolicyPage() {
@@ -9,7 +10,7 @@ export default function CookiePolicyPage() {
             Cookie Policy
           </h1>
           <p className="mt-4 text-sm text-text-muted">
-            Last Updated: 21.03.2026
+            Last Updated: 21 March 2026
           </p>
           <p className="text-sm text-text-muted">Company: ManaMind Limited</p>
         </FadeInView>
@@ -18,14 +19,8 @@ export default function CookiePolicyPage() {
           <div>
             <h2 className="mb-3 text-lg font-semibold text-foreground">What Are Cookies</h2>
             <p>
-              Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work efficiently and to provide information to the website owner.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="mb-3 text-lg font-semibold text-foreground">How We Use Cookies</h2>
-            <p>
-              We use a minimal set of cookies to understand how visitors interact with our website. We do not use cookies for advertising, retargeting, or tracking across other websites.
+              Cookies are small text files placed on your device when you visit a website. They help
+              websites function properly and provide information about how the site is used.
             </p>
           </div>
 
@@ -57,32 +52,68 @@ export default function CookiePolicyPage() {
                 </tbody>
               </table>
             </div>
+
+            <p className="mt-4">Google Analytics collects information such as:</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>Pages visited</li>
+              <li>Time spent on pages</li>
+              <li>Device and browser information</li>
+              <li>IP address (processed in anonymised form where possible)</li>
+            </ul>
+            <p className="mt-2">
+              This information helps us understand how our website is used and improve its
+              performance.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="mb-3 text-lg font-semibold text-foreground">Third-Party Processing</h2>
+            <p>
+              Analytics data is processed by Google LLC on our behalf. Google may process this data
+              on servers located outside the United Kingdom. We rely on appropriate safeguards for
+              international data transfers.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="mb-3 text-lg font-semibold text-foreground">Consent</h2>
+            <p>
+              Analytics cookies are only set after you provide your consent via the cookie banner.
+              You may withdraw or change your consent at any time using the &ldquo;Cookie
+              Settings&rdquo; link in the website footer.
+            </p>
           </div>
 
           <div>
             <h2 className="mb-3 text-lg font-semibold text-foreground">Essential Storage</h2>
             <p>
-              We also store your cookie consent preference in your browser&apos;s local storage. This is not a cookie but is used to remember whether you have accepted or rejected analytics cookies. It does not track you or send data to any third party.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="mb-3 text-lg font-semibold text-foreground">Your Choices</h2>
-            <p>
-              When you first visit our website, a banner will ask for your consent before any analytics cookies are set. You can change your preference at any time by clicking &ldquo;Cookie Settings&rdquo; in the footer of any page.
+              We store your cookie consent preference in your browser using local storage.
             </p>
             <p className="mt-2">
-              You can also control cookies through your browser settings. Most browsers allow you to block or delete cookies. Please note that blocking cookies may affect your experience on the site.
+              This storage is necessary to remember your choice and is treated similarly to cookies
+              under applicable privacy laws.
             </p>
           </div>
 
           <div>
-            <h2 className="mb-3 text-lg font-semibold text-foreground">Contact</h2>
+            <h2 className="mb-3 text-lg font-semibold text-foreground">Managing Cookies</h2>
             <p>
-              If you have questions about our use of cookies, please contact us at{" "}
-              <a href="mailto:contact@manamind.ai" className="text-primary underline transition-colors hover:text-primary/80">
-                contact@manamind.ai
-              </a>.
+              You can manage or delete cookies through your browser settings. Blocking cookies may
+              affect website functionality.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="mb-3 text-lg font-semibold text-foreground">
+              More Information &amp; Contact
+            </h2>
+            <p>
+              For more information on how we process personal data, or for questions about cookies
+              and data processing, please see our{" "}
+              <Link href="/privacy" className="text-primary underline transition-colors hover:text-primary/80">
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
         </div>
