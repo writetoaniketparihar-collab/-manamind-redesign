@@ -10,6 +10,7 @@ const layers = [
   {
     key: "hivemind" as const,
     color: "#00FF96",
+    subtitle: "The brain behind autonomous game testing.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
         <path d="M12 2a4 4 0 014 4c0 1.5-.8 2.8-2 3.5v1h2a3 3 0 013 3v1.5M12 2a4 4 0 00-4 4c0 1.5.8 2.8 2 3.5v1H8a3 3 0 00-3 3v1.5M12 2v8.5M5 15v4a2 2 0 002 2h10a2 2 0 002-2v-4" />
@@ -17,15 +18,16 @@ const layers = [
       </svg>
     ),
     details: [
-      "Proprietary foundation model trained for game understanding",
-      "Multi-modal reasoning across visual, textual, and spatial inputs",
-      "Continuous learning from every testing session",
-      "Real-time decision making with human-like adaptability",
+      "Built from the ground up to understand games and player behaviour",
+      "Combines vision, memory, and reasoning to navigate dynamic environments",
+      "Learns from every session, improving coverage and accuracy over time",
+      "Makes real-time decisions without scripts or predefined paths",
     ],
   },
   {
     key: "commandCentre" as const,
     color: "#FF4C54",
+    subtitle: "The control dashboard.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
         <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -34,15 +36,16 @@ const layers = [
       </svg>
     ),
     details: [
-      "Real-time dashboard for monitoring all bot activity",
-      "Configure test parameters, priorities, and focus areas",
-      "Review and triage findings with severity classification",
-      "Export-ready reports for your existing QA pipeline",
+      "Real-time dashboard showing live bot activity and coverage",
+      "Configure test objectives, priorities, and focus areas",
+      "Review, triage, and assign issues with severity classification",
+      "Export structured reports into your existing QA workflow",
     ],
   },
   {
     key: "legion" as const,
     color: "#A78BFA",
+    subtitle: "The orchestration swarm.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
         <path d="M4 6h16M4 12h16M4 18h16" />
@@ -52,15 +55,16 @@ const layers = [
       </svg>
     ),
     details: [
-      "Deploys and scales bot instances dynamically",
-      "Load-balances across testing sessions",
-      "Coordinates multi-bot strategies for coverage",
-      "Auto-scales resources based on game complexity",
+      "Dynamically spawns and terminates bot instances based on test needs",
+      "Distributes bots across environments to maximise coverage and throughput",
+      "Coordinates multi-agent exploration to avoid redundant testing paths",
+      "Automatically balances workload across available compute resources",
     ],
   },
   {
     key: "bots" as const,
     color: "#38BDF8",
+    subtitle: "Autonomous testers.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
         <rect x="3" y="4" width="7" height="7" rx="1.5" />
@@ -74,10 +78,10 @@ const layers = [
       </svg>
     ),
     details: [
-      "10 specialised agents: Probe, Overseer, Scribe, and more",
-      "Each bot has a distinct role and testing methodology",
-      "Vision-only interaction. No code access required",
-      "Human-like gameplay with machine-speed execution",
+      "Expands test coverage beyond what manual QA can realistically achieve",
+      "Executes test sessions continuously without fatigue or bias",
+      "Runs in parallel to compress weeks of testing into hours",
+      "Covers edge cases and player behaviours human testers rarely reach",
     ],
   },
 ];
@@ -121,8 +125,9 @@ export function ArchitectureSection() {
         <FadeInView>
           <SectionHeading
             label="Architecture"
-            title="Built from the ground up for autonomy"
-            description="Four layers working in concert. Click each to explore."
+            title="Architecture designed for fully autonomous testing"
+            description="Four coordinated layers, from perception to execution."
+            titleClassName="text-xl md:text-2xl lg:text-3xl"
           />
         </FadeInView>
 
@@ -188,6 +193,9 @@ export function ArchitectureSection() {
                             >
                               {data.name}
                             </h3>
+                            <p className="mt-0.5 text-xs text-text-muted">
+                              {layer.subtitle}
+                            </p>
                           </div>
                         </div>
 

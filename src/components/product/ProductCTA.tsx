@@ -34,26 +34,22 @@ export function ProductCTA() {
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <FadeInView>
           <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-            Get Started
+            Trust Statement
           </span>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-            Ready to see it in action?
+            Built for teams working under strict NDAs
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-text-muted">
-            Book a demo and watch our bots find bugs in your game, live. No
-            integration required. No commitment.
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-text-muted">
+            From indie studios to large publishers, game development often involves unreleased content, licensed IP, and platform-holder compliance. ManaMind is designed with these realities in mind, ensuring autonomous testing does not introduce new security exposure.
+          </p>
+
+          <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-text-muted/80">
+            By operating purely through visual input and controlled execution environments, ManaMind provides autonomous testing capabilities without requiring the level of system access traditionally associated with automation tools.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <CTAButton href="/contact">Talk to Our Team</CTAButton>
-            <CTAButton href="/how-it-works" variant="outline">
-              See How It Works
-            </CTAButton>
           </div>
-
-          <p className="mt-8 text-xs text-text-muted/60">
-            No credit card required · Live demo in under 30 minutes · Works with any game engine
-          </p>
         </FadeInView>
       </div>
     </section>

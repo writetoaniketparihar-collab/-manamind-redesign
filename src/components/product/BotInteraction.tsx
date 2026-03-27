@@ -9,9 +9,9 @@ import { CTAButton } from "@/components/shared/CTAButton";
 const pipeline = [
   {
     step: "01",
-    label: "Capture",
+    label: "Sense",
     title: "See the Screen",
-    description: "Bots watch the game exactly as a player would with no engine hooks or APIs required.",
+    description: "Our Overseer module observes the game exactly as a player would - directly from rendered frames, with no engine hooks, SDKs, or API access required.",
     color: "#38BDF8",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -24,9 +24,9 @@ const pipeline = [
   },
   {
     step: "02",
-    label: "Understand",
-    title: "Reason",
-    description: "The system reads UI, recognises objects, and tracks game state to understand what's going on in each frame.",
+    label: "Think",
+    title: "Interpret the Game State",
+    description: "Hivemind analyses each frame to read UI, recognise objects, and infer the current game state - from menus and HUD elements to characters and environmental changes.",
     color: "#00FF96",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -39,9 +39,9 @@ const pipeline = [
   },
   {
     step: "03",
-    label: "Decide",
+    label: "Act",
     title: "Plan the Next Action",
-    description: "Based on what it sees, each bot chooses what to do next, navigate menus, explore new areas, or test edge cases.",
+    description: "Based on its understanding of the scene, each bot determines what to do next - navigating menus, progressing through levels, or deliberately probing edge cases to expand coverage.",
     color: "#A78BFA",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -55,8 +55,8 @@ const pipeline = [
   {
     step: "04",
     label: "Report",
-    title: "Log and Report Issues",
-    description: "When something goes wrong, ManaMind records the session, generates reproduction steps, and logs a structured bug report.",
+    title: "Log and Explain Issues",
+    description: "When unexpected behaviour occurs, our Scribe module records the full session, generates reproduction steps, and produces a structured bug report ready for your QA pipeline.",
     color: "#FF4C54",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -148,9 +148,8 @@ export function BotInteraction() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <SectionHeading
-            label="How It Works"
-            title="From gameplay to actionable bug reports"
-            description="ManaMind watches and plays your game through the screen, just like a human tester."
+            label="Feature Breakdown"
+            title="How ManaMind tests your game from first frame to final bug report"
           />
         </FadeInView>
 
@@ -176,11 +175,11 @@ export function BotInteraction() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium text-primary">
-                This entire loop runs continuously and autonomously, without the need for manual input or supervision
+                This perception → reasoning → action → reporting loop runs continuously and autonomously, allowing ManaMind to test your game without supervision.
               </span>
             </div>
             <div className="mt-8">
-              <CTAButton href="/product">Explore the Product</CTAButton>
+              <CTAButton href="/contact">View a Sample Bug Report</CTAButton>
             </div>
           </div>
         </FadeInView>

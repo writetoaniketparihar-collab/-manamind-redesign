@@ -3,6 +3,7 @@ interface SectionHeadingProps {
   title: string;
   description?: string;
   className?: string;
+  titleClassName?: string;
 }
 
 export function SectionHeading({
@@ -10,6 +11,7 @@ export function SectionHeading({
   title,
   description,
   className = "",
+  titleClassName = "text-2xl md:text-3xl lg:text-4xl",
 }: SectionHeadingProps) {
   return (
     <div className={`mx-auto max-w-4xl text-center ${className}`}>
@@ -18,7 +20,7 @@ export function SectionHeading({
           {label}
         </span>
       )}
-      <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+      <h2 className={`font-bold text-foreground ${titleClassName}`}>
         {title}
       </h2>
       {description && (

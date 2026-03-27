@@ -81,19 +81,19 @@ export const VALUE_PROPS = [
 export const ARCHITECTURE = {
   hivemind: {
     name: "Hivemind",
-    description: "Our proprietary AI model - the core intelligence that powers autonomous decision-making, learning, and adaptation across all bots.",
+    description: "Hivemind is our proprietary vLMM and the perception and reasoning layer that interprets game frames, understands UI, and decides what each bot should do next.",
   },
   commandCentre: {
     name: "Command Centre",
-    description: "Your mission control. Configure testing sessions, monitor bot activity in real-time, review findings, and manage your QA pipeline.",
+    description: "The Command Centre is where teams configure, monitor, and manage every aspect of their AI-driven QA pipeline - from launching sessions to reviewing critical findings.",
   },
   legion: {
     name: "Legion",
-    description: "The orchestration layer that deploys, coordinates, and scales bot instances across testing sessions.",
+    description: "Launches, coordinates, and scales hundreds of bot instances across machines and test sessions.",
   },
   bots: {
     name: "Bots",
-    description: "Ten autonomous agents - from Probe and Overseer to Gladiator, Rosetta, and more - that interact with your game, find bugs, and report findings without human intervention.",
+    description: "Autonomous agents that interact with your game through the screen - just like human testers.",
   },
 };
 

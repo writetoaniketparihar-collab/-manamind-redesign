@@ -5,302 +5,735 @@ import { motion, useInView } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
-const features = [
-  {
-    title: "Exploration",
-    headline: "Every corner. Every path.",
-    description:
-      "Bots autonomously navigate game worlds, discovering areas, interacting with objects, and testing boundaries - just like a real player. They build spatial maps and remember where they've been.",
-    color: "#00FF96",
-    visual: ExplorationVisual,
-  },
-  {
-    title: "Detection",
-    headline: "See what humans miss.",
-    description:
-      "Visual anomalies, physics glitches, UI bugs, crash triggers, z-fighting, texture pop-in - our bots identify issues across every layer of the game simultaneously.",
-    color: "#FF4C54",
-    visual: DetectionVisual,
-  },
-  {
-    title: "Reporting",
-    headline: "Actionable from the start.",
-    description:
-      "Every bug comes with video evidence, step-by-step reproduction, severity classification, and contextual metadata. Your dev team gets actionable tickets - not noise.",
-    color: "#A78BFA",
-    visual: ReportingVisual,
-  },
-];
+// --- Animated Visuals ---
 
-// Animated pathfinding trails visual
-function ExplorationVisual({ inView }: { inView: boolean }) {
-  const paths = [
-    "M 10 80 Q 25 60 30 45 T 55 30 T 80 20",
-    "M 10 80 Q 20 70 35 65 T 60 55 T 90 35",
-    "M 10 80 Q 30 75 40 60 T 50 45 T 70 50 T 85 60",
+function VisualModVisual({ inView }: { inView: boolean }) {
+  // Frame scan + video timeline
+  const uiBoxes = [
+    { x: 12, y: 15, w: 25, h: 8, label: "MENU" },
+    { x: 63, y: 10, w: 20, h: 6, label: "HUD" },
+    { x: 15, y: 55, w: 30, h: 12, label: "PLAYER" },
+    { x: 60, y: 60, w: 22, h: 10, label: "NPC" },
   ];
-  const colors = ["#00FF96", "#00FF9680", "#00FF9640"];
 
   return (
     <svg viewBox="0 0 100 100" className="h-full w-full">
-      {/* Grid dots */}
+      {/* Background grid */}
       {Array.from({ length: 100 }).map((_, i) => (
         <circle
           key={i}
           cx={(i % 10) * 10 + 5}
           cy={Math.floor(i / 10) * 10 + 5}
-          r="0.4"
-          fill="rgba(255,255,255,0.06)"
-        />
-      ))}
-
-      {/* Animated paths */}
-      {paths.map((d, i) => (
-        <motion.path
-          key={i}
-          d={d}
-          fill="none"
-          stroke={colors[i]}
-          strokeWidth={i === 0 ? "1.2" : "0.6"}
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={inView ? { pathLength: 1 } : {}}
-          transition={{ duration: 2, delay: 0.5 + i * 0.4, ease: "easeInOut" }}
-        />
-      ))}
-
-      {/* Start node */}
-      <motion.g
-        initial={{ opacity: 0, scale: 0 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ delay: 0.3 }}
-      >
-        <circle cx="10" cy="80" r="4" fill="#00FF9620" stroke="#00FF96" strokeWidth="0.8" />
-        <text x="10" y="80" textAnchor="middle" dominantBaseline="central" fill="#00FF96" fontSize="3" fontFamily="monospace" fontWeight="700">
-          S
-        </text>
-      </motion.g>
-
-      {/* Discovery nodes */}
-      {[
-        { x: 80, y: 20, delay: 2.5 },
-        { x: 90, y: 35, delay: 3.0 },
-        { x: 85, y: 60, delay: 3.5 },
-      ].map((node, i) => (
-        <motion.g
-          key={i}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: node.delay, type: "spring" }}
-        >
-          <motion.circle
-            cx={node.x}
-            cy={node.y}
-            r="5"
-            fill="none"
-            stroke="#00FF9640"
-            strokeWidth="0.4"
-            animate={{ r: [5, 8, 5], opacity: [0.4, 0, 0.4] }}
-            transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
-          />
-          <circle cx={node.x} cy={node.y} r="2.5" fill="#00FF9615" stroke="#00FF96" strokeWidth="0.6" />
-        </motion.g>
-      ))}
-    </svg>
-  );
-}
-
-// Scanning grid with detected anomalies
-function DetectionVisual({ inView }: { inView: boolean }) {
-  const anomalies = [
-    { x: 30, y: 25, severity: "high" },
-    { x: 70, y: 45, severity: "medium" },
-    { x: 50, y: 75, severity: "high" },
-    { x: 85, y: 20, severity: "low" },
-  ];
-
-  return (
-    <svg viewBox="0 0 100 100" className="h-full w-full">
-      {/* Scan grid */}
-      {Array.from({ length: 10 }).map((_, i) => (
-        <motion.line
-          key={`h-${i}`}
-          x1="0"
-          y1={i * 10 + 5}
-          x2="100"
-          y2={i * 10 + 5}
-          stroke="rgba(255,76,84,0.06)"
-          strokeWidth="0.3"
-          initial={{ pathLength: 0 }}
-          animate={inView ? { pathLength: 1 } : {}}
-          transition={{ duration: 0.8, delay: i * 0.05 }}
-        />
-      ))}
-      {Array.from({ length: 10 }).map((_, i) => (
-        <motion.line
-          key={`v-${i}`}
-          x1={i * 10 + 5}
-          y1="0"
-          x2={i * 10 + 5}
-          y2="100"
-          stroke="rgba(255,76,84,0.06)"
-          strokeWidth="0.3"
-          initial={{ pathLength: 0 }}
-          animate={inView ? { pathLength: 1 } : {}}
-          transition={{ duration: 0.8, delay: i * 0.05 }}
+          r="0.3"
+          fill="rgba(255,255,255,0.04)"
         />
       ))}
 
       {/* Scan line sweep */}
       <motion.line
-        x1="0"
-        y1="0"
-        x2="100"
-        y2="0"
-        stroke="#FF4C54"
-        strokeWidth="0.8"
+        x1="0" y1="0" x2="100" y2="0"
+        stroke="#00FF96"
+        strokeWidth="0.6"
         initial={{ y1: 0, y2: 0 }}
         animate={inView ? { y1: [0, 100, 0], y2: [0, 100, 0] } : {}}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 1 }}
-        opacity={0.4}
+        transition={{ duration: 5, repeat: Infinity, ease: "linear", delay: 0.5 }}
+        opacity={0.3}
       />
 
-      {/* Anomaly markers */}
-      {anomalies.map((a, i) => {
-        const color = a.severity === "high" ? "#FF4C54" : a.severity === "medium" ? "#FBBF24" : "#38BDF8";
-        return (
-          <motion.g
-            key={i}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 1.5 + i * 0.3, type: "spring", stiffness: 200 }}
-          >
-            {/* Pulse ring */}
-            <motion.circle
-              cx={a.x}
-              cy={a.y}
-              r="4"
-              fill="none"
-              stroke={color}
-              strokeWidth="0.3"
-              animate={{ r: [4, 8, 4], opacity: [0.5, 0, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-            />
-            {/* Target crosshair */}
-            <circle cx={a.x} cy={a.y} r="3.5" fill={`${color}10`} stroke={color} strokeWidth="0.5" />
-            <line x1={a.x - 5} y1={a.y} x2={a.x - 2} y2={a.y} stroke={color} strokeWidth="0.3" opacity="0.6" />
-            <line x1={a.x + 2} y1={a.y} x2={a.x + 5} y2={a.y} stroke={color} strokeWidth="0.3" opacity="0.6" />
-            <line x1={a.x} y1={a.y - 5} x2={a.x} y2={a.y - 2} stroke={color} strokeWidth="0.3" opacity="0.6" />
-            <line x1={a.x} y1={a.y + 2} x2={a.x} y2={a.y + 5} stroke={color} strokeWidth="0.3" opacity="0.6" />
-            {/* Severity label */}
-            <text
-              x={a.x}
-              y={a.y - 6}
-              textAnchor="middle"
-              fill={color}
-              fontSize="2"
-              fontFamily="monospace"
-              fontWeight="600"
-            >
-              {a.severity.toUpperCase()}
-            </text>
-          </motion.g>
-        );
-      })}
-    </svg>
-  );
-}
-
-// Document assembly animation
-function ReportingVisual({ inView }: { inView: boolean }) {
-  const reportLines = [
-    { label: "BUG-1042", color: "#FF4C54", w: 35 },
-    { label: "Severity: Critical", color: "#FF4C54", w: 42 },
-    { label: "Repro: 12 steps", color: "#A78BFA", w: 38 },
-    { label: "Video: 00:34", color: "#38BDF8", w: 30 },
-    { label: "Screenshot ×3", color: "#38BDF8", w: 33 },
-    { label: "Context: Menu > Shop", color: "#A78BFA", w: 45 },
-  ];
-
-  return (
-    <svg viewBox="0 0 100 100" className="h-full w-full">
-      {/* Document outline */}
-      <motion.rect
-        x="15"
-        y="5"
-        width="70"
-        height="90"
-        rx="3"
-        fill="rgba(167,139,250,0.03)"
-        stroke="rgba(167,139,250,0.2)"
-        strokeWidth="0.5"
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.5 }}
-      />
-
-      {/* Header */}
-      <motion.g
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : {}}
-        transition={{ delay: 0.3 }}
-      >
-        <rect x="15" y="5" width="70" height="14" rx="3" fill="rgba(167,139,250,0.06)" />
-        <text x="50" y="14" textAnchor="middle" fill="#A78BFA" fontSize="3.5" fontFamily="monospace" fontWeight="700">
-          BUG REPORT
-        </text>
-      </motion.g>
-
-      {/* Report lines appearing one by one */}
-      {reportLines.map((line, i) => (
+      {/* Detected UI element boxes */}
+      {uiBoxes.map((box, i) => (
         <motion.g
           key={i}
-          initial={{ opacity: 0, x: -10 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ delay: 0.6 + i * 0.2, duration: 0.4 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 0.8 + i * 0.3, type: "spring", stiffness: 150 }}
         >
-          <rect
-            x="22"
-            y={24 + i * 11}
-            width={line.w}
-            height="7"
+          <motion.rect
+            x={box.x} y={box.y} width={box.w} height={box.h}
             rx="1.5"
-            fill={`${line.color}08`}
-            stroke={`${line.color}25`}
-            strokeWidth="0.3"
+            fill="none"
+            stroke="#00FF96"
+            strokeWidth="0.5"
+            strokeDasharray="2 1"
+            animate={{ strokeDashoffset: [0, -12] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.rect
+            x={box.x} y={box.y} width={box.w} height={box.h}
+            rx="1.5"
+            fill="#00FF9608"
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, delay: i * 0.4 }}
           />
           <text
-            x="25"
-            y={28.5 + i * 11}
-            fill={line.color}
+            x={box.x + box.w / 2}
+            y={box.y + box.h / 2 + 1}
+            textAnchor="middle"
+            fill="#00FF96"
             fontSize="2.5"
             fontFamily="monospace"
+            fontWeight="600"
           >
-            {line.label}
+            {box.label}
           </text>
         </motion.g>
       ))}
 
-      {/* Checkmark at bottom */}
+      {/* Video timeline at bottom */}
       <motion.g
-        initial={{ opacity: 0, scale: 0 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ delay: 2.2, type: "spring" }}
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: 2 }}
       >
-        <circle cx="75" cy="85" r="6" fill="#00FF9615" stroke="#00FF96" strokeWidth="0.5" />
-        <motion.path
-          d="M72 85l2 2 4-4"
-          fill="none"
-          stroke="#00FF96"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0 }}
-          animate={inView ? { pathLength: 1 } : {}}
-          transition={{ delay: 2.4, duration: 0.3 }}
+        <rect x="10" y="85" width="80" height="4" rx="2" fill="rgba(255,255,255,0.05)" />
+        {/* Frame markers */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <motion.rect
+            key={i}
+            x={14 + i * 9.5}
+            y="86"
+            width="6"
+            height="2"
+            rx="0.5"
+            fill="#00FF9640"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: [0.3, 0.8, 0.3] } : {}}
+            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15 }}
+          />
+        ))}
+        {/* Playhead */}
+        <motion.rect
+          x="14"
+          y="84.5"
+          width="2"
+          height="5"
+          rx="1"
+          fill="#00FF96"
+          animate={inView ? { x: [14, 84, 14] } : {}}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 2.5 }}
         />
       </motion.g>
+
+      {/* Corner brackets - frame indicator */}
+      <motion.g
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 0.6 } : {}}
+        transition={{ delay: 0.5 }}
+        stroke="#00FF96"
+        strokeWidth="0.5"
+        fill="none"
+      >
+        <path d="M5 5 L5 12 M5 5 L12 5" />
+        <path d="M95 5 L95 12 M95 5 L88 5" />
+        <path d="M5 78 L5 71 M5 78 L12 78" />
+        <path d="M95 78 L95 71 M95 78 L88 78" />
+      </motion.g>
     </svg>
+  );
+}
+
+function NLPModVisual({ inView }: { inView: boolean }) {
+  // Text parsing + objective interpretation
+  const objectives = [
+    { text: '"Test the tutorial flow"', y: 18 },
+    { text: '"Stress-test inventory"', y: 30 },
+    { text: '"Find edge cases in shop"', y: 42 },
+  ];
+
+  const gameTexts = [
+    { text: "Start Game", x: 58, y: 62 },
+    { text: "Health: 100", x: 62, y: 72 },
+    { text: "Quest Complete!", x: 56, y: 82 },
+  ];
+
+  return (
+    <svg viewBox="0 0 100 100" className="h-full w-full">
+      {/* Objective section */}
+      <motion.text
+        x="5" y="10"
+        fill="#A78BFA"
+        fontSize="3"
+        fontFamily="monospace"
+        fontWeight="700"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: 0.3 }}
+      >
+        OBJECTIVES
+      </motion.text>
+
+      {objectives.map((obj, i) => (
+        <motion.g
+          key={i}
+          initial={{ opacity: 0, x: -15 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ delay: 0.6 + i * 0.25, duration: 0.5 }}
+        >
+          <rect
+            x="5" y={obj.y - 4}
+            width="45" height="8"
+            rx="1.5"
+            fill="#A78BFA08"
+            stroke="#A78BFA30"
+            strokeWidth="0.3"
+          />
+          <motion.text
+            x="8" y={obj.y + 1}
+            fill="#A78BFA"
+            fontSize="2.2"
+            fontFamily="monospace"
+          >
+            {obj.text}
+          </motion.text>
+          {/* Processing arrow */}
+          <motion.path
+            d={`M 52 ${obj.y} L 56 ${obj.y}`}
+            stroke="#A78BFA"
+            strokeWidth="0.5"
+            fill="none"
+            markerEnd="url(#arrowNLP)"
+            initial={{ pathLength: 0 }}
+            animate={inView ? { pathLength: 1 } : {}}
+            transition={{ delay: 1 + i * 0.25 }}
+          />
+        </motion.g>
+      ))}
+
+      {/* Divider */}
+      <motion.line
+        x1="50" y1="55" x2="50" y2="90"
+        stroke="rgba(255,255,255,0.06)"
+        strokeWidth="0.3"
+        initial={{ pathLength: 0 }}
+        animate={inView ? { pathLength: 1 } : {}}
+        transition={{ delay: 1.5 }}
+      />
+
+      {/* In-game text section */}
+      <motion.text
+        x="55" y="55"
+        fill="#A78BFA80"
+        fontSize="2.5"
+        fontFamily="monospace"
+        fontWeight="600"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: 1.5 }}
+      >
+        IN-GAME TEXT
+      </motion.text>
+
+      {gameTexts.map((t, i) => (
+        <motion.g
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 1.8 + i * 0.3 }}
+        >
+          <rect
+            x={t.x - 2} y={t.y - 4}
+            width="40" height="7"
+            rx="1"
+            fill="#A78BFA06"
+            stroke="#A78BFA20"
+            strokeWidth="0.3"
+          />
+          <text x={t.x} y={t.y} fill="#A78BFA90" fontSize="2.2" fontFamily="monospace">
+            {t.text}
+          </text>
+          {/* Highlight scan */}
+          <motion.rect
+            x={t.x - 2} y={t.y - 4}
+            width="40" height="7"
+            rx="1"
+            fill="#A78BFA"
+            opacity={0}
+            animate={inView ? { opacity: [0, 0.15, 0] } : {}}
+            transition={{ duration: 1.5, delay: 2.5 + i * 0.4, repeat: Infinity, repeatDelay: 3 }}
+          />
+        </motion.g>
+      ))}
+
+      <defs>
+        <marker id="arrowNLP" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto">
+          <path d="M0 0 L4 2 L0 4" fill="#A78BFA" />
+        </marker>
+      </defs>
+    </svg>
+  );
+}
+
+function InteractionModVisual({ inView }: { inView: boolean }) {
+  // Input signals animation
+  const inputs = [
+    { label: "W", x: 30, y: 20, delay: 0.5 },
+    { label: "A", x: 18, y: 35, delay: 0.8 },
+    { label: "S", x: 30, y: 35, delay: 1.1 },
+    { label: "D", x: 42, y: 35, delay: 1.4 },
+    { label: "CLICK", x: 70, y: 25, delay: 1.7 },
+    { label: "SPACE", x: 30, y: 55, delay: 2.0 },
+  ];
+
+  return (
+    <svg viewBox="0 0 100 100" className="h-full w-full">
+      {/* Background grid */}
+      {Array.from({ length: 100 }).map((_, i) => (
+        <circle
+          key={i}
+          cx={(i % 10) * 10 + 5}
+          cy={Math.floor(i / 10) * 10 + 5}
+          r="0.25"
+          fill="rgba(255,255,255,0.03)"
+        />
+      ))}
+
+      {/* Input keys */}
+      {inputs.map((input, i) => (
+        <motion.g
+          key={i}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: input.delay, type: "spring", stiffness: 200 }}
+        >
+          <rect
+            x={input.x - (input.label.length > 1 ? 8 : 5)}
+            y={input.y - 5}
+            width={input.label.length > 1 ? 16 : 10}
+            height={10}
+            rx="2"
+            fill="#38BDF808"
+            stroke="#38BDF840"
+            strokeWidth="0.5"
+          />
+          {/* Key press pulse */}
+          <motion.rect
+            x={input.x - (input.label.length > 1 ? 8 : 5)}
+            y={input.y - 5}
+            width={input.label.length > 1 ? 16 : 10}
+            height={10}
+            rx="2"
+            fill="#38BDF8"
+            animate={inView ? { opacity: [0, 0.3, 0] } : {}}
+            transition={{ duration: 0.6, delay: input.delay + 0.5, repeat: Infinity, repeatDelay: 2 + i * 0.3 }}
+          />
+          <text
+            x={input.x}
+            y={input.y + 1}
+            textAnchor="middle"
+            fill="#38BDF8"
+            fontSize={input.label.length > 1 ? "2.5" : "3.5"}
+            fontFamily="monospace"
+            fontWeight="700"
+          >
+            {input.label}
+          </text>
+        </motion.g>
+      ))}
+
+      {/* Mouse cursor */}
+      <motion.g
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: 1.5 }}
+      >
+        <motion.g
+          animate={inView ? { x: [0, 8, 5, 12], y: [0, -5, 3, -2] } : {}}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <path
+            d="M66 38 L66 52 L70 48 L74 55"
+            fill="none"
+            stroke="#38BDF8"
+            strokeWidth="0.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path d="M66 38 L66 52 L70 48 Z" fill="#38BDF8" stroke="#38BDF8" strokeWidth="0.4" />
+        </motion.g>
+      </motion.g>
+
+      {/* Controller at bottom */}
+      <motion.g
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 0.6, y: 0 } : {}}
+        transition={{ delay: 2.5 }}
+      >
+        <rect x="30" y="72" width="40" height="18" rx="5" fill="none" stroke="#38BDF830" strokeWidth="0.5" />
+        {/* D-pad */}
+        <rect x="38" y="78" width="3" height="8" rx="0.5" fill="#38BDF820" />
+        <rect x="35" y="80.5" width="8" height="3" rx="0.5" fill="#38BDF820" />
+        {/* Buttons */}
+        <circle cx="58" cy="79" r="1.5" fill="none" stroke="#38BDF830" strokeWidth="0.4" />
+        <circle cx="62" cy="82" r="1.5" fill="none" stroke="#38BDF830" strokeWidth="0.4" />
+        <circle cx="58" cy="85" r="1.5" fill="none" stroke="#38BDF830" strokeWidth="0.4" />
+        <circle cx="54" cy="82" r="1.5" fill="none" stroke="#38BDF830" strokeWidth="0.4" />
+        {/* Button press pulse */}
+        <motion.circle
+          cx="62" cy="82" r="1.5"
+          fill="#38BDF8"
+          animate={inView ? { opacity: [0, 0.6, 0] } : {}}
+          transition={{ duration: 0.5, delay: 3, repeat: Infinity, repeatDelay: 2 }}
+        />
+      </motion.g>
+
+      {/* Signal lines from inputs to game area */}
+      <motion.path
+        d="M 50 60 Q 50 65 65 68"
+        fill="none"
+        stroke="#38BDF830"
+        strokeWidth="0.4"
+        strokeDasharray="2 2"
+        initial={{ pathLength: 0 }}
+        animate={inView ? { pathLength: 1 } : {}}
+        transition={{ delay: 2.2, duration: 0.8 }}
+      />
+    </svg>
+  );
+}
+
+function AudioModVisual({ inView }: { inView: boolean }) {
+  // Waveform + timing analysis
+  const bars = 24;
+
+  return (
+    <svg viewBox="0 0 100 100" className="h-full w-full">
+      {/* Waveform bars */}
+      {Array.from({ length: bars }).map((_, i) => {
+        const height = 5 + Math.sin(i * 0.8) * 15 + Math.random() * 10;
+        return (
+          <motion.rect
+            key={i}
+            x={8 + i * 3.5}
+            y={50 - height / 2}
+            width="2"
+            height={height}
+            rx="1"
+            fill="#FBBF2430"
+            initial={{ scaleY: 0 }}
+            animate={inView ? { scaleY: [0.3, 1, 0.5, 0.8, 0.3] } : {}}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              delay: i * 0.08,
+              ease: "easeInOut",
+            }}
+            style={{ transformOrigin: `${8 + i * 3.5 + 1}px 50px` }}
+          />
+        );
+      })}
+
+      {/* Center line */}
+      <motion.line
+        x1="5" y1="50" x2="95" y2="50"
+        stroke="#FBBF2415"
+        strokeWidth="0.3"
+        initial={{ pathLength: 0 }}
+        animate={inView ? { pathLength: 1 } : {}}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      />
+
+      {/* Sync markers */}
+      {[25, 50, 75].map((x, i) => (
+        <motion.g
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 1.5 + i * 0.3 }}
+        >
+          <motion.line
+            x1={x} y1="30" x2={x} y2="70"
+            stroke="#FBBF2440"
+            strokeWidth="0.3"
+            strokeDasharray="1 1"
+          />
+          <motion.circle
+            cx={x} cy={30}
+            r="2"
+            fill="none"
+            stroke="#FBBF24"
+            strokeWidth="0.4"
+            animate={inView ? { r: [2, 4, 2], opacity: [0.6, 0, 0.6] } : {}}
+            transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
+          />
+        </motion.g>
+      ))}
+
+      {/* "Coming Soon" overlay */}
+      <motion.g
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: 2 }}
+      >
+        <rect x="25" y="80" width="50" height="10" rx="5" fill="#FBBF2410" stroke="#FBBF2430" strokeWidth="0.4" />
+        <text x="50" y="86.5" textAnchor="middle" fill="#FBBF24" fontSize="3" fontFamily="monospace" fontWeight="600">
+          COMING SOON
+        </text>
+      </motion.g>
+    </svg>
+  );
+}
+
+// --- Data ---
+
+const modalities = [
+  {
+    category: "Visual",
+    color: "#00FF96",
+    headline: "Seeing and understanding gameplay as both moments and motion",
+    visual: VisualModVisual,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
+    subsections: [
+      {
+        title: "Frames",
+        subtitle: "Instantaneous understanding",
+        description:
+          "Bots analyse individual frames to detect UI elements, objects, and scene layout in real time. This allows precise interaction with menus, HUDs, and visual systems.",
+        bullets: [
+          "Detects UI components, icons, and text directly from pixels",
+          "Identifies visual bugs such as clipping, missing assets, or incorrect layouts",
+          "Works across any engine or rendering pipeline",
+        ],
+      },
+      {
+        title: "Video",
+        subtitle: "Temporal understanding",
+        description:
+          "By tracking sequences of frames, our bots understand movement, animations, and cause-and-effect relationships across time that static automation cannot capture.",
+        bullets: [
+          "Understands character movement, physics, and animation states",
+          "Detects flickering, desynchronisation, and transition issues",
+          "Learns from full gameplay sequences rather than isolated screenshots",
+        ],
+      },
+    ],
+  },
+  {
+    category: "Natural Language",
+    color: "#A78BFA",
+    headline: "Interpreting instructions and in-game text",
+    visual: NLPModVisual,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+        <path d="M8 9h8M8 13h4" strokeLinecap="round" />
+      </svg>
+    ),
+    description:
+      "ManaMind uses natural language to understand what it should test and what the game is telling the player, allowing agents to operate with both high-level goals and real-time textual context.",
+    subsections: [
+      {
+        title: "Objectives",
+        subtitle: "Developer instructions",
+        description:
+          "Teams can describe scenarios, goals, and priorities in plain language instead of writing brittle automation scripts.",
+        bullets: [
+          'Specify goals like "play through the tutorial and stress-test the inventory system"',
+          "Adjust objectives without rebuilding or reauthoring test cases",
+          "Enables rapid iteration and exploratory testing workflows",
+        ],
+      },
+      {
+        title: "In-Game Text",
+        subtitle: "UI and system feedback",
+        description:
+          "ManaMind extracts and interprets text rendered in the game, including menus, prompts, dialogue, and error messages, to understand progression and system state.",
+        bullets: [
+          "Reads buttons, menus, tooltips, and quest text in real time",
+          "Uses textual feedback to validate whether actions succeeded or failed",
+          "Detects inconsistencies between UI messaging and actual game behaviour",
+        ],
+      },
+    ],
+  },
+  {
+    category: "Interaction",
+    color: "#38BDF8",
+    headline: "Executing actions through real player inputs",
+    visual: InteractionModVisual,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
+        <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M13.8 12H3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    description:
+      "Our bots interact with the game using native keyboard, mouse, controller, or phone signals, ensuring all behaviour is tested under authentic gameplay conditions.",
+    subsections: [
+      {
+        title: "",
+        subtitle: "",
+        description: "",
+        bullets: [
+          "Sends standard platform input events",
+          "Navigates menus, controls characters, and triggers gameplay systems",
+          "Replays sequences deterministically for reliable reproduction",
+        ],
+      },
+    ],
+  },
+  {
+    category: "Audio",
+    color: "#FBBF24",
+    headline: "Extending testing into sound and timing",
+    visual: AudioModVisual,
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6">
+        <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    comingSoon: true,
+    description:
+      "Future versions will analyse in-game audio to detect missing cues, incorrect triggers, or mismatches between sound and visuals.",
+    subsections: [
+      {
+        title: "",
+        subtitle: "",
+        description: "",
+        bullets: [
+          "Detects absent or delayed sound effects",
+          "Flags desynchronisation between animation and audio",
+          "Enables validation of audio-driven mechanics and accessibility",
+        ],
+      },
+    ],
+  },
+];
+
+// --- Components ---
+
+function SubsectionCard({
+  sub,
+  color,
+  index,
+}: {
+  sub: (typeof modalities)[0]["subsections"][0];
+  color: string;
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
+      className="rounded-xl border border-white/[0.07] bg-bg-card p-6"
+    >
+      {sub.title && (
+        <div className="mb-3">
+          <span className="text-sm font-bold text-foreground">{sub.title}</span>
+          {sub.subtitle && (
+            <span className="ml-2 text-xs text-text-muted">— {sub.subtitle}</span>
+          )}
+        </div>
+      )}
+      {sub.description && (
+        <p className="mb-4 text-sm leading-relaxed text-text-muted">{sub.description}</p>
+      )}
+      <ul className="space-y-2.5">
+        {sub.bullets.map((bullet, i) => (
+          <motion.li
+            key={i}
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 + i * 0.08 }}
+            className="flex items-start gap-3"
+          >
+            <span
+              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+              style={{ backgroundColor: color }}
+            />
+            <span className="text-sm leading-relaxed text-text-muted">{bullet}</span>
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
+  );
+}
+
+function ModalityBlock({
+  modality,
+  index,
+  inView,
+}: {
+  modality: (typeof modalities)[0];
+  index: number;
+  inView: boolean;
+}) {
+  const Visual = modality.visual;
+  const isReversed = index % 2 === 1;
+
+  return (
+    <FadeInView delay={index * 0.1}>
+      <div className="relative">
+        {/* Category header */}
+        <div className="mb-6 flex items-center gap-4">
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
+            style={{
+              backgroundColor: `${modality.color}12`,
+              color: modality.color,
+            }}
+          >
+            {modality.icon}
+          </div>
+          <div>
+            <div className="flex items-center gap-3">
+              <h3 className="text-xl font-bold text-foreground">{modality.category}</h3>
+              {modality.comingSoon && (
+                <span
+                  className="rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest"
+                  style={{
+                    color: modality.color,
+                    backgroundColor: `${modality.color}15`,
+                  }}
+                >
+                  Coming Soon
+                </span>
+              )}
+            </div>
+            <p className="mt-0.5 text-sm text-text-muted">{modality.headline}</p>
+          </div>
+        </div>
+
+        {/* Category description */}
+        {modality.description && (
+          <p className="mb-6 text-sm leading-relaxed text-text-muted">
+            {modality.description}
+          </p>
+        )}
+
+        {/* Two-column: visual + cards */}
+        <div
+          className="grid items-start gap-8 lg:grid-cols-2"
+          style={{ direction: isReversed ? "rtl" : "ltr" }}
+        >
+          {/* Animated visual */}
+          <div style={{ direction: "ltr" }}>
+            <div
+              className="aspect-square overflow-hidden rounded-2xl border p-4"
+              style={{
+                borderColor: `${modality.color}15`,
+                backgroundColor: `${modality.color}03`,
+              }}
+            >
+              <Visual inView={inView} />
+            </div>
+          </div>
+
+          {/* Subsection cards */}
+          <div className="space-y-4" style={{ direction: "ltr" }}>
+            {modality.subsections.map((sub, i) => (
+              <SubsectionCard key={i} sub={sub} color={modality.color} index={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </FadeInView>
   );
 }
 
@@ -313,56 +746,34 @@ export function FeatureBreakdown() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <SectionHeading
-            label="Capabilities"
-            title="What our bots do"
-            description="From exploration to reporting, every step is autonomous."
+            label="How Our Bots Interact With Your Game"
+            title="Built to understand games the way humans do - through sight, context, and intent."
+            description="Unlike traditional automation that relies on internal APIs or scripted inputs, ManaMind's agents operate through multiple input and control modalities, allowing them to understand and test games without internal integrations."
           />
         </FadeInView>
 
+        {/* Modality blocks */}
         <div className="mt-16 space-y-20">
-          {features.map((feature, i) => {
-            const Visual = feature.visual;
-            const isReversed = i % 2 === 1;
-
-            return (
-              <FadeInView key={feature.title} delay={0.1}>
-                <div
-                  className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
-                  style={{ direction: isReversed ? "rtl" : "ltr" }}
-                >
-                  {/* Text */}
-                  <div style={{ direction: "ltr" }}>
-                    <span
-                      className="mb-3 inline-block font-mono text-xs font-bold uppercase tracking-widest"
-                      style={{ color: feature.color }}
-                    >
-                      {feature.title}
-                    </span>
-                    <h3 className="text-2xl font-bold text-foreground md:text-3xl">
-                      {feature.headline}
-                    </h3>
-                    <p className="mt-4 text-base leading-relaxed text-text-muted">
-                      {feature.description}
-                    </p>
-                  </div>
-
-                  {/* Visual */}
-                  <div style={{ direction: "ltr" }}>
-                    <div
-                      className="aspect-square overflow-hidden rounded-2xl border p-4"
-                      style={{
-                        borderColor: `${feature.color}15`,
-                        backgroundColor: `${feature.color}03`,
-                      }}
-                    >
-                      <Visual inView={inView} />
-                    </div>
-                  </div>
-                </div>
-              </FadeInView>
-            );
-          })}
+          {modalities.map((modality, i) => (
+            <ModalityBlock key={modality.category} modality={modality} index={i} inView={inView} />
+          ))}
         </div>
+
+        {/* Closing line */}
+        <FadeInView delay={0.4}>
+          <div className="mt-16 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2.5">
+              <motion.span
+                className="h-2 w-2 rounded-full bg-primary"
+                animate={inView ? { opacity: [1, 0.3, 1] } : {}}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <span className="text-sm font-medium text-primary">
+                Together, these modalities allow our bots to perceive, reason about, and interact with complex game worlds in a fully end-to-end loop - just like a human player, but at machine scale.
+              </span>
+            </div>
+          </div>
+        </FadeInView>
       </div>
     </section>
   );

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { CTAButton } from "@/components/shared/CTAButton";
 
 const layers = [
-  { name: "Hivemind", subtitle: "Core Intelligence", color: "#00FF96", y: 0 },
-  { name: "Command Centre", subtitle: "Mission Control", color: "#FF4C54", y: 1 },
-  { name: "Legion", subtitle: "Orchestration", color: "#A78BFA", y: 2 },
-  { name: "Bots", subtitle: "Autonomous Agents", color: "#38BDF8", y: 3 },
+  { name: "Hivemind", subtitle: "Perception & reasoning", color: "#00FF96", y: 0 },
+  { name: "Command Centre", subtitle: "Test planning & control", color: "#FF4C54", y: 1 },
+  { name: "Legion", subtitle: "Agent coordination", color: "#A78BFA", y: 2 },
+  { name: "Bots", subtitle: "In-game execution", color: "#38BDF8", y: 3 },
 ];
 
 function DataPulse({ fromY, toY, delay, color }: { fromY: number; toY: number; delay: number; color: string }) {
@@ -158,9 +158,8 @@ export function ProductHero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-6 max-w-xl text-lg text-text-muted"
           >
-            Four layers of AI - from our proprietary Hivemind model to ten
-            autonomous bots - working together to test your game with
-            human-like intelligence at machine scale.
+            A multi-layer AI system, from perception to orchestration, that
+            tests your game like a coordinated team of real players.
           </motion.p>
 
           <motion.div
@@ -171,7 +170,7 @@ export function ProductHero() {
           >
             <CTAButton href="/contact">Book a Demo</CTAButton>
             <CTAButton href="#architecture" variant="outline">
-              Explore Architecture
+              View Architecture
             </CTAButton>
           </motion.div>
         </div>

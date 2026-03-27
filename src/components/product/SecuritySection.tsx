@@ -6,9 +6,10 @@ import { FadeInView } from "@/components/animations/FadeInView";
 
 const pillars = [
   {
-    title: "Zero Code Access",
+    title: "No Source Code Access Required",
     description:
-      "We never touch your source code. Our bots interact through the game's visual output only. Like watching a stream.",
+      "ManaMind interacts with games exclusively through rendered frames and standard input signals. It does not require access to source code, engine internals, or proprietary debugging interfaces.",
+    subtitle: "Operate without exposing your codebase or internal tools",
     color: "#00FF96",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">
@@ -19,16 +20,16 @@ const pillars = [
       </svg>
     ),
     layers: [
-      { label: "Source code", status: "blocked" },
-      { label: "Debug APIs", status: "blocked" },
-      { label: "Memory access", status: "blocked" },
-      { label: "Screen frames", status: "allowed" },
+      { label: "Reduces risk compared to tools that require deep engine integration", status: "allowed" },
+      { label: "Works with closed-source or externally developed titles", status: "allowed" },
+      { label: "Simplifies security reviews and internal approvals", status: "allowed" },
     ],
   },
   {
-    title: "Isolated Environments",
+    title: "Data Handling & Storage",
     description:
-      "Each testing session runs in a sandboxed environment with no cross-contamination between games or clients.",
+      "ManaMind records gameplay sessions only to generate bug reports, reproduction steps, and visual evidence. Data collection is limited to what is required for testing and debugging.",
+    subtitle: "Clear boundaries around what is stored and retained",
     color: "#38BDF8",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">
@@ -40,16 +41,16 @@ const pillars = [
       </svg>
     ),
     layers: [
-      { label: "Sandboxed runtime", status: "allowed" },
-      { label: "Isolated storage", status: "allowed" },
-      { label: "Cross-game access", status: "blocked" },
-      { label: "Cross-client data", status: "blocked" },
+      { label: "Captures frames and interaction logs for issue reproduction", status: "allowed" },
+      { label: "Does not extract or store unrelated internal data", status: "allowed" },
+      { label: "Retention policies can be configured based on studio requirements", status: "allowed" },
     ],
   },
   {
-    title: "Data Privacy",
+    title: "Deployment Flexibility",
     description:
-      "Your game data stays yours. We process frames in real-time and don't store gameplay footage after analysis.",
+      "To accommodate different studio policies, ManaMind can be deployed in controlled infrastructure rather than requiring builds to be uploaded to public cloud services.",
+    subtitle: "Run in environments that match your security model",
     color: "#A78BFA",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">
@@ -58,10 +59,9 @@ const pillars = [
       </svg>
     ),
     layers: [
-      { label: "Real-time processing", status: "allowed" },
-      { label: "Encrypted transit", status: "allowed" },
-      { label: "Footage storage", status: "blocked" },
-      { label: "Third-party sharing", status: "blocked" },
+      { label: "Supports secure cloud environments or isolated deployments", status: "allowed" },
+      { label: "Suitable for projects under NDA or platform-holder restrictions", status: "allowed" },
+      { label: "Enables integration into existing secure CI or build pipelines", status: "allowed" },
     ],
   },
 ];
@@ -99,6 +99,9 @@ function SecurityPillar({
 
         {/* Title & description */}
         <h3 className="text-xl font-bold text-foreground">{pillar.title}</h3>
+        {pillar.subtitle && (
+          <p className="mt-1 text-xs text-text-muted">{pillar.subtitle}</p>
+        )}
         <p className="mt-3 text-sm leading-relaxed text-text-muted">{pillar.description}</p>
 
         {/* Access matrix */}
@@ -148,10 +151,10 @@ export function SecuritySection() {
               Security & Privacy
             </span>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-              Your game is safe with us
+              Designed to work with unreleased and sensitive game builds
             </h2>
             <p className="mt-4 text-lg text-text-muted">
-              Built with zero-trust principles. We see pixels, not code.
+              ManaMind is built to operate in environments where confidentiality is critical. From early prototypes to pre-release builds, our system is designed to minimise access requirements while preserving strict control over your assets.
             </p>
           </div>
         </FadeInView>
