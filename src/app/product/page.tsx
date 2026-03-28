@@ -3,7 +3,7 @@ import { ArchitectureSection } from "@/components/product/ArchitectureSection";
 import { BotInteraction } from "@/components/product/BotInteraction";
 import { FeatureBreakdown } from "@/components/product/FeatureBreakdown";
 import { ZeroShotExplainer } from "@/components/product/ZeroShotExplainer";
-import { BenchmarksSection } from "@/components/product/BenchmarksSection";
+
 import { SecuritySection } from "@/components/product/SecuritySection";
 import { ProductCTA } from "@/components/product/ProductCTA";
 
@@ -21,7 +21,7 @@ export default function ProductPage() {
       <BotInteraction />
       <FeatureBreakdown />
       <ZeroShotExplainer />
-      <BenchmarksSection />
+
       <SecuritySection />
       <ProductCTA />
     </>

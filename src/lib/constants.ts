@@ -22,14 +22,15 @@ export const PARTNERS = [
   { name: "Microsoft for Startups", logo: null },
   { name: "Nvidia Inception", logo: null },
   { name: "Google for Startups", logo: null },
+  { name: "UKIE", logo: null },
 ];
 
 export const PRESS_MENTIONS = [
-  { title: "Forbes Article", type: "article" as const, url: "#" },
-  { title: "Capital Article", type: "article" as const, url: "#" },
-  { title: "Creating the operating system for all future robots", type: "podcast" as const, source: "Ventures Podcast", url: "#" },
-  { title: "AI agents that play games & find bugs", type: "podcast" as const, source: "The Builder's Mind Podcast", url: "#" },
-  { title: "The End of Manual QA: Automating Game Testing with AI", type: "podcast" as const, source: "Tech Finds Tech Podcast", url: "#" },
+  { title: "Forbes Article", type: "article" as const, url: "https://www.forbes.com/sites/charliefink/2025/11/17/manamind-introduces-game-playing-ai-to-test-titles-in-production/" },
+  { title: "Capital Article", type: "article" as const, url: "https://kinsights.capital.bg/business/2026/02/16/4883084_emil_kostadinov_and_manaminds_new_generation_of_ai/" },
+  { title: "Creating the operating system for all future robots", type: "podcast" as const, source: "Ventures Podcast", url: "https://www.youtube.com/watch?v=5mZhVkgOk7g&t=744s" },
+  { title: "AI agents that play games & find bugs", type: "podcast" as const, source: "The Builder's Mind Podcast", url: "https://www.youtube.com/watch?v=DwgZEKRGIDo" },
+  { title: "The End of Manual QA: Automating Game Testing with AI", type: "podcast" as const, source: "Tech Finds Tech Podcast", url: "https://www.youtube.com/watch?v=QCSOwrarwFU&t=3s" },
 ];
 
 export const BOTS = [

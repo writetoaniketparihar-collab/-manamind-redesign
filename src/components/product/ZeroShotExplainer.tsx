@@ -87,8 +87,8 @@ export function ZeroShotExplainer() {
         <FadeInView>
           <SectionHeading
             label="Zero-Shot Testing"
-            title="Start testing immediately - no scripting, no training phase"
-            description="Our bots do not need to be trained or configured for each new title. As soon as a playable build is available, they begin exploring and interacting with the game using their existing understanding of player interfaces, mechanics, and progression patterns."
+            title="Start testing immediately - no scripting or training"
+            description="Our bots apply prior knowledge of games to operate in new titles without any per-game training or scripting."
           />
         </FadeInView>
 
@@ -167,6 +167,34 @@ export function ZeroShotExplainer() {
             </div>
           </FadeInView>
         </div>
+
+        {/* What enables zero-shot behaviour */}
+        <FadeInView delay={0.5}>
+          <div className="mx-auto mt-20 max-w-3xl text-center">
+            <h3 className="text-xl font-bold text-foreground md:text-2xl">
+              What enables zero-shot behaviour
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-text-muted">
+              ManaMind&apos;s models are trained on a wide range of interactive environments and UI patterns, allowing them to generalise their behaviour to previously unseen games without requiring project-specific retraining.
+            </p>
+          </div>
+        </FadeInView>
+
+        {/* Closing line */}
+        <FadeInView delay={0.7}>
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2.5">
+              <motion.span
+                className="h-2 w-2 rounded-full bg-primary"
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <span className="text-sm font-medium text-primary">
+                Zero-shot capability allows our bots to function as persistent testing infrastructure rather than a per-project automation tool - enabling studios to integrate autonomous testing without the setup overhead traditionally associated with automation.
+              </span>
+            </div>
+          </div>
+        </FadeInView>
       </div>
     </section>
   );

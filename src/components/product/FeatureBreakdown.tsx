@@ -492,23 +492,15 @@ const modalities = [
         title: "Frames",
         subtitle: "Instantaneous understanding",
         description:
-          "Bots analyse individual frames to detect UI elements, objects, and scene layout in real time. This allows precise interaction with menus, HUDs, and visual systems.",
-        bullets: [
-          "Detects UI components, icons, and text directly from pixels",
-          "Identifies visual bugs such as clipping, missing assets, or incorrect layouts",
-          "Works across any engine or rendering pipeline",
-        ],
+          "Our bots analyse individual frames to detect UI elements, objects, and scene layout in real time. This enables precise interaction with menus, HUDs, and other visual systems.",
+        bullets: [],
       },
       {
         title: "Video",
         subtitle: "Temporal understanding",
         description:
-          "By tracking sequences of frames, our bots understand movement, animations, and cause-and-effect relationships across time that static automation cannot capture.",
-        bullets: [
-          "Understands character movement, physics, and animation states",
-          "Detects flickering, desynchronisation, and transition issues",
-          "Learns from full gameplay sequences rather than isolated screenshots",
-        ],
+          "By tracking sequences of frames, agents understand movement, animation, and cause-and-effect across time, allowing them to detect issues like flickering, desynchronisation, or unstable physics.",
+        bullets: [],
       },
     ],
   },
@@ -523,30 +515,20 @@ const modalities = [
         <path d="M8 9h8M8 13h4" strokeLinecap="round" />
       </svg>
     ),
-    description:
-      "ManaMind uses natural language to understand what it should test and what the game is telling the player, allowing agents to operate with both high-level goals and real-time textual context.",
     subsections: [
       {
         title: "Objectives",
         subtitle: "Developer instructions",
         description:
-          "Teams can describe scenarios, goals, and priorities in plain language instead of writing brittle automation scripts.",
-        bullets: [
-          'Specify goals like "play through the tutorial and stress-test the inventory system"',
-          "Adjust objectives without rebuilding or reauthoring test cases",
-          "Enables rapid iteration and exploratory testing workflows",
-        ],
+          "Teams describe testing goals in plain language instead of writing brittle scripts. Objectives can be updated instantly, enabling rapid iteration and exploratory testing.",
+        bullets: [],
       },
       {
         title: "In-Game Text",
         subtitle: "UI and system feedback",
         description:
-          "ManaMind extracts and interprets text rendered in the game, including menus, prompts, dialogue, and error messages, to understand progression and system state.",
-        bullets: [
-          "Reads buttons, menus, tooltips, and quest text in real time",
-          "Uses textual feedback to validate whether actions succeeded or failed",
-          "Detects inconsistencies between UI messaging and actual game behaviour",
-        ],
+          "Agents extract and interpret text rendered in the game - including menus, dialogue, and prompts - to understand progression, validate actions, and detect inconsistencies in messaging.",
+        bullets: [],
       },
     ],
   },
@@ -561,19 +543,8 @@ const modalities = [
       </svg>
     ),
     description:
-      "Our bots interact with the game using native keyboard, mouse, controller, or phone signals, ensuring all behaviour is tested under authentic gameplay conditions.",
-    subsections: [
-      {
-        title: "",
-        subtitle: "",
-        description: "",
-        bullets: [
-          "Sends standard platform input events",
-          "Navigates menus, controls characters, and triggers gameplay systems",
-          "Replays sequences deterministically for reliable reproduction",
-        ],
-      },
-    ],
+      "Our bots control games using native keyboard, mouse, controller, or mobile inputs, ensuring behaviour is tested under authentic gameplay conditions and can be reliably reproduced.",
+    subsections: [],
   },
   {
     category: "Audio",
@@ -587,19 +558,8 @@ const modalities = [
     ),
     comingSoon: true,
     description:
-      "Future versions will analyse in-game audio to detect missing cues, incorrect triggers, or mismatches between sound and visuals.",
-    subsections: [
-      {
-        title: "",
-        subtitle: "",
-        description: "",
-        bullets: [
-          "Detects absent or delayed sound effects",
-          "Flags desynchronisation between animation and audio",
-          "Enables validation of audio-driven mechanics and accessibility",
-        ],
-      },
-    ],
+      "Future versions will analyse in-game audio to detect missing cues, incorrect triggers, and mismatches between sound and visuals.",
+    subsections: [],
   },
 ];
 
@@ -748,7 +708,7 @@ export function FeatureBreakdown() {
           <SectionHeading
             label="How Our Bots Interact With Your Game"
             title="Built to understand games the way humans do - through sight, context, and intent."
-            description="Unlike traditional automation that relies on internal APIs or scripted inputs, ManaMind's agents operate through multiple input and control modalities, allowing them to understand and test games without internal integrations."
+            description="ManaMind's agents observe the game world and interact through normal player inputs, allowing them to test any title without internal integration."
           />
         </FadeInView>
 
@@ -769,7 +729,7 @@ export function FeatureBreakdown() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium text-primary">
-                Together, these modalities allow our bots to perceive, reason about, and interact with complex game worlds in a fully end-to-end loop - just like a human player, but at machine scale.
+                Together, these modalities allow our agents to perceive, reason about, and interact with complex game worlds - just like a human player, but at machine scale.
               </span>
             </div>
           </div>

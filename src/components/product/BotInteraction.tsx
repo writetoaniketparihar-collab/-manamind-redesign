@@ -148,8 +148,9 @@ export function BotInteraction() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <SectionHeading
-            label="Feature Breakdown"
-            title="How ManaMind tests your game from first frame to final bug report"
+            label="How our bots interact with your game"
+            title="Testing games like real players, not scripts"
+            description="ManaMind's agents observe the game world and interact through normal player inputs, allowing them to test any title without internal integration"
           />
         </FadeInView>
 
