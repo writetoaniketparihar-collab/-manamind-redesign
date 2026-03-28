@@ -13,27 +13,22 @@ const stages = [
     color: "#00FF96",
     glow: true,
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6">
-        <rect x="4" y="6" width="24" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M14 12l5 3-5 3V12z" fill="currentColor" opacity="0.6" />
-        <path d="M10 26h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
       </svg>
     ),
   },
   {
     status: "next",
     label: "Next",
-    title: "General software testing",
-    description: "Apps, ERPs, and websites",
+    title: "General software testing (apps, ERPs, websites)",
     color: "#A78BFA",
     glow: false,
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6">
-        <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity="0.3" />
-        <rect x="17" y="9" width="6" height="6" rx="1" fill="currentColor" opacity="0.3" />
-        <rect x="9" y="17" width="6" height="6" rx="1" fill="currentColor" opacity="0.3" />
-        <rect x="17" y="17" width="6" height="6" rx="1" fill="currentColor" opacity="0.3" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <path d="M8 21h8M12 17v4" />
       </svg>
     ),
   },
@@ -41,16 +36,14 @@ const stages = [
     status: "future",
     label: "Long Term",
     title: "Robotics",
-    description:
-      "The same core perception and decision-making systems that allow AI to navigate complex game worlds can be applied to real-world machines operating in visual environments.",
     color: "#38BDF8",
     glow: false,
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6">
-        <circle cx="16" cy="10" r="6" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10 18h12v6a4 4 0 01-4 4h-4a4 4 0 01-4-4v-6z" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="13" cy="10" r="1" fill="currentColor" />
-        <circle cx="19" cy="10" r="1" fill="currentColor" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
+        <path d="M12 2v4M4 10h16v8a4 4 0 01-4 4H8a4 4 0 01-4-4v-8z" />
+        <circle cx="9" cy="15" r="1.5" fill="currentColor" opacity="0.4" />
+        <circle cx="15" cy="15" r="1.5" fill="currentColor" opacity="0.4" />
+        <path d="M2 10l3-3M22 10l-3-3" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -146,7 +139,6 @@ export function Vision() {
                       >
                         {stage.label}
                       </span>
-                      <div style={{ color: stage.color }}>{stage.icon}</div>
                     </div>
 
                     <h3
@@ -168,9 +160,16 @@ export function Vision() {
           </div>
         </div>
 
+        {/* Robotics explanation */}
+        <FadeInView delay={0.5}>
+          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-text-muted">
+            The same core perception and decision-making systems that allow AI to navigate complex game worlds can be applied to real-world machines operating in visual environments.
+          </p>
+        </FadeInView>
+
         {/* CTA */}
         <FadeInView delay={0.6}>
-          <div className="mt-16 text-center">
+          <div className="mt-12 text-center">
             <CTAButton href="/product">See what we&apos;re building</CTAButton>
           </div>
         </FadeInView>
