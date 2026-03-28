@@ -148,11 +148,6 @@ export function Vision() {
                       {stage.title}
                     </h3>
 
-                    {stage.description && (
-                      <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                        {stage.description}
-                      </p>
-                    )}
                   </div>
                 </motion.div>
               ))}
