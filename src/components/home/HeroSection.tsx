@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ParticleCanvas } from "./ParticleCanvas";
+import { StrikeoutHeadline } from "./StrikeoutHeadline";
 import { CTAButton } from "@/components/shared/CTAButton";
 
 export function HeroSection() {
@@ -9,23 +10,20 @@ export function HeroSection() {
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <ParticleCanvas />
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-32">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-7xl"
         >
-          AI Agents That Test Your Game
-          <br />
-          <span className="text-primary">So You Can Ship It</span>
-        </motion.h1>
+          <StrikeoutHeadline />
+        </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mt-6 max-w-2xl text-lg text-text-muted md:text-xl"
         >
-          Autonomous QA that plays like real players. No scripts. No SDKs. 24/7.
+          Continuously test with autonomous agents that behave like real players.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

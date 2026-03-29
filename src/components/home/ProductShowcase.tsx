@@ -85,8 +85,8 @@ export function ProductShowcase() {
                 onMouseEnter={() => setActive(i)}
                 onMouseLeave={() => setActive(null)}
               >
-                {/* Orbit ring */}
-                <motion.div
+                {/* Outer ring — logo style */}
+                <div
                   className="absolute rounded-full border"
                   style={{
                     width: 20,
@@ -96,19 +96,31 @@ export function ProductShowcase() {
                     borderColor: item.bot.color,
                     opacity: 0.5,
                   }}
+                />
+
+                {/* Filled pulse ring — expanding from center */}
+                <motion.div
+                  className="absolute rounded-full"
+                  style={{
+                    width: 20,
+                    height: 20,
+                    left: -10,
+                    top: -10,
+                    background: item.bot.color,
+                  }}
                   animate={{
-                    scale: [1, 1.3, 1],
-                    opacity: [0.5, 0.2, 0.5],
+                    scale: [1, 2.2],
+                    opacity: [0.3, 0],
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    ease: "easeOut",
                     delay: i * 0.4,
                   }}
                 />
 
-                {/* Core dot — positioned upper-right of orbit like ManaMind logo */}
+                {/* Core dot — upper-right like logo */}
                 <div
                   className="absolute z-10 h-2.5 w-2.5 rounded-full cursor-pointer"
                   style={{
