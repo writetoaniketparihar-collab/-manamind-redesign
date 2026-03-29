@@ -706,8 +706,8 @@ export function FeatureBreakdown() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <SectionHeading
-            label="How Our Bots Interact With Your Game"
-            title="Built to understand games the way humans do - through sight, context, and intent."
+            label="How our bots interact with your game"
+            title="Testing games like real players, not scripts"
             description="ManaMind's agents observe the game world and interact through normal player inputs, allowing them to test any title without internal integration."
           />
         </FadeInView>
