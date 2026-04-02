@@ -176,7 +176,7 @@ export function BotInteraction() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium text-primary">
-                This perception → reasoning → action → reporting loop runs continuously and autonomously, allowing ManaMind to test your game without supervision.
+                This perception <span className="mx-1 opacity-60">›</span> reasoning <span className="mx-1 opacity-60">›</span> action <span className="mx-1 opacity-60">›</span> reporting loop runs continuously and autonomously, allowing ManaMind to test your game without supervision.
               </span>
             </div>
             <div className="mt-8">

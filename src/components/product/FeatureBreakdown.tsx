@@ -341,14 +341,12 @@ function InteractionModVisual({ inView }: { inView: boolean }) {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
           <path
-            d="M66 38 L66 52 L70 48 L74 55"
-            fill="none"
+            d="M66 38 L66 50 L69 47 L72 53 L74 52 L71 46 L75 46 Z"
+            fill="#38BDF8"
             stroke="#38BDF8"
-            strokeWidth="0.6"
-            strokeLinecap="round"
+            strokeWidth="0.3"
             strokeLinejoin="round"
           />
-          <path d="M66 38 L66 52 L70 48 Z" fill="#38BDF8" stroke="#38BDF8" strokeWidth="0.4" />
         </motion.g>
       </motion.g>
 
@@ -675,7 +673,7 @@ function ModalityBlock({
           {/* Animated visual */}
           <div style={{ direction: "ltr" }}>
             <div
-              className="aspect-square overflow-hidden rounded-2xl border p-4"
+              className="aspect-[3/2] overflow-hidden rounded-2xl border p-4"
               style={{
                 borderColor: `${modality.color}15`,
                 backgroundColor: `${modality.color}03`,
@@ -706,8 +704,8 @@ export function FeatureBreakdown() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <SectionHeading
-            label="How our bots interact with your game"
-            title="Testing games like real players, not scripts"
+            label="How Our Bots Interact With Your Game"
+            title="Built to understand games the way humans do - through sight, context, and intent."
             description="ManaMind's agents observe the game world and interact through normal player inputs, allowing them to test any title without internal integration."
           />
         </FadeInView>
@@ -729,7 +727,7 @@ export function FeatureBreakdown() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium text-primary">
-                Together, these modalities allow our agents to perceive, reason about, and interact with complex game worlds - just like a human player, but at machine scale.
+                Together, these modalities allow our agents to test games like human players, but at machine scale.
               </span>
             </div>
           </div>

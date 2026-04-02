@@ -9,29 +9,29 @@ const hotspots = [
   {
     annotation: "Export issues directly to your existing workflow",
     bot: { initial: "R", name: "Reporter", color: "#FFB84C" },
-    x: 27.4,
-    y: 8.6,
+    x: 28.9,
+    y: 9.9,
     tooltipAlign: "left" as const,
   },
   {
     annotation: "See which bot discovered each issue",
     bot: { initial: "W", name: "Wayfinder", color: "#00FF96" },
-    x: 60.5,
-    y: 31.1,
+    x: 60.8,
+    y: 31.9,
     tooltipAlign: "center" as const,
   },
   {
     annotation: "Confidence scoring helps prioritise what to fix first",
     bot: { initial: "B", name: "Breaker", color: "#FF4C54" },
-    x: 66,
-    y: 31.1,
+    x: 67,
+    y: 32.1,
     tooltipAlign: "center" as const,
   },
   {
     annotation: "Auto-generated reports with repo steps directly from gameplay",
     bot: { initial: "S", name: "Scout", color: "#4CC9FF" },
-    x: 89.6,
-    y: 8.6,
+    x: 93.4,
+    y: 9.9,
     tooltipAlign: "right" as const,
   },
 ];
@@ -85,8 +85,8 @@ export function ProductShowcase() {
                 onMouseEnter={() => setActive(i)}
                 onMouseLeave={() => setActive(null)}
               >
-                {/* Outer ring — logo style */}
-                <div
+                {/* Outer ring — logo style, visible on hover only */}
+                <motion.div
                   className="absolute rounded-full border"
                   style={{
                     width: 20,
@@ -94,8 +94,10 @@ export function ProductShowcase() {
                     left: -10,
                     top: -10,
                     borderColor: item.bot.color,
-                    opacity: 0.5,
                   }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: active === i ? 0.5 : 0 }}
+                  transition={{ duration: 0.2 }}
                 />
 
                 {/* Filled pulse ring — expanding from center */}
