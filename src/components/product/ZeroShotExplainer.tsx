@@ -90,7 +90,7 @@ export function ZeroShotExplainer() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium text-primary">
-                Zero-shot capability allows our bots to function as persistent testing infrastructure rather than a per-project automation tool - enabling studios to integrate autonomous testing without the setup overhead traditionally associated with automation.
+                Zero-shot capability turns autonomous testing into persistent infrastructure, not a per-project setup.
               </span>
             </div>
           </div>

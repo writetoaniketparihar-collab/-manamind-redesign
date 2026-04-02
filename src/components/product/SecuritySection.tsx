@@ -151,10 +151,10 @@ export function SecuritySection() {
               Security & Privacy
             </span>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-              Designed to work with unreleased and sensitive game builds
+              Built for unreleased and sensitive builds
             </h2>
             <p className="mt-4 text-lg text-text-muted">
-              ManaMind is built to operate in environments where confidentiality is critical. From early prototypes to pre-release builds, our system is designed to minimise access requirements while preserving strict control over your assets.
+              ManaMind is designed for confidential environments, from early prototypes to pre-release builds, while minimising system access to your assets.
             </p>
           </div>
         </FadeInView>
