@@ -9,7 +9,7 @@ const pillars = [
     title: "No Source Code Access Required",
     description:
       "ManaMind interacts with games exclusively through rendered frames and standard input signals. It does not require access to source code, engine internals, or proprietary debugging interfaces.",
-    subtitle: "Operate without exposing your codebase or internal tools",
+    subtitle: "",
     color: "#00FF96",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">
@@ -29,7 +29,7 @@ const pillars = [
     title: "Data Handling & Storage",
     description:
       "ManaMind records gameplay sessions only to generate bug reports, reproduction steps, and visual evidence. Data collection is limited to what is required for testing and debugging.",
-    subtitle: "Clear boundaries around what is stored and retained",
+    subtitle: "",
     color: "#38BDF8",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">
@@ -50,7 +50,7 @@ const pillars = [
     title: "Deployment Flexibility",
     description:
       "To accommodate different studio policies, ManaMind can be deployed in controlled infrastructure rather than requiring builds to be uploaded to public cloud services.",
-    subtitle: "Run in environments that match your security model",
+    subtitle: "",
     color: "#A78BFA",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="h-10 w-10">
