@@ -47,9 +47,9 @@ export function AboutHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl"
         >
-          Building the autonomous testing
+          Autonomous testing infrastructure
           <br />
-          infrastructure for{" "}
+          for{" "}
           <span className="text-primary">interactive worlds</span>
         </motion.h1>
 

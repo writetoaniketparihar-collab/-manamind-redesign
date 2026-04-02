@@ -8,28 +8,28 @@ import { motion, useInView } from "framer-motion";
 const chapters = [
   {
     era: "The Love",
-    text: "We grew up with games and spent years immersed in how they're built and tested. Over time, games evolved into vast, complex worlds. But the way they were tested stayed largely the same.",
-    highlight: "games evolved into vast, complex worlds",
+    text: "We grew up with games. Over time, they evolved into vast, complex worlds — but the way they were tested stayed the same.",
+    highlight: "vast, complex worlds",
     color: "#A78BFA",
     visual: EraVisual1,
   },
   {
     era: "The Problem",
-    text: "Behind every polished release are QA teams working long hours to catch issues by hand, often under tight deadlines and with limited tools. Despite their effort, many problems still slip through, not because of a lack of skill, but because the scale of modern games has outpaced traditional testing methods.",
-    highlight: "the scale of modern games has outpaced traditional testing methods",
+    text: "QA teams work long hours under tight deadlines. Problems still slip through — not from lack of skill, but because the scale of modern games has outpaced traditional testing.",
+    highlight: "outpaced traditional testing",
     color: "#FF4C54",
     visual: EraVisual2,
   },
   {
     era: "The Spark",
-    text: "We started ManaMind because we believed there had to be a better way, one where testing could move as fast as the games themselves.",
+    text: "We started ManaMind because there had to be a better way — one where testing moves as fast as the games themselves.",
     highlight: "there had to be a better way",
     color: "#00FF96",
     visual: EraVisual3,
   },
   {
     era: "The Purpose",
-    text: "Our goal was to build systems that understand games the way players do: by seeing, exploring, and interacting with them. ManaMind exists to give studios that capability and to let human testers focus on the creative, high-judgment work that machines can't replace.",
+    text: "Build systems that understand games the way players do. Let human testers focus on the creative, high-judgment work that machines can't replace.",
     highlight: "understand games the way players do",
     color: "#38BDF8",
     visual: EraVisual4,
@@ -476,7 +476,7 @@ function ChapterCard({
         {/* Visual */}
         <div className="lg:w-2/5">
           <motion.div
-            className="mx-auto aspect-square max-w-[280px] overflow-hidden rounded-2xl border p-4"
+            className="mx-auto aspect-square max-w-[200px] overflow-hidden rounded-2xl border p-4"
             style={{
               borderColor: `${chapter.color}20`,
               backgroundColor: `${chapter.color}04`,
@@ -578,7 +578,7 @@ export function OriginStory() {
         </div>
 
         {/* Chapter cards */}
-        <div className="mt-20 space-y-20 md:space-y-28">
+        <div className="mt-16 space-y-12 md:space-y-16">
           {chapters.map((chapter, i) => (
             <ChapterCard key={chapter.era} chapter={chapter} index={i} />
           ))}

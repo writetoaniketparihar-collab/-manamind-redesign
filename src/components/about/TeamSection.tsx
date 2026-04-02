@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 
 const team = [
-  { name: "Team Member 1", role: "Co-Founder & CEO", photo: null },
-  { name: "Team Member 2", role: "Co-Founder & CTO", photo: null },
+  { name: "Emil Kostadinov", role: "Co-Founder & CEO", photo: "/team-emil.jpg" },
+  { name: "Sabtain Ahmad", role: "Co-Founder & CTO", photo: "/team-sabtain.png" },
 ];
 
 export function TeamSection() {
@@ -33,12 +34,22 @@ export function TeamSection() {
                   whileHover={{ scale: 1.03, borderColor: "rgba(0,255,150,0.3)" }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex h-full w-full items-center justify-center">
-                    <svg viewBox="0 0 48 48" fill="none" className="h-16 w-16 text-text-muted/30">
-                      <circle cx="24" cy="18" r="8" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="currentColor" strokeWidth="1.5" />
-                    </svg>
-                  </div>
+                  {member.photo ? (
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      width={160}
+                      height={160}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <svg viewBox="0 0 48 48" fill="none" className="h-16 w-16 text-text-muted/30">
+                        <circle cx="24" cy="18" r="8" stroke="currentColor" strokeWidth="1.5" />
+                        <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </div>
+                  )}
                 </motion.div>
 
                 <h3 className="text-base font-bold text-foreground">{member.name}</h3>

@@ -9,59 +9,79 @@ const stats = [
   { label: "HQ", value: "London" },
 ];
 
-function PressCard({
-  item,
-  index,
-}: {
-  item: (typeof PRESS_MENTIONS)[0];
-  index: number;
-}) {
-  const isArticle = item.type === "article";
+function PressMarquee() {
+  const articles = PRESS_MENTIONS.filter((p) => p.type === "article");
+  const podcasts = PRESS_MENTIONS.filter((p) => p.type === "podcast");
 
   return (
-    <FadeInView delay={0.1 + index * 0.08}>
-      <a
-        href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group flex items-start gap-4 rounded-xl border border-white/[0.07] bg-background/40 p-5 transition-all duration-300 hover:border-primary/30 hover:bg-primary/[0.03]"
-      >
-        {/* Type icon */}
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-          {isArticle ? (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
-              <rect x="4" y="3" width="16" height="18" rx="2" />
-              <path d="M8 7h8M8 11h8M8 15h5" strokeLinecap="round" />
-            </svg>
-          ) : (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
-              <circle cx="12" cy="12" r="10" />
-              <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
-            </svg>
-          )}
-        </div>
+    <div className="space-y-12">
+      {/* Featured articles — large editorial style */}
+      <div className="grid gap-6 md:grid-cols-2">
+        {articles.map((item, i) => (
+          <motion.a
+            key={item.title}
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 + i * 0.1 }}
+            className="group relative overflow-hidden rounded-2xl border border-white/[0.07] p-8 transition-all duration-500 hover:border-primary/30"
+          >
+            {/* Large quotation mark background */}
+            <span
+              className="pointer-events-none absolute -top-4 -left-2 text-[120px] font-bold leading-none text-white/[0.03] transition-colors duration-500 group-hover:text-primary/[0.06]"
+              aria-hidden
+            >
+              &ldquo;
+            </span>
 
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-            {item.title}
-          </p>
-          {item.source && (
-            <p className="mt-0.5 text-xs text-text-muted">{item.source}</p>
-          )}
-        </div>
+            <span className="relative z-10 mb-3 inline-block font-mono text-[10px] font-bold uppercase tracking-widest text-primary/60">
+              Article
+            </span>
+            <h4 className="relative z-10 text-xl font-bold leading-snug text-foreground transition-colors group-hover:text-primary md:text-2xl">
+              {item.title}
+            </h4>
+            {item.source && (
+              <p className="relative z-10 mt-2 text-xs text-text-muted/50">{item.source}</p>
+            )}
+          </motion.a>
+        ))}
+      </div>
 
-        {/* Arrow */}
-        <svg
-          className="mt-1 h-4 w-4 shrink-0 text-text-muted transition-transform group-hover:translate-x-1 group-hover:text-primary"
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </a>
-    </FadeInView>
+      {/* Podcasts — horizontal scroll strip */}
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+        {podcasts.map((item, i) => (
+          <motion.a
+            key={item.title}
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 + i * 0.1 }}
+            className="group flex w-72 shrink-0 items-center gap-4 rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-4 transition-all duration-300 hover:border-primary/30"
+          >
+            {/* Play icon */}
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/30 text-primary transition-all duration-300 group-hover:bg-primary/10 group-hover:scale-110">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 h-4 w-4">
+                <polygon points="8,5 19,12 8,19" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                {item.title}
+              </p>
+              {item.source && (
+                <p className="mt-0.5 truncate text-[11px] text-text-muted/50">{item.source}</p>
+              )}
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -156,15 +176,13 @@ export function CompanySnapshot() {
           <FadeInView>
             <div className="mx-auto max-w-3xl text-center">
               <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-                Press
+                Press & Media
               </span>
             </div>
           </FadeInView>
 
-          <div className="mx-auto mt-6 max-w-2xl space-y-3">
-            {PRESS_MENTIONS.map((item, i) => (
-              <PressCard key={item.title} item={item} index={i} />
-            ))}
+          <div className="mx-auto mt-10 max-w-5xl">
+            <PressMarquee />
           </div>
         </div>
       </div>

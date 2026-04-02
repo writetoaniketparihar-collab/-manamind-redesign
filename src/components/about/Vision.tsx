@@ -78,8 +78,8 @@ export function Vision() {
           <div className="relative">
             {/* Vertical connector */}
             <motion.div
-              className="absolute left-8 top-0 w-px bg-gradient-to-b from-primary/40 via-[#A78BFA]/30 to-[#38BDF8]/20"
-              style={{ height: "100%" }}
+              className="absolute top-0 w-px bg-gradient-to-b from-primary/40 via-[#A78BFA]/30 to-[#38BDF8]/20"
+              style={{ height: "100%", left: "calc(1rem + 1.125rem)" }}
               initial={{ scaleY: 0 }}
               animate={inView ? { scaleY: 1 } : {}}
               transition={{ duration: 1.2, delay: 0.3 }}

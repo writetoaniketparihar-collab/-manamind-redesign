@@ -3,6 +3,7 @@ import { ArchitectureSection } from "@/components/product/ArchitectureSection";
 import { BotInteraction } from "@/components/product/BotInteraction";
 import { FeatureBreakdown } from "@/components/product/FeatureBreakdown";
 import { ZeroShotExplainer } from "@/components/product/ZeroShotExplainer";
+import { BotSection } from "@/components/home/BotSection";
 
 import { Benchmarks } from "@/components/product/Benchmarks";
 import { SecuritySection } from "@/components/product/SecuritySection";
@@ -21,6 +22,7 @@ export default function ProductPage() {
       <ArchitectureSection />
       <BotInteraction />
       <FeatureBreakdown />
+      <BotSection />
       <ZeroShotExplainer />
       <Benchmarks />
 
