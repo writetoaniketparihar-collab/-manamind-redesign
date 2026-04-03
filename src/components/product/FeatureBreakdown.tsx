@@ -541,8 +541,16 @@ const modalities = [
       </svg>
     ),
     description:
-      "Our bots control games using native keyboard, mouse, controller, or mobile inputs, ensuring behaviour is tested under authentic gameplay conditions and can be reliably reproduced.",
-    subsections: [],
+      "Our bots control games using native inputs, ensuring behaviour is tested under authentic gameplay conditions and can be reliably reproduced.",
+    subsections: [
+      {
+        title: "Executing Actions Through Real Player Inputs",
+        subtitle: "",
+        description:
+          "Our bots control games using native inputs, ensuring behaviour is tested under authentic gameplay conditions and can be reliably reproduced.",
+        bullets: [],
+      },
+    ],
   },
   {
     category: "Audio",

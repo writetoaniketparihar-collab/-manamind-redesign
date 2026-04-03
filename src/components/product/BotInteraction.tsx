@@ -11,7 +11,7 @@ const pipeline = [
     step: "01",
     label: "Sense",
     title: "See the Screen",
-    description: "Our Overseer module observes the game exactly as a player would - directly from rendered frames, with no engine hooks, SDKs, or API access required.",
+    description: "Our Overseer module observes the game exactly as a player would - directly from rendered frames. Overseer requires no engine hooks, code access, platform integration, SDKs, or APIs.",
     color: "#38BDF8",
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
@@ -25,7 +25,7 @@ const pipeline = [
   {
     step: "02",
     label: "Think",
-    title: "Interpret the Game State",
+    title: "Interpret the Game",
     description: "Hivemind analyses each frame to read UI, recognise objects, and infer the current game state - from menus and HUD elements to characters and environmental changes.",
     color: "#00FF96",
     icon: (
@@ -84,7 +84,7 @@ function PipelineStep({
         initial={{ opacity: 0, y: 30 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-        className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-bg-card transition-all duration-500 hover:border-white/15"
+        className="group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-bg-card transition-all duration-500 hover:border-white/15"
         style={{
           boxShadow: `0 0 0 0 ${step.color}00`,
         }}
@@ -148,9 +148,9 @@ export function BotInteraction() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <SectionHeading
-            label="How our bots interact with your game"
-            title="Testing games like real players, not scripts"
-            description="ManaMind's agents observe the game world and interact through normal player inputs, allowing them to test any title without internal integration"
+            label="Feature Breakdown"
+            title="How ManaMind tests your game from first frame to final bug report"
+            description="These modalities enable autonomous exploration, detection, and reporting"
           />
         </FadeInView>
 

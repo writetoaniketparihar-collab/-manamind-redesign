@@ -106,14 +106,13 @@ export function BotSection() {
         <FadeInView>
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              The Bot Arsenal
+              Our Bots
             </span>
             <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-              Seven bots. One mission.
+              Your autonomous QA team
             </h2>
             <p className="mt-4 text-lg text-text-muted">
-              Each agent has a distinct role. Together, they deliver fully
-              autonomous QA.
+              Each bot operates with a distinct strategy and role, contributing to a distributed system designed for comprehensive test coverage
             </p>
           </div>
         </FadeInView>

@@ -49,13 +49,21 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Desktop CTA */}
-        <Link
-          href="/contact"
-          className="hidden rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-background transition-all hover:shadow-[0_0_20px_rgba(0,255,150,0.3)] lg:block"
-        >
-          Book a Demo
-        </Link>
+        {/* Desktop CTAs */}
+        <div className="hidden items-center gap-4 lg:flex">
+          <Link
+            href="#"
+            className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-text-muted transition-all hover:border-primary/40 hover:text-primary"
+          >
+            Log In
+          </Link>
+          <Link
+            href="/contact"
+            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-background transition-all hover:shadow-[0_0_20px_rgba(0,255,150,0.3)]"
+          >
+            Book a Demo
+          </Link>
+        </div>
 
         {/* Mobile Hamburger */}
         <button
@@ -102,9 +110,16 @@ export function Navbar() {
                 </Link>
               ))}
               <Link
+                href="#"
+                onClick={() => setMobileOpen(false)}
+                className="mt-2 rounded-full border border-white/15 px-6 py-3 text-center text-sm font-medium text-text-muted"
+              >
+                Log In
+              </Link>
+              <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-background"
+                className="rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-background"
               >
                 Book a Demo
               </Link>
