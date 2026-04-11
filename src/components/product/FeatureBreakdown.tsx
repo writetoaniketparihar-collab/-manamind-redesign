@@ -397,7 +397,7 @@ function AudioModVisual({ inView }: { inView: boolean }) {
     <svg viewBox="0 0 100 100" className="h-full w-full">
       {/* Waveform bars */}
       {Array.from({ length: bars }).map((_, i) => {
-        const height = 5 + Math.sin(i * 0.8) * 15 + Math.random() * 10;
+        const height = 5 + Math.sin(i * 0.8) * 15 + Math.sin(i * 2.3 + 1.7) * 5;
         return (
           <motion.rect
             key={i}
@@ -548,7 +548,11 @@ const modalities = [
         subtitle: "",
         description:
           "Our bots control games using native inputs, ensuring behaviour is tested under authentic gameplay conditions and can be reliably reproduced.",
-        bullets: [],
+        bullets: [
+          "PC - Keystrokes & Mouse Clicks",
+          "Console - Controller Commands",
+          "Mobile - Taps & Swipes",
+        ],
       },
     ],
   },

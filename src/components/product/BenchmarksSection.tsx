@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -86,7 +86,6 @@ function CircularGauge({
             stroke="rgba(255,255,255,0.05)"
             strokeWidth="4"
           />
-
           {/* Progress arc */}
           <motion.circle
             cx="50"
@@ -101,7 +100,6 @@ function CircularGauge({
             animate={inView ? { strokeDashoffset } : {}}
             transition={{ duration: 1.5, delay: delay + 0.3, ease: "easeOut" }}
           />
-
           {/* Glow arc */}
           <motion.circle
             cx="50"
@@ -151,7 +149,7 @@ export function BenchmarksSection() {
           <SectionHeading
             label="Performance"
             title="Built for speed and scale"
-            description="Numbers that speak for themselves."
+            description="Faster testing, broader coverage, and higher bug capture rates"
           />
         </FadeInView>
 

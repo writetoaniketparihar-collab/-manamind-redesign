@@ -39,12 +39,11 @@ export function ZeroShotExplainer() {
         <FadeInView delay={0.2}>
           <div className="mx-auto mt-8 max-w-5xl overflow-hidden rounded-2xl border border-white/10">
             {/* Table header */}
-            <div className="grid grid-cols-[1fr_2fr_auto_2fr] items-center gap-4 border-b border-white/10 bg-white/[0.02] px-6 py-4">
+            <div className="grid grid-cols-[1fr_2fr_2fr] items-center gap-4 border-b border-white/10 bg-white/[0.02] px-6 py-4">
               <span className="text-xs font-semibold uppercase tracking-widest text-text-muted" />
               <span className="text-xs font-semibold uppercase tracking-widest text-highlight">
                 Traditional Automation
               </span>
-              <span />
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                 ManaMind Zero-Shot
               </span>
@@ -54,14 +53,14 @@ export function ZeroShotExplainer() {
             {comparisonRows.map((row, i) => (
               <motion.div
                 key={i}
-                className="grid grid-cols-[1fr_2fr_auto_2fr] items-center gap-4 border-b border-white/5 px-6 py-5 last:border-b-0"
+                className="grid grid-cols-[1fr_2fr_2fr] items-center gap-4 border-b border-white/5 px-6 py-5 last:border-b-0"
                 initial={{ opacity: 0, y: 10 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.3 + i * 0.15, duration: 0.4 }}
               >
                 <span className="text-sm font-semibold text-foreground">{row.aspect}</span>
                 <span className="text-sm text-highlight/80">{row.old}</span>
-                <span className="text-lg text-text-muted/40">›</span>
+
                 <span className="text-sm text-primary">{row.new}</span>
               </motion.div>
             ))}

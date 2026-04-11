@@ -24,7 +24,7 @@ function DataPulse({ fromY, toY, delay, color }: { fromY: number; toY: number; d
         duration: 1.8,
         delay,
         repeat: Infinity,
-        repeatDelay: 2 + Math.random() * 3,
+        repeatDelay: 2 + delay * 0.5,
         ease: "easeInOut",
       }}
     />

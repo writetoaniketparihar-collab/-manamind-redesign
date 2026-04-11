@@ -55,7 +55,7 @@ export function Navbar() {
             href="#"
             className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-text-muted transition-all hover:border-primary/40 hover:text-primary"
           >
-            Log In
+            App Login
           </Link>
           <Link
             href="/contact"
@@ -114,7 +114,7 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 rounded-full border border-white/15 px-6 py-3 text-center text-sm font-medium text-text-muted"
               >
-                Log In
+                App Login
               </Link>
               <Link
                 href="/contact"
