@@ -8,12 +8,12 @@ export const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const INVESTORS = [
-  { name: "EWOR", logo: null },
-  { name: "SVV", logo: null },
-  { name: "Heartfelt Capital", logo: null },
-  { name: "Ascension", logo: null },
-  { name: "Syndicate Room", logo: null },
+export const INVESTORS: Array<{ name: string; logo: string | null }> = [
+  { name: "EWOR", logo: "/investors/ewor.png" },
+  { name: "SVV", logo: "/investors/svv.png" },
+  { name: "Heartfelt Capital", logo: "/investors/heartfelt.png" },
+  { name: "Ascension", logo: "/investors/ascension.png" },
+  { name: "Syndicate Room", logo: "/investors/syndicate-room.png" },
 ];
 
 export const PARTNERS = [
@@ -24,12 +24,50 @@ export const PARTNERS = [
   { name: "UKIE", logo: null },
 ];
 
-export const PRESS_MENTIONS = [
-  { title: "Forbes Article", type: "article" as const, url: "https://www.forbes.com/sites/charliefink/2025/11/17/manamind-introduces-game-playing-ai-to-test-titles-in-production/" },
-  { title: "Capital Article", type: "article" as const, url: "https://kinsights.capital.bg/business/2026/02/16/4883084_emil_kostadinov_and_manaminds_new_generation_of_ai/" },
-  { title: "Creating the operating system for all future robots", type: "podcast" as const, source: "Ventures Podcast", url: "https://www.youtube.com/watch?v=5mZhVkgOk7g&t=744s" },
-  { title: "AI agents that play games & find bugs", type: "podcast" as const, source: "The Builder's Mind Podcast", url: "https://www.youtube.com/watch?v=DwgZEKRGIDo" },
-  { title: "The End of Manual QA: Automating Game Testing with AI", type: "podcast" as const, source: "Tech Finds Tech Podcast", url: "https://www.youtube.com/watch?v=QCSOwrarwFU&t=3s" },
+export type PressMention = {
+  title: string;
+  type: "article" | "podcast";
+  url: string;
+  source?: string;
+  thumbnail?: string;
+};
+
+export const PRESS_MENTIONS: PressMention[] = [
+  {
+    title: "ManaMind Introduces Game-Playing AI To Test Titles In Production",
+    type: "article",
+    source: "Forbes",
+    url: "https://www.forbes.com/sites/charliefink/2025/11/17/manamind-introduces-game-playing-ai-to-test-titles-in-production/",
+    thumbnail: "/press/forbes-v2.webp",
+  },
+  {
+    title: "Emil Kostadinov and ManaMind's new generation of AI",
+    type: "article",
+    source: "Capital",
+    url: "https://kinsights.capital.bg/business/2026/02/16/4883084_emil_kostadinov_and_manaminds_new_generation_of_ai/",
+    thumbnail: "/press/capital.jpg",
+  },
+  {
+    title: "Creating the operating system for all future robots: Emil Kostadinov - CEO, Manamind",
+    type: "podcast",
+    source: "VENTURES with Viraj Acharya",
+    url: "https://www.youtube.com/watch?v=5mZhVkgOk7g&t=744s",
+    thumbnail: "/press/ventures-podcast.jpg",
+  },
+  {
+    title: "AI Agents That Play Video Games & Find Bugs | Startup Founder Story (Emil, ManaMind)",
+    type: "podcast",
+    source: "The Builder's Mind",
+    url: "https://www.youtube.com/watch?v=DwgZEKRGIDo",
+    thumbnail: "/press/builders-mind-podcast.jpg",
+  },
+  {
+    title: "The End of Manual QA: Automating Game Test with AI - ft. Emil Kostadinov | Founder & CEO, ManaMind",
+    type: "podcast",
+    source: "Tech Finds Tech Podcast",
+    url: "https://www.youtube.com/watch?v=QCSOwrarwFU&t=3s",
+    thumbnail: "/press/tech-finds-tech-podcast.jpg",
+  },
 ];
 
 export const BOTS = [

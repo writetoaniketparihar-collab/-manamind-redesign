@@ -2,7 +2,7 @@ import { AboutHero } from "@/components/about/AboutHero";
 import { OriginStory } from "@/components/about/OriginStory";
 import { Philosophy } from "@/components/about/Philosophy";
 import { TeamSection } from "@/components/about/TeamSection";
-import { CompanySnapshot } from "@/components/about/CompanySnapshot";
+import { BackedBy } from "@/components/about/BackedBy";
 import { Vision } from "@/components/about/Vision";
 
 export const metadata = {
@@ -18,7 +18,7 @@ export default function AboutPage() {
       <OriginStory />
       <Philosophy />
       <TeamSection />
-      <CompanySnapshot />
+      <BackedBy />
       <Vision />
     </>
   );

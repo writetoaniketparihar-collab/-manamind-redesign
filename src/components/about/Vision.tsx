@@ -97,24 +97,28 @@ export function Vision() {
                   {/* Node */}
                   <div className="relative z-10 flex shrink-0 flex-col items-center">
                     <div
-                      className="flex h-9 w-9 items-center justify-center rounded-full border"
+                      className="relative flex h-9 w-9 items-center justify-center rounded-full border bg-background"
                       style={{
                         borderColor: `${stage.color}50`,
-                        backgroundColor: `${stage.color}15`,
                         color: stage.color,
                         boxShadow: stage.glow ? `0 0 20px ${stage.color}30` : "none",
                       }}
                     >
+                      {/* Colored tint overlay (sits above opaque bg, below dot) */}
+                      <div
+                        className="pointer-events-none absolute inset-0 rounded-full"
+                        style={{ backgroundColor: `${stage.color}15` }}
+                      />
                       {stage.glow ? (
                         <motion.div
-                          className="h-3 w-3 rounded-full"
+                          className="relative h-3 w-3 rounded-full"
                           style={{ backgroundColor: stage.color }}
                           animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
                           transition={{ duration: 2, repeat: Infinity }}
                         />
                       ) : (
                         <div
-                          className="h-2 w-2 rounded-full"
+                          className="relative h-2 w-2 rounded-full"
                           style={{ backgroundColor: `${stage.color}50` }}
                         />
                       )}
@@ -157,9 +161,18 @@ export function Vision() {
 
         {/* Robotics explanation */}
         <FadeInView delay={0.5}>
-          <p className="mx-auto mt-12 max-w-2xl text-center text-sm leading-relaxed text-text-muted">
-            The same core perception and decision-making systems that allow AI to navigate complex game worlds can be applied to real-world machines operating in visual environments.
-          </p>
+          <div className="mt-12 flex justify-center">
+            <div className="inline-flex max-w-2xl items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-3">
+              <motion.span
+                className="h-2 w-2 shrink-0 rounded-full bg-primary"
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <span className="text-sm font-medium leading-relaxed text-primary">
+                The same core perception and decision-making systems that allow AI to navigate complex game worlds can be applied to real-world machines operating in visual environments.
+              </span>
+            </div>
+          </div>
         </FadeInView>
 
         {/* CTA */}
