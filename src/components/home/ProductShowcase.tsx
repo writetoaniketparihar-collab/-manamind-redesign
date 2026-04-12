@@ -11,7 +11,7 @@ const hotspots = [
     bot: { initial: "R", name: "Reporter", color: "#FFB84C" },
     x: 28.9,
     y: 9.9,
-    tooltipAlign: "left" as const,
+    tooltipAlign: "center" as const,
   },
   {
     annotation: "See which bot discovered each issue",
@@ -32,7 +32,7 @@ const hotspots = [
     bot: { initial: "S", name: "Scout", color: "#4CC9FF" },
     x: 93.4,
     y: 9.9,
-    tooltipAlign: "right" as const,
+    tooltipAlign: "center" as const,
   },
 ];
 
@@ -141,28 +141,45 @@ export function ProductShowcase() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute z-20 w-52"
+                      className="absolute z-20"
                       style={{
+                        // Anchor wrapper at the visible dot's center
+                        // (dot is rendered at right:-10/top:-10 → center ≈ +5px right, -5px up from hotspot anchor)
+                        left: 5,
                         bottom: "calc(100% + 12px)",
-                        ...(item.tooltipAlign === "right"
-                          ? { right: -6 }
-                          : item.tooltipAlign === "left"
-                          ? { left: -6 }
-                          : { left: "50%", transform: "translateX(-50%)" }),
                       }}
                     >
-                      <div className="bg-bg-card border border-white/10 rounded-lg px-3 py-2.5 shadow-xl">
-                        <p className="text-[11px] text-foreground leading-relaxed">{item.annotation}</p>
-                      </div>
-                      {/* Arrow pointing down */}
                       <div
-                        className="w-2.5 h-2.5 rotate-45 mx-auto -mt-1.5"
+                        className="relative w-52"
                         style={{
-                          background: "var(--color-bg-card)",
-                          borderRight: "1px solid rgba(255,255,255,0.1)",
-                          borderBottom: "1px solid rgba(255,255,255,0.1)",
+                          transform:
+                            item.tooltipAlign === "left"
+                              ? "translateX(calc(-100% + 14px))"
+                              : item.tooltipAlign === "right"
+                              ? "translateX(-14px)"
+                              : "translateX(-50%)",
                         }}
-                      />
+                      >
+                        <div className="bg-bg-card border border-white/10 rounded-lg px-3 py-2.5 shadow-xl">
+                          <p className="text-[11px] text-foreground leading-relaxed">{item.annotation}</p>
+                        </div>
+                        {/* Arrow — always lines up with the animation circle below */}
+                        <div
+                          className="absolute w-2.5 h-2.5 rotate-45"
+                          style={{
+                            background: "var(--color-bg-card)",
+                            borderRight: "1px solid rgba(255,255,255,0.1)",
+                            borderBottom: "1px solid rgba(255,255,255,0.1)",
+                            bottom: -5,
+                            left:
+                              item.tooltipAlign === "left"
+                                ? "calc(100% - 19px)"
+                                : item.tooltipAlign === "right"
+                                ? "9px"
+                                : "calc(50% - 5px)",
+                          }}
+                        />
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
