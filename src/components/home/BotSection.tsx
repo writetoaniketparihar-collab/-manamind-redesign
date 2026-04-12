@@ -28,7 +28,7 @@ const bots: Bot[] = [
     color: "#38BDF8",
     model: {
       path: "/models/Wayfinder",
-      glb: "Meshy_AI_Rogue_0408150248_texture.glb",
+      glb: "wayfinder.glb",
     },
   },
   {

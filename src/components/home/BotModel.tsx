@@ -4,6 +4,7 @@ import { Suspense, useRef, useMemo } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import * as THREE from "three";
 
 function centerAndScale(object: THREE.Object3D) {
@@ -56,7 +57,14 @@ function ObjModel({ modelPath, objFile, pngFile }: { modelPath: string; objFile:
 
 function GlbModel({ modelPath, glbFile }: { modelPath: string; glbFile: string }) {
   const groupRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF(`${modelPath}/${glbFile}`);
+  const { scene } = useGLTF(
+    `${modelPath}/${glbFile}`,
+    undefined,
+    undefined,
+    (loader) => {
+      loader.setMeshoptDecoder(MeshoptDecoder);
+    }
+  );
 
   // One-time setup: fix texture color space and center/scale.
   // Mutates the cached scene in place; safe because only one component uses it.
