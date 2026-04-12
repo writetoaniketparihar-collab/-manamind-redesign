@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
@@ -625,91 +625,12 @@ function SubsectionCard({
   );
 }
 
-function ModalityBlock({
-  modality,
-  index,
-  inView,
-}: {
-  modality: (typeof modalities)[0];
-  index: number;
-  inView: boolean;
-}) {
-  const Visual = modality.visual;
-  const isReversed = index % 2 === 1;
-
-  return (
-    <FadeInView delay={index * 0.1}>
-      <div className="relative">
-        {/* Category header */}
-        <div className="mb-6 flex items-center gap-4">
-          <div
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-            style={{
-              backgroundColor: `${modality.color}12`,
-              color: modality.color,
-            }}
-          >
-            {modality.icon}
-          </div>
-          <div>
-            <div className="flex items-center gap-3">
-              <h3 className="text-xl font-bold text-foreground">{modality.category}</h3>
-              {modality.comingSoon && (
-                <span
-                  className="rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest"
-                  style={{
-                    color: modality.color,
-                    backgroundColor: `${modality.color}15`,
-                  }}
-                >
-                  Coming Soon
-                </span>
-              )}
-            </div>
-            <p className="mt-0.5 text-sm text-text-muted">{modality.headline}</p>
-          </div>
-        </div>
-
-        {/* Category description */}
-        {modality.description && (
-          <p className="mb-6 text-sm leading-relaxed text-text-muted">
-            {modality.description}
-          </p>
-        )}
-
-        {/* Two-column: visual + cards */}
-        <div
-          className="grid items-start gap-8 lg:grid-cols-2"
-          style={{ direction: isReversed ? "rtl" : "ltr" }}
-        >
-          {/* Animated visual */}
-          <div style={{ direction: "ltr" }}>
-            <div
-              className="aspect-[3/2] overflow-hidden rounded-2xl border p-4"
-              style={{
-                borderColor: `${modality.color}15`,
-                backgroundColor: `${modality.color}03`,
-              }}
-            >
-              <Visual inView={inView} />
-            </div>
-          </div>
-
-          {/* Subsection cards */}
-          <div className="space-y-4" style={{ direction: "ltr" }}>
-            {modality.subsections.map((sub, i) => (
-              <SubsectionCard key={i} sub={sub} color={modality.color} index={i} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </FadeInView>
-  );
-}
-
 export function FeatureBreakdown() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [active, setActive] = useState(0);
+  const modality = modalities[active];
+  const Visual = modality.visual;
 
   return (
     <section ref={ref} className="py-24 md:py-32">
@@ -722,16 +643,141 @@ export function FeatureBreakdown() {
           />
         </FadeInView>
 
-        {/* Modality blocks */}
-        <div className="mt-16 space-y-20">
-          {modalities.map((modality, i) => (
-            <ModalityBlock key={modality.category} modality={modality} index={i} inView={inView} />
-          ))}
-        </div>
+        {/* Tabbed modalities */}
+        <FadeInView delay={0.15}>
+          <div className="mt-16 overflow-hidden rounded-2xl border border-white/10 bg-bg-card">
+            {/* Tab strip */}
+            <div
+              role="tablist"
+              className="flex overflow-x-auto border-b border-white/10"
+            >
+              {modalities.map((m, i) => {
+                const isActive = active === i;
+                return (
+                  <button
+                    key={m.category}
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActive(i)}
+                    className="group relative flex flex-shrink-0 items-center gap-3 px-5 py-4 text-left transition-colors sm:px-6 sm:py-5"
+                    style={{
+                      backgroundColor: isActive
+                        ? `${m.color}1A`
+                        : "transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive)
+                        e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.04)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) e.currentTarget.style.backgroundColor = "transparent";
+                    }}
+                  >
+                    <div
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-all"
+                      style={{
+                        backgroundColor: isActive
+                          ? `${m.color}28`
+                          : "rgba(255,255,255,0.05)",
+                        color: isActive ? m.color : "rgb(156 163 175)",
+                        boxShadow: isActive ? `0 0 18px ${m.color}30` : "none",
+                      }}
+                    >
+                      {m.icon}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="whitespace-nowrap text-sm font-bold transition-colors"
+                        style={{
+                          color: isActive ? m.color : "rgb(229 231 235)",
+                        }}
+                      >
+                        {m.category}
+                      </span>
+                      {m.comingSoon && (
+                        <span
+                          className="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest"
+                          style={{
+                            color: m.color,
+                            backgroundColor: `${m.color}15`,
+                          }}
+                        >
+                          Soon
+                        </span>
+                      )}
+                    </div>
+                    {/* Active accent underline — always rendered for clear affordance */}
+                    <div
+                      className="absolute inset-x-0 bottom-0 h-[3px] transition-opacity"
+                      style={{
+                        backgroundColor: m.color,
+                        opacity: isActive ? 1 : 0,
+                      }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active panel */}
+            <div className="relative">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="p-6 sm:p-8 md:p-10"
+                >
+                  {/* Headline above content */}
+                  <div className="mb-6 max-w-2xl">
+                    <h3
+                      className="text-lg font-bold leading-snug text-foreground md:text-xl"
+                    >
+                      {modality.headline}
+                    </h3>
+                    {modality.description && (
+                      <p className="mt-2 text-sm leading-relaxed text-text-muted">
+                        {modality.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Two-column: visual + cards */}
+                  <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
+                    {/* Animated visual */}
+                    <div
+                      className="aspect-[3/2] overflow-hidden rounded-xl border p-4"
+                      style={{
+                        borderColor: `${modality.color}15`,
+                        backgroundColor: `${modality.color}03`,
+                      }}
+                    >
+                      <Visual inView={inView} />
+                    </div>
+
+                    {/* Subsection cards */}
+                    <div className="space-y-4">
+                      {modality.subsections.map((sub, i) => (
+                        <SubsectionCard
+                          key={i}
+                          sub={sub}
+                          color={modality.color}
+                          index={i}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </FadeInView>
 
         {/* Closing line */}
         <FadeInView delay={0.4}>
-          <div className="mt-16 text-center">
+          <div className="mt-12 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-5 py-2.5">
               <motion.span
                 className="h-2 w-2 rounded-full bg-primary"
