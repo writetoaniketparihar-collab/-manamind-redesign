@@ -14,8 +14,7 @@ useGLTF.preload(
   undefined,
   undefined,
   (loader) => {
-    // @ts-expect-error drei types the loader as Loader, but it's a GLTFLoader
-    loader.setMeshoptDecoder(MeshoptDecoder);
+    (loader as { setMeshoptDecoder: (d: typeof MeshoptDecoder) => void }).setMeshoptDecoder(MeshoptDecoder);
   }
 );
 
