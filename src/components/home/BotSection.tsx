@@ -1,22 +1,34 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { BotModel } from "@/components/home/BotModel";
 
-const bots = [
+type BotModelAsset =
+  | { path: string; glb: string; obj?: undefined; png?: undefined }
+  | { path: string; obj: string; png: string; glb?: undefined };
+
+type Bot = {
+  name: string;
+  role: string;
+  headline: string;
+  description: string;
+  color: string;
+  model?: BotModelAsset;
+};
+
+const bots: Bot[] = [
   {
     name: "Wayfinder",
     role: "The Navigator",
     headline: "Maps every path and hidden route",
     description:
-      "Wayfinder systematically charts game worlds, uncovering hidden paths, unreachable areas, and navigation inconsistencies. It builds a complete map of traversable space so no corner goes untested.",
+      "Wayfinder systematically charts game worlds, uncovering hidden paths, unreachable areas, and navigation inconsistencies.",
     color: "#38BDF8",
     model: {
       path: "/models/Wayfinder",
-      obj: "Meshy_AI_Wayfinder_0317142818_texture.obj",
-      png: "Meshy_AI_Wayfinder_0317142818_texture.png",
+      glb: "Meshy_AI_Rogue_0408150248_texture.glb",
     },
   },
   {
@@ -24,78 +36,118 @@ const bots = [
     role: "The Fighter",
     headline: "Stress-tests combat and mechanics",
     description:
-      "Gladiator throws itself into every fight, tests every weapon combo, and pushes combat systems to their limits. It finds balance issues, exploits, and edge cases in your game mechanics.",
+      "Gladiator throws itself into every fight, tests every weapon combo, and pushes combat systems to their limits.",
     color: "#F97316",
-    model: {
-      path: "/models/Gladiator",
-      obj: "Meshy_AI_Gladiator_0317142924_texture.obj",
-      png: "Meshy_AI_Gladiator_0317142924_texture.png",
-    },
   },
   {
     name: "Replicator",
     role: "The Cloner",
     headline: "Reproduces bugs with precision",
     description:
-      "Replicator takes any reported issue and runs it thousands of times with variations, confirming reproducibility, identifying root causes, and establishing exact conditions for failure.",
+      "Takes any reported issue and runs it thousands of times with variations to confirm reproducibility.",
     color: "#22D3EE",
-    model: {
-      path: "/models/Replicator",
-      obj: "Meshy_AI_Replicator_0317142846_texture.obj",
-      png: "Meshy_AI_Replicator_0317142846_texture.png",
-    },
   },
   {
     name: "Rosetta",
     role: "The Translator",
     headline: "Tests every language and locale",
     description:
-      "Rosetta validates localisation across every supported language - catching text overflow, missing translations, encoding issues, and cultural context errors automatically.",
+      "Validates localisation across every supported language, catching text overflow and translation issues.",
     color: "#E879F9",
-    model: {
-      path: "/models/Rosetta",
-      obj: "Meshy_AI_Rosetta_0317143009_texture.obj",
-      png: "Meshy_AI_Rosetta_0317143009_texture.png",
-    },
   },
   {
     name: "Merchant",
     role: "The Economist",
     headline: "Audits economies and transactions",
     description:
-      "Merchant tests in-game economies, shop systems, loot tables, and transaction flows. It finds pricing exploits, duplication glitches, and economic imbalances before players do.",
+      "Tests in-game economies, shops, loot tables, and transaction flows to find pricing exploits and imbalances.",
     color: "#FBBF24",
-    model: {
-      path: "/models/Merchant",
-      obj: "Meshy_AI_Merchant_0317143101_texture.obj",
-      png: "Meshy_AI_Merchant_0317143101_texture.png",
-    },
   },
   {
     name: "Trailblazer",
     role: "The Pioneer",
     headline: "Finds the unexpected edge cases",
     description:
-      "Trailblazer goes where no tester has gone before - combining unusual actions, sequence-breaking, and creative problem-solving to discover the bugs that scripted tests never catch.",
+      "Combines unusual actions and sequence-breaking to discover bugs that scripted tests never catch.",
     color: "#34D399",
-    model: {
-      path: "/models/Trailblazer",
-      obj: "Meshy_AI_Trailblazer_0317142900_texture.obj",
-      png: "Meshy_AI_Trailblazer_0317142900_texture.png",
-    },
   },
   {
     name: "Stressor",
     role: "The Breaker",
     headline: "Pushes your game to the breaking point",
     description:
-      "Stressor applies extreme load, rapid inputs, and resource pressure to find performance bottlenecks, memory leaks, and crash conditions under stress.",
+      "Applies extreme load and rapid inputs to find performance bottlenecks and crash conditions under stress.",
     color: "#FB7185",
-    model: {
-      path: "/models/Stressor",
-      obj: "Meshy_AI_Stressor_0317143024_texture.obj",
-      png: "Meshy_AI_Stressor_0317143024_texture.png",
-    },
+  },
+  {
+    name: "Sentinel",
+    role: "The Guardian",
+    headline: "Watches for security and integrity issues",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#A78BFA",
+  },
+  {
+    name: "Oracle",
+    role: "The Predictor",
+    headline: "Forecasts where bugs are likely to appear",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#FACC15",
+  },
+  {
+    name: "Cartographer",
+    role: "The Mapmaker",
+    headline: "Builds detailed maps of every level",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#60A5FA",
+  },
+  {
+    name: "Phantom",
+    role: "The Ghost",
+    headline: "Tests invisible and hidden states",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#C084FC",
+  },
+  {
+    name: "Anchor",
+    role: "The Validator",
+    headline: "Verifies save states and persistence",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#2DD4BF",
+  },
+  {
+    name: "Pulse",
+    role: "The Monitor",
+    headline: "Tracks frame rate and runtime health",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#F472B6",
+  },
+  {
+    name: "Echo",
+    role: "The Listener",
+    headline: "Audits audio, music, and sound triggers",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#818CF8",
+  },
+  {
+    name: "Beacon",
+    role: "The Signaler",
+    headline: "Validates UI states and notifications",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#FB923C",
+  },
+  {
+    name: "Forge",
+    role: "The Crafter",
+    headline: "Tests crafting and progression systems",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#F87171",
+  },
+  {
+    name: "Nomad",
+    role: "The Wanderer",
+    headline: "Explores open-world content at scale",
+    description: "Placeholder description. Replace with the real bot copy.",
+    color: "#4ADE80",
   },
 ];
 
@@ -112,14 +164,17 @@ export function BotSection() {
               Your autonomous QA team
             </h2>
             <p className="mt-4 text-lg text-text-muted">
-              Each bot operates with a distinct strategy and role, contributing to a distributed system designed for comprehensive test coverage
+              Each bot operates with a distinct strategy and role, contributing to a distributed system designed for comprehensive test coverage.
             </p>
           </div>
         </FadeInView>
 
-        <div className="mt-20 space-y-32">
+        {/* Bot grid */}
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {bots.map((bot, i) => (
-            <BotRow key={bot.name} bot={bot} index={i} />
+            <FadeInView key={bot.name} delay={0.05 + (i % 3) * 0.05}>
+              <BotCard bot={bot} />
+            </FadeInView>
           ))}
         </div>
       </div>
@@ -127,57 +182,119 @@ export function BotSection() {
   );
 }
 
-function BotRow({ bot, index }: { bot: (typeof bots)[number]; index: number }) {
-  const ref = useRef(null);
+function BotCard({ bot }: { bot: Bot }) {
+  // Lazy-mount the 3D canvas only when the card scrolls into view,
+  // so 17 canvases don't all initialize on first render.
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div ref={ref}>
-      <FadeInView delay={0.1}>
-        <div
-          className="grid items-center gap-12 lg:grid-cols-2"
-          style={{ direction: index % 2 === 1 ? "rtl" : "ltr" }}
-        >
-          {/* Text side */}
-          <div style={{ direction: "ltr" }}>
-            <div
-              className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-xl font-bold"
-              style={{
-                backgroundColor: `${bot.color}15`,
-                color: bot.color,
-              }}
-            >
-              {bot.name[0]}
-            </div>
+    <motion.div
+      ref={ref}
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 22 }}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-bg-card transition-colors hover:border-white/20"
+      style={{
+        boxShadow: `0 8px 32px ${bot.color}10`,
+      }}
+    >
+      {/* 3D model area */}
+      <div
+        className="relative aspect-[4/3] overflow-hidden border-b border-white/[0.06] bg-[#0D0515]"
+        style={{
+          background: `radial-gradient(circle at 50% 40%, ${bot.color}18 0%, #0D0515 70%)`,
+        }}
+      >
+        {/* Scanline overlay */}
+        <div className="pointer-events-none absolute inset-0 z-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.015)_2px,rgba(255,255,255,0.015)_4px)]" />
+
+        {visible ? (
+          bot.model ? (
+            <BotModel
+              modelPath={bot.model.path}
+              objFile={bot.model.obj}
+              pngFile={bot.model.png}
+              glbFile={bot.model.glb}
+              color={bot.color}
+            />
+          ) : (
+            <BotModelPlaceholder bot={bot} />
+          )
+        ) : null}
+      </div>
+
+      {/* Text content */}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold"
+            style={{
+              backgroundColor: `${bot.color}15`,
+              color: bot.color,
+            }}
+          >
+            {bot.name[0]}
+          </div>
+          <div>
             <p
-              className="text-sm font-semibold uppercase tracking-widest"
+              className="text-xs font-bold uppercase tracking-widest"
               style={{ color: bot.color }}
             >
-              {bot.name} - {bot.role}
+              {bot.name}
             </p>
-            <h3 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
-              {bot.headline}
-            </h3>
-            <p className="mt-4 text-base leading-relaxed text-text-muted">
-              {bot.description}
-            </p>
-          </div>
-
-          {/* 3D Model */}
-          <div style={{ direction: "ltr" }}>
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0D0515]">
-              {/* Scanline overlay */}
-              <div className="pointer-events-none absolute inset-0 z-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.015)_2px,rgba(255,255,255,0.015)_4px)]" />
-
-              <BotModel
-                modelPath={bot.model.path}
-                objFile={bot.model.obj}
-                pngFile={bot.model.png}
-                color={bot.color}
-              />
-            </div>
+            <p className="text-[11px] text-text-muted/70">{bot.role}</p>
           </div>
         </div>
-      </FadeInView>
+
+        <h3 className="mt-4 text-base font-bold leading-snug text-foreground">
+          {bot.headline}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-text-muted">
+          {bot.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+function BotModelPlaceholder({ bot }: { bot: Bot }) {
+  return (
+    <div className="relative flex h-full w-full items-center justify-center">
+      <div
+        className="absolute inset-10 rounded-full opacity-30 blur-3xl"
+        style={{ background: bot.color }}
+      />
+      <div
+        className="relative font-bold leading-none"
+        style={{
+          color: bot.color,
+          fontSize: "5rem",
+          textShadow: `0 0 32px ${bot.color}80`,
+        }}
+      >
+        {bot.name[0]}
+      </div>
+      <div className="absolute bottom-3 left-0 right-0 text-center">
+        <p className="font-mono text-[9px] uppercase tracking-widest text-text-muted/50">
+          Model coming soon
+        </p>
+      </div>
     </div>
   );
 }

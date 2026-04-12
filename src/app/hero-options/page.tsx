@@ -26,7 +26,7 @@ function CTAs() {
   );
 }
 
-/* ─── 1: LIVE TERMINAL — Bots reporting bugs in real-time terminal output ─── */
+/* ─── 1: LIVE TERMINAL:Bots reporting bugs in real-time terminal output ─── */
 function HeroTerminal() {
   const lines = [
     { text: "$ manamind deploy --game 'Project Nova'", color: "text-primary", delay: 0 },
@@ -72,7 +72,7 @@ function HeroTerminal() {
               <div className="h-3 w-3 rounded-full bg-red-500/70" />
               <div className="h-3 w-3 rounded-full bg-yellow-500/70" />
               <div className="h-3 w-3 rounded-full bg-green-500/70" />
-              <span className="ml-2 text-[10px] text-text-muted">manamind — session</span>
+              <span className="ml-2 text-[10px] text-text-muted">manamind:session</span>
             </div>
             <div className="min-h-[320px] p-4 leading-relaxed">
               {lines.slice(0, visibleLines).map((line, i) => (
@@ -98,7 +98,7 @@ function HeroTerminal() {
   );
 }
 
-/* ─── 2: BOT ORBIT — Animated bots orbiting a central core ─── */
+/* ─── 2: BOT ORBIT:Animated bots orbiting a central core ─── */
 function HeroBotOrbit() {
   const bots = [
     { name: "Wayfinder", initial: "W", color: "#00FF96", angle: 0 },
@@ -128,7 +128,7 @@ function HeroBotOrbit() {
             />
           ))}
 
-          {/* Center core — ManaMind logo style */}
+          {/* Center core:ManaMind logo style */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <motion.div
               className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary bg-primary/10"
@@ -178,7 +178,7 @@ function HeroBotOrbit() {
   );
 }
 
-/* ─── 3: SCANNING LINE — A game screen being "scanned" with bugs revealed ─── */
+/* ─── 3: SCANNING LINE:A game screen being "scanned" with bugs revealed ─── */
 function HeroScanLine() {
   const bugs = [
     { x: "22%", y: "35%", label: "UI overlap", severity: "Med" },
@@ -268,7 +268,7 @@ function HeroScanLine() {
   );
 }
 
-/* ─── 4: LIVE CHAT — Bot reporting a bug in real-time messenger style ─── */
+/* ─── 4: LIVE CHAT:Bot reporting a bug in real-time messenger style ─── */
 function HeroChat() {
   const messages = [
     {
@@ -285,7 +285,7 @@ function HeroChat() {
     },
     {
       bot: { name: "Scribe", color: "#FFB84C", initial: "Sc" },
-      text: "Bug report generated. BUG-157 — High severity. Repro steps, screenshot, and logs included.",
+      text: "Bug report generated. BUG-157, High severity. Repro steps, screenshot, and logs included.",
       time: "just now",
       delay: 3.5,
     },
@@ -318,7 +318,7 @@ function HeroChat() {
           <div className="w-full overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-2xl">
             <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
               <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-semibold text-foreground">ManaMind — Live Feed</span>
+              <span className="text-xs font-semibold text-foreground">ManaMind:Live Feed</span>
               <span className="ml-auto text-[10px] text-text-muted">3 bots active</span>
             </div>
             <div className="min-h-[300px] space-y-4 p-4">
@@ -377,7 +377,7 @@ function HeroChat() {
   );
 }
 
-/* ─── 5: GLITCH MORPH — "Manual QA" glitches/morphs into "Autonomous QA" ─── */
+/* ─── 5: GLITCH MORPH:"Manual QA" glitches/morphs into "Autonomous QA" ─── */
 function HeroGlitch() {
   const [phase, setPhase] = useState<"manual" | "glitch" | "auto">("manual");
 
@@ -484,7 +484,7 @@ function HeroGlitch() {
   );
 }
 
-/* ─── 6: GAME HUD — Hero styled like a game interface / heads-up display ─── */
+/* ─── 6: GAME HUD:Hero styled like a game interface / heads-up display ─── */
 function HeroGameHUD() {
   const [bugsFound, setBugsFound] = useState(0);
   const [coverage, setCoverage] = useState(0);
@@ -598,7 +598,7 @@ export default function HeroOptionsPage() {
     },
     {
       id: 3,
-      label: "Scan Line — Bug Detection",
+      label: "Scan Line:Bug Detection",
       desc: "A scanning line sweeps across a game environment, revealing bugs in real-time with severity markers. Shows the core value prop visually.",
       component: <HeroScanLine />,
     },
@@ -610,13 +610,13 @@ export default function HeroOptionsPage() {
     },
     {
       id: 5,
-      label: "Glitch Morph — Manual → Autonomous",
+      label: "Glitch Morph:Manual → Autonomous",
       desc: "\"Manual QA\" glitches and transforms into \"Autonomous QA\" with a cyberpunk distortion effect. Bold, disruptive positioning statement.",
       component: <HeroGlitch />,
     },
     {
       id: 6,
-      label: "Game HUD — Heads-Up Display",
+      label: "Game HUD:Heads-Up Display",
       desc: "The entire hero is styled like a game interface with corner brackets, live counters, bot status indicators, and a scanning line. Speaks the audience's language.",
       component: <HeroGameHUD />,
     },
@@ -626,7 +626,7 @@ export default function HeroOptionsPage() {
     <section className="py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <h1 className="mb-4 text-2xl font-bold text-foreground md:text-3xl">
-          Hero Section — Design Options
+          Hero Section:Design Options
         </h1>
         <p className="mb-16 text-text-muted">
           6 visually distinct concepts. Same core message, different presentations.

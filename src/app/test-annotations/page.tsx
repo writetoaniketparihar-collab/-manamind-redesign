@@ -12,7 +12,7 @@ const annotations = [
 ];
 
 /* ──────────────────────────────────────────────
-   VARIANT 1 — Floating Hotspots with Pulse
+   VARIANT 1:Floating Hotspots with Pulse
    ────────────────────────────────────────────── */
 
 const hotspots = [
@@ -85,7 +85,7 @@ function Variant1() {
 }
 
 /* ──────────────────────────────────────────────
-   VARIANT 2 — Scan Line Reveal
+   VARIANT 2:Scan Line Reveal
    ────────────────────────────────────────────── */
 
 const scanPositions = [20, 40, 60, 80]; // % positions where annotations appear
@@ -170,7 +170,7 @@ function Variant2() {
 }
 
 /* ──────────────────────────────────────────────
-   VARIANT 3 — Terminal Log Feed
+   VARIANT 3:Terminal Log Feed
    ────────────────────────────────────────────── */
 
 function useTypingEffect(text: string, speed: number, start: boolean) {
@@ -251,7 +251,7 @@ function Variant3() {
             <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
             <div className="w-2.5 h-2.5 rounded-full bg-primary" />
           </div>
-          <span className="text-text-muted text-[10px] font-mono ml-2">manamind — live feed</span>
+          <span className="text-text-muted text-[10px] font-mono ml-2">manamind:live feed</span>
         </div>
         {/* Log entries */}
         <div className="p-3 font-mono space-y-2 min-h-[120px]">
@@ -266,7 +266,7 @@ function Variant3() {
 }
 
 /* ──────────────────────────────────────────────
-   VARIANT 4 — Bot Callouts
+   VARIANT 4:Bot Callouts
    ────────────────────────────────────────────── */
 
 const bots = [
@@ -350,7 +350,7 @@ function Variant4() {
 }
 
 /* ──────────────────────────────────────────────
-   VARIANT 5 — Layered Reveal on Scroll
+   VARIANT 5:Layered Reveal on Scroll
    ────────────────────────────────────────────── */
 
 const layers = [

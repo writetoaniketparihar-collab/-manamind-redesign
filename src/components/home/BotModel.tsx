@@ -2,17 +2,26 @@
 
 import { Suspense, useRef, useMemo } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import * as THREE from "three";
 
-function Model({ modelPath, objFile, pngFile }: { modelPath: string; objFile: string; pngFile: string }) {
+function centerAndScale(object: THREE.Object3D) {
+  const box = new THREE.Box3().setFromObject(object);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const scale = 2.5 / maxDim;
+  object.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+  object.scale.setScalar(scale);
+}
+
+function ObjModel({ modelPath, objFile, pngFile }: { modelPath: string; objFile: string; pngFile: string }) {
   const groupRef = useRef<THREE.Group>(null);
 
   const texture = useLoader(THREE.TextureLoader, `${modelPath}/${pngFile}`);
   const obj = useLoader(OBJLoader, `${modelPath}/${objFile}`);
 
-  // Clone the object so each instance is independent, and apply texture
   const clonedObj = useMemo(() => {
     const clone = obj.clone(true);
     texture.flipY = false;
@@ -28,16 +37,7 @@ function Model({ modelPath, objFile, pngFile }: { modelPath: string; objFile: st
       }
     });
 
-    // Center and scale
-    const box = new THREE.Box3().setFromObject(clone);
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const scale = 2.5 / maxDim;
-
-    clone.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
-    clone.scale.setScalar(scale);
-
+    centerAndScale(clone);
     return clone;
   }, [obj, texture]);
 
@@ -50,6 +50,38 @@ function Model({ modelPath, objFile, pngFile }: { modelPath: string; objFile: st
   return (
     <group ref={groupRef}>
       <primitive object={clonedObj} />
+    </group>
+  );
+}
+
+function GlbModel({ modelPath, glbFile }: { modelPath: string; glbFile: string }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const { scene } = useGLTF(`${modelPath}/${glbFile}`);
+
+  // One-time setup: fix texture color space and center/scale.
+  // Mutates the cached scene in place; safe because only one component uses it.
+  useMemo(() => {
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        const mat = child.material as THREE.MeshStandardMaterial | undefined;
+        if (mat && "map" in mat && mat.map) {
+          mat.map.colorSpace = THREE.SRGBColorSpace;
+          mat.needsUpdate = true;
+        }
+      }
+    });
+    centerAndScale(scene);
+  }, [scene]);
+
+  useFrame((_, delta) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.3;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <primitive object={scene} />
     </group>
   );
 }
@@ -76,11 +108,13 @@ export function BotModel({
   modelPath,
   objFile,
   pngFile,
+  glbFile,
   color,
 }: {
   modelPath: string;
-  objFile: string;
-  pngFile: string;
+  objFile?: string;
+  pngFile?: string;
+  glbFile?: string;
   color: string;
 }) {
   return (
@@ -95,7 +129,11 @@ export function BotModel({
         <directionalLight position={[-3, 2, -3]} intensity={0.4} />
         <pointLight position={[0, -2, 0]} intensity={0.3} color={color} />
         <Suspense fallback={<LoadingFallback color={color} />}>
-          <Model modelPath={modelPath} objFile={objFile} pngFile={pngFile} />
+          {glbFile ? (
+            <GlbModel modelPath={modelPath} glbFile={glbFile} />
+          ) : objFile && pngFile ? (
+            <ObjModel modelPath={modelPath} objFile={objFile} pngFile={pngFile} />
+          ) : null}
         </Suspense>
         <OrbitControls
           enableZoom={false}

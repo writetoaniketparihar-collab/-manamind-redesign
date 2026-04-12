@@ -8,17 +8,17 @@ import { motion, useInView } from "framer-motion";
 const chapters = [
   {
     era: "The Love",
-    text: "We grew up with games. Over time, they evolved into vast, complex worlds — but the way they were tested stayed the same.",
+    text: "We grew up with games. Over time, they evolved into vast, complex worlds, but the way they were tested stayed the same.",
     visual: EraVisual1,
   },
   {
     era: "The Problem",
-    text: "QA teams work long hours under tight deadlines. Problems still slip through — not from lack of skill, but because the scale of modern games has outpaced traditional testing.",
+    text: "QA teams work long hours under tight deadlines. Problems still slip through, not from lack of skill, but because the scale of modern games has outpaced traditional testing.",
     visual: EraVisual2,
   },
   {
     era: "The Spark",
-    text: "We started ManaMind because there had to be a better way — one where testing moves as fast as the games themselves.",
+    text: "We started ManaMind because there had to be a better way, one where testing moves as fast as the games themselves.",
     visual: EraVisual3,
   },
   {
@@ -31,7 +31,7 @@ const chapters = [
 // --- Lightweight animated SVG visuals per chapter ---
 
 function EraVisual1() {
-  // The Love — heart.
+  // The Love: heart.
   return (
     <svg viewBox="0 0 120 120" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="6" strokeLinejoin="round">
       <path d="M60 92 C60 92 22 70 22 46 C22 34 31 26 42 26 C50 26 57 31 60 38 C63 31 70 26 78 26 C89 26 98 34 98 46 C98 70 60 92 60 92 Z" />
@@ -40,7 +40,7 @@ function EraVisual1() {
 }
 
 function EraVisual2() {
-  // The Problem — warning triangle with exclamation.
+  // The Problem: warning triangle with exclamation.
   return (
     <svg viewBox="0 0 120 120" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
       <path d="M60 20 L102 94 L18 94 Z" />
@@ -51,7 +51,7 @@ function EraVisual2() {
 }
 
 function EraVisual3() {
-  // The Spark — lightbulb icon, static.
+  // The Spark: lightbulb icon, static.
   return (
     <svg viewBox="0 0 120 120" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
       <path d="M60 22 C44 22 34 34 34 48 C34 58 40 64 46 70 C50 74 52 78 52 84 L68 84 C68 78 70 74 74 70 C80 64 86 58 86 48 C86 34 76 22 60 22 Z" />
@@ -62,7 +62,7 @@ function EraVisual3() {
 }
 
 function EraVisual4() {
-  // The Purpose — target / bullseye.
+  // The Purpose: target / bullseye.
   return (
     <svg viewBox="0 0 120 120" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="60" cy="60" r="42" />
@@ -168,15 +168,24 @@ export function OriginStory() {
         </div>
 
         {/* Closing line */}
-        <motion.p
-          className="mt-12 text-center text-sm text-text-muted"
+        <motion.div
+          className="mt-12 flex justify-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          These experiences shaped the principles that guide how we design and build ManaMind today.
-        </motion.p>
+          <div className="inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-3">
+            <motion.span
+              className="h-2 w-2 shrink-0 rounded-full bg-primary"
+              animate={{ opacity: [1, 0.3, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            />
+            <span className="whitespace-nowrap text-sm font-medium text-primary">
+              These experiences shaped the principles that guide how we design and build ManaMind today.
+            </span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

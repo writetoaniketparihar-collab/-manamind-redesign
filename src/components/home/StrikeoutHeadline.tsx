@@ -22,7 +22,7 @@ export function StrikeoutHeadline() {
           Manual QA
         </span>
 
-        {/* Strikethrough line — glitch morph style */}
+        {/* Strikethrough line, glitch morph style */}
         {(phase === "struck" || phase === "reveal") && (
           <>
             {/* Main strike line */}
@@ -32,7 +32,7 @@ export function StrikeoutHeadline() {
               animate={{ width: "100%" }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             />
-            {/* RGB offset lines — cyan shifted up, red shifted down */}
+            {/* RGB offset lines: cyan shifted up, red shifted down */}
             <motion.span
               className="absolute left-0 top-1/2 h-[3px] rounded-full bg-[#4CC9FF]/60"
               style={{ transform: "translateY(calc(-50% - 3px))" }}
@@ -51,7 +51,7 @@ export function StrikeoutHeadline() {
         )}
       </span>
 
-      {/* Line 2: Autonomous Game Testing — stays visible */}
+      {/* Line 2: Autonomous Game Testing, stays visible */}
       {phase === "reveal" && (
         <>
           <br />

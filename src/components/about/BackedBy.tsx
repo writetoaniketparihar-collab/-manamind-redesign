@@ -11,7 +11,7 @@ function PressMarquee() {
 
   return (
     <div className="space-y-14">
-      {/* Featured articles — editorial cards with hero image */}
+      {/* Featured articles, editorial cards with hero image */}
       <div className="grid gap-6 md:grid-cols-2">
         {articles.map((item, i) => (
           <motion.a
@@ -52,7 +52,7 @@ function PressMarquee() {
         ))}
       </div>
 
-      {/* Podcasts — thumbnail cards */}
+      {/* Podcasts, thumbnail cards */}
       <div>
         <h3 className="mb-5 text-center font-mono text-[10px] font-bold uppercase tracking-widest text-primary/60">
           Podcasts

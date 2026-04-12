@@ -596,7 +596,7 @@ function SubsectionCard({
         <div className="mb-3">
           <span className="text-sm font-bold text-foreground">{sub.title}</span>
           {sub.subtitle && (
-            <span className="ml-2 text-xs text-text-muted">— {sub.subtitle}</span>
+            <span className="ml-2 text-xs text-text-muted">· {sub.subtitle}</span>
           )}
         </div>
       )}
@@ -706,7 +706,7 @@ export function FeatureBreakdown() {
                         </span>
                       )}
                     </div>
-                    {/* Active accent underline — always rendered for clear affordance */}
+                    {/* Active accent underline, always rendered for clear affordance */}
                     <div
                       className="absolute inset-x-0 bottom-0 h-[3px] transition-opacity"
                       style={{

@@ -93,7 +93,7 @@ export function ProductShowcase() {
                 onMouseEnter={() => setActive(i)}
                 onMouseLeave={() => setActive(null)}
               >
-                {/* Outer ring — logo style, visible on hover only */}
+                {/* Outer ring, logo style, visible on hover only */}
                 <motion.div
                   className="absolute rounded-full border"
                   style={{
@@ -108,7 +108,7 @@ export function ProductShowcase() {
                   transition={{ duration: 0.2 }}
                 />
 
-                {/* Filled pulse ring — expanding from center */}
+                {/* Filled pulse ring, expanding from center */}
                 <motion.div
                   className="absolute rounded-full"
                   style={{
@@ -130,7 +130,7 @@ export function ProductShowcase() {
                   }}
                 />
 
-                {/* Core dot — upper-right like logo */}
+                {/* Core dot, upper-right like logo */}
                 <div
                   className="absolute z-10 h-2.5 w-2.5 rounded-full cursor-pointer"
                   style={{
@@ -171,7 +171,7 @@ export function ProductShowcase() {
                         <div className="bg-bg-card border border-white/10 rounded-lg px-3 py-2.5 shadow-xl">
                           <p className="text-[11px] text-foreground leading-relaxed">{item.annotation}</p>
                         </div>
-                        {/* Arrow — always lines up with the animation circle below */}
+                        {/* Arrow, always lines up with the animation circle below */}
                         <div
                           className="absolute w-2.5 h-2.5 rotate-45"
                           style={{
