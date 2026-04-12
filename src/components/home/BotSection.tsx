@@ -2,8 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useGLTF } from "@react-three/drei";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { BotModel } from "@/components/home/BotModel";
+
+// Kick off the Wayfinder GLB download as soon as this module loads,
+// so the file is already cached by the time the canvas mounts.
+useGLTF.preload(
+  "/models/Wayfinder/wayfinder.glb",
+  undefined,
+  undefined,
+  (loader) => {
+    // @ts-expect-error drei types the loader as Loader, but it's a GLTFLoader
+    loader.setMeshoptDecoder(MeshoptDecoder);
+  }
+);
 
 type BotModelAsset =
   | { path: string; glb: string; obj?: undefined; png?: undefined }
@@ -191,6 +205,14 @@ function BotCard({ bot }: { bot: Bot }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // If the card is already in (or near) the viewport on mount, skip the
+    // observer entirely so we don't wait a tick before starting to render.
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < vh + 400 && rect.bottom > -400) {
+      setVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -198,7 +220,7 @@ function BotCard({ bot }: { bot: Bot }) {
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: "400px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
