@@ -5,34 +5,42 @@ import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FadeInView } from "@/components/animations/FadeInView";
 
-const hotspots = [
+type TooltipAlign = "left" | "center" | "right";
+
+const hotspots: Array<{
+  annotation: string;
+  bot: { initial: string; name: string; color: string };
+  x: number;
+  y: number;
+  tooltipAlign: TooltipAlign;
+}> = [
   {
     annotation: "Export issues directly to your existing workflow",
     bot: { initial: "R", name: "Reporter", color: "#FFB84C" },
     x: 28.9,
     y: 9.9,
-    tooltipAlign: "center" as const,
+    tooltipAlign: "center",
   },
   {
     annotation: "See which bot discovered each issue",
     bot: { initial: "W", name: "Wayfinder", color: "#00FF96" },
     x: 60.8,
     y: 31.9,
-    tooltipAlign: "center" as const,
+    tooltipAlign: "center",
   },
   {
     annotation: "Confidence scoring helps prioritise what to fix first",
     bot: { initial: "B", name: "Breaker", color: "#FF4C54" },
     x: 67,
     y: 32.1,
-    tooltipAlign: "center" as const,
+    tooltipAlign: "center",
   },
   {
     annotation: "Auto-generated reports with repo steps directly from gameplay",
     bot: { initial: "S", name: "Scout", color: "#4CC9FF" },
     x: 93.4,
     y: 9.9,
-    tooltipAlign: "center" as const,
+    tooltipAlign: "center",
   },
 ];
 
