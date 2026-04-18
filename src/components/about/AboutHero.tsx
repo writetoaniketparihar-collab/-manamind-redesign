@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function AboutHero() {
   return (
-    <section className="relative flex min-h-[70vh] items-center overflow-hidden">
+    <section className="relative flex min-h-[50vh] items-center overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,255,150,0.04)_0%,transparent_70%)]" />
 
@@ -31,7 +31,7 @@ export function AboutHero() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-4xl px-6 py-32 text-center">
+      <div className="relative z-10 mx-auto max-w-4xl px-6 py-24 text-center">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ export function AboutHero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 }

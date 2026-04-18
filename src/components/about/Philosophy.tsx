@@ -427,7 +427,7 @@ export function Philosophy() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="border-t border-white/5 bg-bg-card py-24 md:py-32">
+    <section className="border-t border-white/5 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <div className="mx-auto max-w-3xl text-center">
@@ -437,6 +437,9 @@ export function Philosophy() {
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">
               These beliefs guide how we design and build ManaMind.
             </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-text-muted">
+              The ideas that shape how we think about testing, automation, and the future of games.
+            </p>
           </div>
         </FadeInView>
 

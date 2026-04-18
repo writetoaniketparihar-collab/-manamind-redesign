@@ -114,13 +114,13 @@ function PressMarquee() {
 
 export function BackedBy() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="border-t border-white/5 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         {/* Investors & Partners */}
         <FadeInView>
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              Customers
+              Partnerships
             </span>
             <h2 className="text-2xl font-bold text-foreground md:text-3xl">
               Backed by outliers
@@ -131,63 +131,73 @@ export function BackedBy() {
           </div>
         </FadeInView>
 
-        <div className="mx-auto mt-12 grid max-w-4xl gap-10 md:grid-cols-2">
-          {/* Investors */}
-          <FadeInView delay={0.15}>
-            <div>
-              <h3 className="mb-4 text-center font-mono text-xs font-semibold uppercase tracking-widest text-text-muted">
-                Investors
-              </h3>
-              <div className="space-y-3">
-                {INVESTORS.map((inv, i) => (
-                  <motion.div
-                    key={inv.name}
-                    initial={{ opacity: 0, x: -15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.08 }}
-                    className="group flex h-20 items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.03] px-6 transition-colors hover:border-primary/30"
-                  >
+        {/* Investors marquee */}
+        <FadeInView delay={0.15}>
+          <div className="mt-12">
+            <h3 className="mb-6 text-center font-mono text-xs font-semibold uppercase tracking-widest text-text-muted">
+              Investors
+            </h3>
+            <div className="relative overflow-hidden">
+              <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent" />
+              <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
+              <motion.div
+                className="flex w-max gap-16 py-4"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                {[...INVESTORS, ...INVESTORS].map((inv, i) => (
+                  <div key={`${inv.name}-${i}`} className="flex h-12 shrink-0 items-center">
                     {inv.logo ? (
                       <Image
                         src={inv.logo}
                         alt={inv.name}
                         width={160}
                         height={48}
-                        className="max-h-12 w-auto object-contain opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                        className="max-h-10 w-auto object-contain brightness-0 invert"
                       />
                     ) : (
-                      <span className="text-sm font-medium text-text-muted">{inv.name}</span>
+                      <span className="whitespace-nowrap text-sm font-medium text-white">{inv.name}</span>
                     )}
-                  </motion.div>
+                  </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
-          </FadeInView>
+          </div>
+        </FadeInView>
 
-          {/* Partners */}
-          <FadeInView delay={0.25}>
-            <div>
-              <h3 className="mb-4 text-center font-mono text-xs font-semibold uppercase tracking-widest text-text-muted">
-                Partners
-              </h3>
-              <div className="space-y-3">
-                {PARTNERS.map((partner, i) => (
-                  <motion.div
-                    key={partner.name}
-                    initial={{ opacity: 0, x: 15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.08 }}
-                    className="flex items-center justify-center rounded-xl border border-white/[0.07] bg-white/[0.03] px-6 py-3.5"
-                  >
-                    <span className="text-sm font-medium text-text-muted">{partner.name}</span>
-                  </motion.div>
+        {/* Partners marquee */}
+        <FadeInView delay={0.25}>
+          <div className="mt-12">
+            <h3 className="mb-6 text-center font-mono text-xs font-semibold uppercase tracking-widest text-text-muted">
+              Partners
+            </h3>
+            <div className="relative overflow-hidden">
+              <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent" />
+              <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
+              <motion.div
+                className="flex w-max gap-16 py-4"
+                animate={{ x: ["-50%", "0%"] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+                  <div key={`${partner.name}-${i}`} className="flex h-12 shrink-0 items-center">
+                    {partner.logo ? (
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        width={160}
+                        height={48}
+                        className="max-h-10 w-auto object-contain brightness-0 invert"
+                      />
+                    ) : (
+                      <span className="whitespace-nowrap text-sm font-medium text-white">{partner.name}</span>
+                    )}
+                  </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
-          </FadeInView>
-        </div>
+          </div>
+        </FadeInView>
 
         {/* Press */}
         <div className="mt-20">

@@ -638,7 +638,7 @@ export function FeatureBreakdown() {
         <FadeInView>
           <SectionHeading
             label="How Our Bots Interact With Your Game"
-            title="Built to understand games the way humans do - through sight, context, and intent."
+            title="Testing games like real players, not scripts"
             description="ManaMind's agents observe the game world and interact through normal player inputs, allowing them to test any title without internal integration."
           />
         </FadeInView>

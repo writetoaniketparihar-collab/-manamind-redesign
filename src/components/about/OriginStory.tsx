@@ -119,7 +119,7 @@ export function OriginStory() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-16 md:py-20 lg:py-24"
+      className="relative overflow-hidden border-t border-white/5 bg-bg-card py-10 md:py-12 lg:py-16"
     >
       {/* Background texture - subtle dot grid */}
       <div className="pointer-events-none absolute inset-0 opacity-30">

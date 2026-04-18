@@ -54,7 +54,7 @@ export function Vision() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative overflow-hidden border-t border-white/5 py-24 md:py-32">
+    <section ref={ref} className="relative overflow-hidden border-t border-white/5 bg-bg-card py-24 md:py-32">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(0,255,150,0.04)_0%,transparent_60%)]" />
 
