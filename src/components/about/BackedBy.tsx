@@ -146,14 +146,13 @@ export function BackedBy() {
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
                 {[...INVESTORS, ...INVESTORS].map((inv, i) => (
-                  <div key={`${inv.name}-${i}`} className="flex h-12 shrink-0 items-center">
+                  <div key={`${inv.name}-${i}`} className="relative flex h-12 w-[160px] shrink-0 items-center justify-center">
                     {inv.logo ? (
                       <Image
                         src={inv.logo}
                         alt={inv.name}
-                        width={160}
-                        height={48}
-                        className="max-h-10 w-auto object-contain brightness-0 invert"
+                        fill
+                        className="object-contain brightness-0 invert"
                       />
                     ) : (
                       <span className="whitespace-nowrap text-sm font-medium text-white">{inv.name}</span>
@@ -180,14 +179,13 @@ export function BackedBy() {
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
                 {[...PARTNERS, ...PARTNERS].map((partner, i) => (
-                  <div key={`${partner.name}-${i}`} className="flex h-12 shrink-0 items-center">
+                  <div key={`${partner.name}-${i}`} className="relative flex h-12 w-[160px] shrink-0 items-center justify-center">
                     {partner.logo ? (
                       <Image
                         src={partner.logo}
                         alt={partner.name}
-                        width={160}
-                        height={48}
-                        className="max-h-10 w-auto object-contain brightness-0 invert"
+                        fill
+                        className="object-contain brightness-0 invert"
                       />
                     ) : (
                       <span className="whitespace-nowrap text-sm font-medium text-white">{partner.name}</span>

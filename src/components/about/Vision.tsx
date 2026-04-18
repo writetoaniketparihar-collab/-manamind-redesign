@@ -169,7 +169,7 @@ export function Vision() {
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <span className="text-sm font-medium leading-relaxed text-primary">
-                The same core perception and decision-making systems that allow AI to navigate complex game worlds can be applied to real-world machines operating in visual environments.
+                The same core systems extend from game worlds to real-world machines
               </span>
             </div>
           </div>

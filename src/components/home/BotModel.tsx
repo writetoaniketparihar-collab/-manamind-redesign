@@ -12,7 +12,7 @@ function centerAndScale(object: THREE.Object3D) {
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z);
-  const scale = 2.5 / maxDim;
+  const scale = 1.3 / maxDim;
   object.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
   object.scale.setScalar(scale);
 }
@@ -66,19 +66,24 @@ function GlbModel({ modelPath, glbFile }: { modelPath: string; glbFile: string }
     }
   );
 
-  // One-time setup: fix texture color space and center/scale.
-  // Mutates the cached scene in place; safe because only one component uses it.
-  useMemo(() => {
-    scene.traverse((child) => {
+  // Clone the scene so each bot gets its own independent copy.
+  // useGLTF returns a shared/cached scene - without cloning, only one
+  // component can own it at a time in the Three.js scene graph.
+  const clonedScene = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        const mat = child.material as THREE.MeshStandardMaterial | undefined;
-        if (mat && "map" in mat && mat.map) {
+        child.material = child.material.clone();
+        const mat = child.material as THREE.MeshStandardMaterial;
+        if (mat.map) {
+          mat.map = mat.map.clone();
           mat.map.colorSpace = THREE.SRGBColorSpace;
           mat.needsUpdate = true;
         }
       }
     });
-    centerAndScale(scene);
+    centerAndScale(clone);
+    return clone;
   }, [scene]);
 
   useFrame((_, delta) => {
@@ -89,7 +94,7 @@ function GlbModel({ modelPath, glbFile }: { modelPath: string; glbFile: string }
 
   return (
     <group ref={groupRef}>
-      <primitive object={scene} />
+      <primitive object={clonedScene} />
     </group>
   );
 }
@@ -128,7 +133,7 @@ export function BotModel({
   return (
     <div className="relative aspect-square w-full max-w-[320px] mx-auto">
       <Canvas
-        camera={{ position: [0, 0.5, 4], fov: 40 }}
+        camera={{ position: [0, 0, 4.5], fov: 35 }}
         style={{ background: "transparent" }}
         gl={{ alpha: true, antialias: true }}
       >
