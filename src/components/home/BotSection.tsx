@@ -1,319 +1,141 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useGLTF } from "@react-three/drei";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
 import { FadeInView } from "@/components/animations/FadeInView";
 import { BotModel } from "@/components/home/BotModel";
+import { StatusPill, StatusLegend } from "@/components/bots/StatusPill";
+import { ALL_MODEL_PATHS, teams, type Bot, type BotTeam } from "@/data/bots";
 
-// Kick off all GLB downloads as soon as this module loads,
-// so the files are already cached by the time the canvases mount.
-const ALL_MODELS = [
-  "/models/Wayfinder/wayfinder.glb",
-  "/models/Trailblazer/trailblazer.glb",
-  "/models/Rogue/rogue.glb",
-  "/models/Daredevil/daredevil.glb",
-  "/models/Gladiator/gladiator.glb",
-  "/models/Quartermaster/quartermaster.glb",
-  "/models/Merchant/merchant.glb",
-  "/models/Replicator/replicator.glb",
-  "/models/Stressor/stressor.glb",
-  "/models/Sentinel/sentinel.glb",
-  "/models/Diplomat/diplomat.glb",
-  "/models/Arbiter/arbiter.glb",
-  "/models/Rosetta/rosetta.glb",
-];
-
-for (const model of ALL_MODELS) {
-  useGLTF.preload(
-    model,
-    undefined,
-    undefined,
-    (loader) => {
-      (loader as { setMeshoptDecoder: (d: typeof MeshoptDecoder) => void }).setMeshoptDecoder(MeshoptDecoder);
-    }
-  );
+for (const model of ALL_MODEL_PATHS) {
+  useGLTF.preload(model, undefined, undefined, (loader) => {
+    (loader as { setMeshoptDecoder: (d: typeof MeshoptDecoder) => void }).setMeshoptDecoder(MeshoptDecoder);
+  });
 }
 
-type BotModelAsset =
-  | { path: string; glb: string; obj?: undefined; png?: undefined }
-  | { path: string; obj: string; png: string; glb?: undefined };
+type TeamFilter = "all" | string;
 
-type BotStatus = "online" | "spawning" | "training";
+type BotWithTeam = Bot & { teamName: string; teamEmoji: string };
 
-type Bot = {
-  name: string;
-  role: string;
-  specialisesIn: string;
-  bio: string;
-  impact: string;
-  color: string;
-  status: BotStatus;
-  model?: BotModelAsset;
-};
-
-type BotTeam = {
-  name: string;
-  emoji: string;
-  bots: Bot[];
-};
-
-const teams: BotTeam[] = [
-  {
-    name: "Player Experience Team",
-    emoji: "\uD83C\uDFAE",
-    bots: [
-      {
-        name: "Wayfinder",
-        role: "The Adventurer",
-        specialisesIn: "Menus, UI navigation, onboarding flows, player paths",
-        bio: "Wayfinder systematically navigates menus, UI flows, settings, and onboarding journeys, clicking through every possible path a player might take. From main menus to deep settings trees, he ensures everything is accessible, responsive, and intuitive.",
-        impact: "Ensures players understand how to play and never get lost before the game even begins.",
-        color: "#38BDF8",
-        status: "online",
-        model: {
-          path: "/models/Wayfinder",
-          glb: "wayfinder.glb",
-        },
-      },
-      {
-        name: "Trailblazer",
-        role: "The Explorer",
-        specialisesIn: "Progression systems, quest flows, game completion paths",
-        bio: "Trailblazer plays through your game from start to finish, validating progression, objectives, and unlocks to make sure the journey is always completable.",
-        impact: "Prevents blockers that stop players from finishing or progressing through your game.",
-        color: "#34D399",
-        status: "spawning",
-        model: { path: "/models/Trailblazer", glb: "trailblazer.glb" },
-      },
-      {
-        name: "Rogue",
-        role: "The Rulebreaker",
-        specialisesIn: "Edge cases, unintended behaviours, rule-breaking scenarios",
-        bio: "Rogue ignores intended paths and deliberately breaks the rules. He explores edge cases, unusual inputs, and unintended behaviours to uncover hidden bugs.",
-        impact: "Finds the bugs your scripted tests miss by behaving in ways real players often do.",
-        color: "#C084FC",
-        status: "training",
-        model: { path: "/models/Rogue", glb: "rogue.glb" },
-      },
-      {
-        name: "Daredevil",
-        role: "The Speedrunner",
-        specialisesIn: "Sequence breaking, skips, unintended shortcuts, progression exploits",
-        bio: "Daredevil searches for the fastest possible routes through your game, identifying skips, sequence breaks, and unintended shortcuts that can disrupt progression.",
-        impact: "Protects your progression design from being bypassed or broken by advanced players.",
-        color: "#FB923C",
-        status: "training",
-        model: { path: "/models/Daredevil", glb: "daredevil.glb" },
-      },
-    ],
-  },
-  {
-    name: "Systems & Mechanics Team",
-    emoji: "\u2699\uFE0F",
-    bots: [
-      {
-        name: "Gladiator",
-        role: "The Fighter",
-        specialisesIn: "Combat systems, hit detection, AI behaviour, damage logic",
-        bio: "Gladiator stress-tests your combat systems by engaging enemies, abilities, and damage calculations at scale to ensure every fight behaves correctly.",
-        impact: "Guarantees combat feels fair, consistent, and free of game-breaking bugs.",
-        color: "#F97316",
-        status: "training",
-        model: { path: "/models/Gladiator", glb: "gladiator.glb" },
-      },
-      {
-        name: "Quartermaster",
-        role: "The Collector",
-        specialisesIn: "Inventory systems, item management, crafting, resource flow",
-        bio: "Quartermaster manages inventory, items, and crafting systems to ensure resources are stored, used, and updated correctly throughout gameplay.",
-        impact: "Prevents item loss, duplication, or corruption that can ruin player progression.",
-        color: "#22D3EE",
-        status: "training",
-        model: { path: "/models/Quartermaster", glb: "quartermaster.glb" },
-      },
-      {
-        name: "Merchant",
-        role: "The Broker",
-        specialisesIn: "In-game stores, purchases, DLC flows, transaction validation",
-        bio: "Merchant validates your in-game economy, testing store flows, purchases, and reward delivery to ensure every transaction completes reliably.",
-        impact: "Protects your revenue and prevents failed purchases or missing rewards.",
-        color: "#FBBF24",
-        status: "training",
-        model: { path: "/models/Merchant", glb: "merchant.glb" },
-      },
-    ],
-  },
-  {
-    name: "Scale & Coverage Team",
-    emoji: "\uD83C\uDF0D",
-    bots: [
-      {
-        name: "Replicator",
-        role: "The Perfectionist",
-        specialisesIn: "Test replication, cross-device testing, multi-build validation",
-        bio: "Replicator turns one test into thousands, replaying scenarios across devices, builds, and configurations to guarantee consistent behaviour everywhere.",
-        impact: "Ensures bugs stay fixed and features behave consistently across platforms.",
-        color: "#60A5FA",
-        status: "training",
-        model: { path: "/models/Replicator", glb: "replicator.glb" },
-      },
-      {
-        name: "Stressor",
-        role: "The Workhorse",
-        specialisesIn: "Performance under load, stress testing, stability limits",
-        bio: "Stressor pushes your game beyond normal limits by flooding systems with inputs, entities, and load to expose performance and stability weaknesses.",
-        impact: "Reveals crashes and slowdowns that only appear under real-world scale.",
-        color: "#FB7185",
-        status: "online",
-        model: { path: "/models/Stressor", glb: "stressor.glb" },
-      },
-    ],
-  },
-  {
-    name: "Intelligence & Insight Team",
-    emoji: "\uD83E\uDDE0",
-    bots: [
-      {
-        name: "Sentinel",
-        role: "The Observer",
-        specialisesIn: "Performance monitoring, FPS, load times, system stability",
-        bio: "Sentinel continuously monitors performance while other agents test, tracking FPS, memory, and load times to detect issues as they emerge.",
-        impact: "Gives you clear visibility into performance regressions before players notice them.",
-        color: "#A78BFA",
-        status: "training",
-        model: { path: "/models/Sentinel", glb: "sentinel.glb" },
-      },
-      {
-        name: "Diplomat",
-        role: "The Mediator",
-        specialisesIn: "Multiplayer systems, chat, invites, social features",
-        bio: "Diplomat focuses on social and multiplayer systems, validating chat, invites, and connectivity to ensure players can communicate and play together smoothly.",
-        impact: "Prevents broken social features from damaging retention and player trust.",
-        color: "#F472B6",
-        status: "training",
-        model: { path: "/models/Diplomat", glb: "diplomat.glb" },
-      },
-    ],
-  },
-  {
-    name: "Global & Compliance Team",
-    emoji: "\uD83C\uDF10",
-    bots: [
-      {
-        name: "Arbiter",
-        role: "The Certifier",
-        specialisesIn: "Platform compliance, certification checks, submission requirements",
-        bio: "Arbiter performs automated compliance checks against platform requirements, validating system behaviour, edge cases, and submission-critical scenarios.",
-        impact: "Reduces the risk of certification failure and costly resubmissions to platform holders.",
-        color: "#FACC15",
-        status: "training",
-        model: { path: "/models/Arbiter", glb: "arbiter.glb" },
-      },
-      {
-        name: "Rosetta",
-        role: "The Translator",
-        specialisesIn: "Localisation, translations, subtitles, cultural accuracy",
-        bio: "Rosetta ensures your game works in every language by validating translations, text layout, subtitles, and regional formatting across all supported locales.",
-        impact: "Ensures global players receive a polished, natural experience in their own language.",
-        color: "#E879F9",
-        status: "training",
-        model: { path: "/models/Rosetta", glb: "rosetta.glb" },
-      },
-    ],
-  },
-];
-
-const STATUS_CONFIG: Record<BotStatus, { label: string; color: string; dot: string }> = {
-  online: { label: "Online", color: "text-emerald-400", dot: "bg-emerald-400" },
-  spawning: { label: "Spawning", color: "text-amber-400", dot: "bg-amber-400" },
-  training: { label: "Training", color: "text-blue-400", dot: "bg-blue-400" },
-};
-
-function StatusPill({ status }: { status: BotStatus }) {
-  const config = STATUS_CONFIG[status];
-  return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border border-white/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${config.color}`}>
-      <span className={`h-1.5 w-1.5 rounded-full ${config.dot} ${status === "online" ? "animate-pulse" : ""}`} />
-      {config.label}
-    </span>
-  );
-}
+const allBots: BotWithTeam[] = teams.flatMap((team) =>
+  team.bots.map((bot) => ({ ...bot, teamName: team.name, teamEmoji: team.emoji }))
+);
 
 export function BotSection() {
+  const [filter, setFilter] = useState<TeamFilter>("all");
+  const [selected, setSelected] = useState<BotWithTeam | null>(null);
+
+  const filtered = useMemo(
+    () => (filter === "all" ? allBots : allBots.filter((b) => b.teamName === filter)),
+    [filter]
+  );
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
+
   return (
     <section className="py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
         <FadeInView>
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-primary">
-              Legion
+              Our Bots
             </span>
             <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-              The Autonomous QA Team
+              Your autonomous QA team
             </h2>
             <p className="mt-4 text-lg text-text-muted">
-              Each agent specialises in a different part of the game. Together, they cover everything from first click to certification.
+              Each bot operates with a distinct strategy and role, contributing to a distributed system designed for comprehensive test coverage.
             </p>
           </div>
         </FadeInView>
 
-        {/* Status legend */}
         <FadeInView delay={0.1}>
-          <div className="mt-8 flex items-center justify-center gap-6">
-            {(["online", "spawning", "training"] as BotStatus[]).map((status) => {
-              const config = STATUS_CONFIG[status];
-              return (
-                <div key={status} className="flex items-center gap-2 text-xs text-text-muted">
-                  <span className={`h-2 w-2 rounded-full ${config.dot} ${status === "online" ? "animate-pulse" : ""}`} />
-                  <span className="font-medium">{config.label}</span>
-                  <span className="hidden sm:inline">
-                    {status === "online" && "- Live and operational"}
-                    {status === "spawning" && "- Deploying soon"}
-                    {status === "training" && "- In development"}
-                  </span>
-                </div>
-              );
-            })}
+          <div className="mt-8">
+            <StatusLegend />
           </div>
         </FadeInView>
 
-        {/* Teams */}
-        {teams.map((team, teamIdx) => (
-          <div key={team.name} className="mt-16">
-            <FadeInView delay={0.05}>
-              <h3 className="mb-6 text-center font-mono text-xs font-semibold uppercase tracking-widest text-text-muted">
-                {team.emoji} {team.name}
-              </h3>
-            </FadeInView>
-            <div className="flex flex-wrap justify-center gap-6">
-              {team.bots.map((bot, i) => (
-                <FadeInView key={bot.name} delay={0.05 + (i % 3) * 0.05}>
-                  <div className="w-[280px]">
-                    <BotCard bot={bot} />
-                  </div>
-                </FadeInView>
-              ))}
-            </div>
+        {/* Filter pills */}
+        <FadeInView delay={0.15}>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+            <FilterPill label="All" count={allBots.length} active={filter === "all"} onClick={() => setFilter("all")} />
+            {teams.map((team) => (
+              <FilterPill
+                key={team.name}
+                label={`${team.emoji} ${shortTeamName(team)}`}
+                count={team.bots.length}
+                active={filter === team.name}
+                onClick={() => setFilter(team.name)}
+              />
+            ))}
           </div>
-        ))}
+        </FadeInView>
+
+        {/* Unified grid */}
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((bot, i) => (
+            <FadeInView key={bot.name} delay={0.03 + (i % 8) * 0.03}>
+              <BotCard bot={bot} onOpen={() => setSelected(bot)} />
+            </FadeInView>
+          ))}
+        </div>
       </div>
+
+      <BotModal bot={selected} onClose={() => setSelected(null)} />
     </section>
   );
 }
 
-function BotCard({ bot }: { bot: Bot }) {
-  // Lazy-mount the 3D canvas only when the card scrolls into view,
-  // so 17 canvases don't all initialize on first render.
+function shortTeamName(team: BotTeam) {
+  return team.name.replace(" Team", "");
+}
+
+function FilterPill({
+  label,
+  count,
+  active,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-widest transition-all ${
+        active
+          ? "border-primary/40 bg-primary/10 text-primary"
+          : "border-white/10 bg-white/[0.02] text-text-muted hover:border-white/20 hover:text-foreground"
+      }`}
+    >
+      {label} <span className="ml-1 opacity-60">{count}</span>
+    </button>
+  );
+}
+
+function BotCard({ bot, onOpen }: { bot: BotWithTeam; onOpen: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // If the card is already in (or near) the viewport on mount, skip the
-    // observer entirely so we don't wait a tick before starting to render.
     const rect = el.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
     if (rect.top < vh + 400 && rect.bottom > -400) {
@@ -334,119 +156,187 @@ function BotCard({ bot }: { bot: Bot }) {
   }, []);
 
   return (
-    <motion.div
-      ref={ref}
-      whileHover={{ y: -4 }}
+    <motion.button
+      ref={ref as React.RefObject<HTMLButtonElement>}
+      type="button"
+      onClick={onOpen}
+      whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-bg-card transition-colors hover:border-white/20"
+      className="group flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-bg-card text-left transition-colors hover:border-white/20"
       style={{
-        boxShadow: `0 8px 32px ${bot.color}10`,
+        boxShadow: `0 8px 32px ${bot.color}12`,
       }}
     >
-      {/* 3D model area */}
+      {/* Color anchor stripe so every card has identical visual contrast */}
+      <div className="h-[3px] w-full" style={{ background: bot.color }} />
+
+      {/* 3D model */}
       <div
         className="relative aspect-square overflow-hidden border-b border-white/[0.06] bg-[#0D0515]"
         style={{
-          background: `radial-gradient(circle at 50% 40%, ${bot.color}18 0%, #0D0515 70%)`,
+          background: `radial-gradient(circle at 50% 40%, ${bot.color}22 0%, #0D0515 70%)`,
         }}
       >
-        {/* Scanline overlay */}
         <div className="pointer-events-none absolute inset-0 z-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.015)_2px,rgba(255,255,255,0.015)_4px)]" />
-
-        {visible ? (
-          bot.model ? (
-            <BotModel
-              modelPath={bot.model.path}
-              objFile={bot.model.obj}
-              pngFile={bot.model.png}
-              glbFile={bot.model.glb}
-              color={bot.color}
-            />
-          ) : (
-            <BotModelPlaceholder bot={bot} />
-          )
+        {visible && bot.model ? (
+          <BotModel
+            modelPath={bot.model.path}
+            objFile={bot.model.obj}
+            pngFile={bot.model.png}
+            glbFile={bot.model.glb}
+            color={bot.color}
+          />
         ) : null}
-      </div>
 
-      {/* Text content */}
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-sm font-bold"
-              style={{
-                backgroundColor: `${bot.color}15`,
-                color: bot.color,
-              }}
-            >
-              {bot.name[0]}
-            </div>
-            <div>
-              <p
-                className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: bot.color }}
-              >
-                {bot.name}
-              </p>
-              <p className="text-[11px] text-text-muted/70">{bot.role}</p>
-            </div>
-          </div>
+        <div className="absolute left-3 top-3 z-20">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/50 px-2 py-0.5 text-[10px] font-medium text-text-muted backdrop-blur-sm">
+            <span>{bot.teamEmoji}</span>
+            <span className="hidden sm:inline">{bot.teamName.replace(" Team", "")}</span>
+          </span>
+        </div>
+
+        <div className="absolute right-3 top-3 z-20">
           <StatusPill status={bot.status} />
         </div>
-
-        <div className="mt-4">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted/60">
-            Specialises In
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-foreground/80">
-            {bot.specialisesIn}
-          </p>
-        </div>
-
-        <div className="mt-3">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted/60">
-            Bio
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-text-muted">
-            {bot.bio}
-          </p>
-        </div>
-
-        <div className="mt-3">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted/60">
-            Impact
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-primary/80">
-            {bot.impact}
-          </p>
-        </div>
       </div>
-    </motion.div>
+
+      <div className="flex flex-col p-4">
+        <div className="flex items-baseline justify-between gap-2">
+          <p className="text-sm font-bold uppercase tracking-widest" style={{ color: bot.color }}>
+            {bot.name}
+          </p>
+          <p className="shrink-0 text-[11px] text-text-muted/70">{bot.role}</p>
+        </div>
+
+        <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground/80">
+          {bot.specialisesIn}
+        </p>
+
+        <span className="mt-3 text-[11px] font-semibold uppercase tracking-widest text-primary/80 transition-colors group-hover:text-primary">
+          Read more +
+        </span>
+      </div>
+    </motion.button>
   );
 }
 
-function BotModelPlaceholder({ bot }: { bot: Bot }) {
+function BotModal({ bot, onClose }: { bot: BotWithTeam | null; onClose: () => void }) {
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      <div
-        className="absolute inset-10 rounded-full opacity-30 blur-3xl"
-        style={{ background: bot.color }}
-      />
-      <div
-        className="relative font-bold leading-none"
-        style={{
-          color: bot.color,
-          fontSize: "5rem",
-          textShadow: `0 0 32px ${bot.color}80`,
-        }}
-      >
-        {bot.name[0]}
-      </div>
-      <div className="absolute bottom-3 left-0 right-0 text-center">
-        <p className="font-mono text-[9px] uppercase tracking-widest text-text-muted/50">
-          Model coming soon
-        </p>
-      </div>
-    </div>
+    <AnimatePresence>
+      {bot && (
+        <motion.div
+          key="modal"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            onClick={onClose}
+            aria-hidden
+          />
+
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${bot.name} details`}
+            className="relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-card shadow-2xl"
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Color stripe */}
+            <div className="h-[3px] w-full shrink-0" style={{ background: bot.color }} />
+
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="absolute right-3 top-5 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-text-muted transition-colors hover:border-white/20 hover:text-foreground"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+
+            <div className="grid grid-cols-1 overflow-y-auto md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+              {/* 3D model panel */}
+              <div
+                className="relative flex aspect-square min-h-[280px] items-center justify-center overflow-hidden border-b border-white/[0.06] md:aspect-auto md:border-b-0 md:border-r"
+                style={{
+                  background: `radial-gradient(circle at 50% 40%, ${bot.color}26 0%, #0D0515 70%)`,
+                }}
+              >
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)]" />
+                {bot.model ? (
+                  <BotModel
+                    modelPath={bot.model.path}
+                    objFile={bot.model.obj}
+                    pngFile={bot.model.png}
+                    glbFile={bot.model.glb}
+                    color={bot.color}
+                  />
+                ) : null}
+                <div className="absolute left-4 top-4 z-20">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/50 px-2 py-0.5 text-[10px] font-medium text-text-muted backdrop-blur-sm">
+                    <span>{bot.teamEmoji}</span>
+                    <span>{bot.teamName.replace(" Team", "")}</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Text panel */}
+              <div className="flex flex-col gap-5 p-6 sm:p-8">
+                <div className="flex items-start justify-between gap-3 pr-10">
+                  <div>
+                    <p
+                      className="text-xs font-bold uppercase tracking-widest"
+                      style={{ color: bot.color }}
+                    >
+                      {bot.name}
+                    </p>
+                    <h3 className="mt-1 text-2xl font-bold text-foreground">{bot.role}</h3>
+                  </div>
+                  <StatusPill status={bot.status} />
+                </div>
+
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted/60">
+                    Specialises In
+                  </p>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-foreground/90">
+                    {bot.specialisesIn}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted/60">
+                    Bio
+                  </p>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-text-muted">{bot.bio}</p>
+                </div>
+
+                <div className="mt-auto rounded-xl border border-white/5 bg-white/[0.02] p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-text-muted/60">
+                    Impact
+                  </p>
+                  <p
+                    className="mt-1.5 text-[14px] leading-relaxed"
+                    style={{ color: bot.color }}
+                  >
+                    {bot.impact}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
