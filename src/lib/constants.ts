@@ -8,20 +8,20 @@ export const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const INVESTORS: Array<{ name: string; logo: string | null }> = [
-  { name: "EWOR", logo: "/investors/ewor.png" },
-  { name: "SVV", logo: "/investors/svv.png" },
-  { name: "Heartfelt Capital", logo: "/investors/heartfelt.png" },
-  { name: "Ascension", logo: "/investors/ascension.png" },
-  { name: "Syndicate Room", logo: "/investors/syndicate-room.png" },
+export const INVESTORS: Array<{ name: string; logo: string | null; scale?: number }> = [
+  { name: "EWOR", logo: "/investors/ewor.png", scale: 1 },
+  { name: "SVV", logo: "/investors/svv.png", scale: 1 },
+  { name: "Heartfelt Capital", logo: "/investors/heartfelt.png", scale: 1.25 },
+  { name: "Ascension", logo: "/investors/ascension.png", scale: 1.35 },
+  { name: "Syndicate Room", logo: "/investors/syndicate-room.png", scale: 2.2 },
 ];
 
-export const PARTNERS = [
-  { name: "EWOR", logo: null },
-  { name: "Microsoft for Startups", logo: null },
-  { name: "Nvidia Inception", logo: null },
-  { name: "Google for Startups", logo: null },
-  { name: "UKIE", logo: null },
+export const PARTNERS: Array<{ name: string; logo: string | null; scale?: number }> = [
+  { name: "EWOR", logo: "/partners/ewor.svg", scale: 1 },
+  { name: "Microsoft for Startups", logo: "/partners/microsoft-for-startups.png", scale: 1 },
+  { name: "Nvidia Inception", logo: "/partners/nvidia-inception.svg", scale: 1.4 },
+  { name: "Google for Startups", logo: "/partners/google-for-startups.svg", scale: 1.15 },
+  { name: "UKIE", logo: "/partners/ukie.svg", scale: 1.1 },
 ];
 
 export type PressMention = {

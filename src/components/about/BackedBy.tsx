@@ -153,6 +153,7 @@ export function BackedBy() {
                         alt={inv.name}
                         fill
                         className="object-contain brightness-0 invert"
+                        style={inv.scale ? { transform: `scale(${inv.scale})` } : undefined}
                       />
                     ) : (
                       <span className="whitespace-nowrap text-sm font-medium text-white">{inv.name}</span>
@@ -186,6 +187,7 @@ export function BackedBy() {
                         alt={partner.name}
                         fill
                         className="object-contain brightness-0 invert"
+                        style={partner.scale ? { transform: `scale(${partner.scale})` } : undefined}
                       />
                     ) : (
                       <span className="whitespace-nowrap text-sm font-medium text-white">{partner.name}</span>

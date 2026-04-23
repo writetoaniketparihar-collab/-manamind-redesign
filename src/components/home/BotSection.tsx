@@ -130,7 +130,7 @@ function FilterPill({
 }
 
 function BotCard({ bot, onOpen }: { bot: BotWithTeam; onOpen: () => void }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -157,7 +157,7 @@ function BotCard({ bot, onOpen }: { bot: BotWithTeam; onOpen: () => void }) {
 
   return (
     <motion.button
-      ref={ref as React.RefObject<HTMLButtonElement>}
+      ref={ref}
       type="button"
       onClick={onOpen}
       whileHover={{ y: -3 }}
