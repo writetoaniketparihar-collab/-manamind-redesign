@@ -115,7 +115,7 @@ export const teams: BotTeam[] = [
         bio: "Replicator turns one test into thousands, replaying scenarios across devices, builds, and configurations to guarantee consistent behaviour everywhere.",
         impact: "Ensures bugs stay fixed and features behave consistently across platforms.",
         color: "#60A5FA",
-        status: "training",
+        status: "online",
         model: { path: "/models/Replicator", glb: "replicator.glb" },
       },
       {
@@ -125,7 +125,7 @@ export const teams: BotTeam[] = [
         bio: "Stressor pushes your game beyond normal limits by flooding systems with inputs, entities, and load to expose performance and stability weaknesses.",
         impact: "Reveals crashes and slowdowns that only appear under real-world scale.",
         color: "#FB7185",
-        status: "online",
+        status: "training",
         model: { path: "/models/Stressor", glb: "stressor.glb" },
       },
     ],
