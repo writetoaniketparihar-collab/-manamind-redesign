@@ -2,6 +2,12 @@ import type { Platform } from "@/data/case-studies";
 
 export function PlatformIcon({ platform, className = "h-4 w-4" }: { platform: Platform; className?: string }) {
   switch (platform) {
+    case "Windows":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+          <path d="M2.5 4.6 10.4 3.5v7.6H2.5V4.6Zm9-1.3L21.5 2v9.1h-10V3.3ZM2.5 12.2h7.9v7.6l-7.9-1.1v-6.5Zm9 0h10v9.1l-10-1.4v-7.7Z" />
+        </svg>
+      );
     case "iOS":
       return (
         <svg viewBox="0 0 24 24" className={className} aria-hidden>

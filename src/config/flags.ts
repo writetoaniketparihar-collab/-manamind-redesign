@@ -5,4 +5,4 @@
 // Case Studies: when false, /case-studies shows a "Coming Soon" stub and no
 // detail pages are built. Flip to true once real case studies are in
 // src/data/case-studies.ts.
-export const CASE_STUDIES_LIVE = false;
+export const CASE_STUDIES_LIVE = true;

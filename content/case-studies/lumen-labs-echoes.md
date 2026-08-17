@@ -1,5 +1,6 @@
 ---
 order: 3
+published: false
 studio:
   name: Lumen Labs
   initials: LL

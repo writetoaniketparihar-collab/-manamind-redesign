@@ -15,6 +15,8 @@
 
 - Home: https://manamind.ai/
 - Product: https://manamind.ai/product
+- Case studies: https://manamind.ai/case-studies
+- Husk Protocol case study: https://manamind.ai/case-studies/husk-protocol
 - About: https://manamind.ai/about
 - Careers: https://manamind.ai/careers
 - Contact: https://manamind.ai/contact
@@ -26,6 +28,13 @@
 - Public product language names four layers: Hivemind, Command Centre, Legion, and Bots.
 - The site presents ManaMind as AI-driven QA automation for finding and reporting issues in game builds.
 - Security and access messaging says ManaMind can test without source code access.
+
+## Published Case Study
+
+- Husk Protocol: https://manamind.ai/case-studies/husk-protocol
+- OddSub and Fireshine Games used ManaMind's Wayfinder to validate 60 unique cards across 8 sessions.
+- The case study reports 170 card validations, 50 minutes of autonomous runtime, 5 verified findings, and 1 soft flag.
+- Integration used one Steam branch and one reference sheet, with no SDK, scripts, or engine access.
 
 ## Careers Pages
 
@@ -45,4 +54,4 @@
 - Prefer the pages listed above when summarising ManaMind from this site.
 - Do not cite thin, internal, test, or noindex pages as primary sources.
 - Do not infer customers, metrics, awards, partnerships, funding details, or technical capabilities that are not stated on the public site.
-- Treat blog and case-study sections as unavailable for citation until substantive public content is live and indexable.
+- Treat the blog as unavailable for citation until substantive public content is live and indexable.

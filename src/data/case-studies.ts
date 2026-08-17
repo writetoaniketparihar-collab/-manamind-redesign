@@ -1,36 +1,66 @@
-// Type definitions for case studies. The actual content now lives as markdown
-// files in content/case-studies/ and is loaded at build time by
-// src/lib/content/case-studies.ts (edit the markdown files directly).
+export type Platform =
+  | "Windows"
+  | "PC"
+  | "PS5"
+  | "Xbox Series"
+  | "Switch"
+  | "Mobile"
+  | "Android"
+  | "iOS"
+  | "VR";
 
-export type Platform = "PC" | "PS5" | "Xbox Series" | "Switch" | "Mobile" | "Android" | "iOS" | "VR";
+export type Country = {
+  code: string;
+  name: string;
+};
 
-export type Severity = "Critical" | "High" | "Medium" | "Low";
+export type CaseStudyOrganization = {
+  name: string;
+  role: "Developer" | "Publisher";
+  initials: string;
+  logo: string;
+  logoTone: "light" | "dark";
+  country: Country;
+};
+
+export type CaseStudyMedia = {
+  id: string;
+  kind: "image" | "video";
+  src: string;
+  source: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  poster?: string;
+};
 
 export type CaseStudy = {
   slug: string;
-  order?: number;
-  studio: {
-    name: string;
-    initials: string;
-    accent: string;
-    logo?: string;
+  order: number;
+  published: boolean;
+  publishedAt: string;
+  accent: string;
+  seo: {
+    title: string;
+    description: string;
+    canonical: string;
+    openGraphImage: string;
   };
+  organizations: CaseStudyOrganization[];
   game: {
     title: string;
     codename: string;
-    logo?: string;
+    logo: string;
+    logoWidth: number;
+    logoHeight: number;
+    externalUrl?: string;
   };
   platforms: Platform[];
   genres: string[];
-  country: { code: string; flag: string; name: string };
   challengeOneLiner: string;
   headlineMetric: { value: string; label: string };
-  snapshot: {
-    type: string;
-    teamSize: string;
-    stage: string;
-    testWindow: string;
-  };
+  snapshot: Array<{ label: string; value: string }>;
   challenge: {
     headline: string;
     problem: string;
@@ -38,26 +68,27 @@ export type CaseStudy = {
   deployment: {
     headline: string;
     summary: string;
-    sessions: number;
-    focus: string[];
+    stats: Array<{ label: string; value: string; detail?: string }>;
+    mediaIds: string[];
   };
+  media: CaseStudyMedia[];
   findings: Array<{
     id: string;
-    severity: Severity;
+    category: string;
+    status: "Verified finding" | "Soft flag";
     title: string;
     summary: string;
-    evidence: "video" | "screenshot" | "log";
+    detail?: string;
+    reference?: string;
+    mediaIds: string[];
   }>;
-  results: Array<{
-    metric: string;
-    before: string;
-    after: string;
-    delta: string;
-  }>;
-  quote: {
+  results: Array<{ metric: string; value: string }>;
+  testimonials: Array<{
     body: string;
     author: string;
     title: string;
+    organization: string;
     initials: string;
-  };
+    headshot?: string;
+  }>;
 };
