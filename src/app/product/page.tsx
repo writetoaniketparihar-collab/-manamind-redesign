@@ -60,10 +60,10 @@ export default function ProductPage() {
     <>
       <JsonLd data={softwareApplicationJsonLd} />
       <ProductHero />
+      <BotSection />
       <ArchitectureSection />
       <BotInteraction />
       <FeatureBreakdown />
-      <BotSection />
       <ZeroShotExplainer />
       <Benchmarks />
 
