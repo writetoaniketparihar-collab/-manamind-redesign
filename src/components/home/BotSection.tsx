@@ -98,12 +98,6 @@ function BotCard({ bot, onOpen }: { bot: Bot; onOpen: () => void }) {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-    const rect = element.getBoundingClientRect();
-    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-    if (rect.top < viewportHeight + 400 && rect.bottom > -400) {
-      setVisible(true);
-      return;
-    }
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         setVisible(true);
@@ -119,16 +113,26 @@ function BotCard({ bot, onOpen }: { bot: Bot; onOpen: () => void }) {
   return (
     <motion.article
       ref={ref}
+      role="button"
+      tabIndex={0}
+      aria-label={`View ${bot.name} profile`}
+      onClick={onOpen}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpen();
+        }
+      }}
       whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
-      className="group relative flex h-full w-full flex-col overflow-visible rounded-2xl border border-white/[0.08] bg-bg-card transition-colors hover:z-20 hover:border-white/20 focus-within:z-20"
+      className="group relative flex h-full w-full cursor-pointer flex-col overflow-visible rounded-2xl border border-white/[0.08] bg-bg-card transition-colors hover:z-20 hover:border-white/20 focus-visible:z-20 focus-visible:border-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
       style={{ boxShadow: `0 8px 32px ${bot.color}12` }}
     >
       <div className="h-[3px] w-full rounded-t-2xl" style={{ background: bot.color }} />
 
       <div className="relative aspect-square overflow-hidden border-b border-white/[0.06]" style={{ background: "#3D1F4A" }}>
         <div className="pointer-events-none absolute inset-0 z-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.015)_2px,rgba(255,255,255,0.015)_4px)]" />
-        {visible ? <BotModel modelPath={bot.model.path} glbFile={bot.model.glb} color={bot.color} /> : null}
+        {visible ? <BotModel modelPath={bot.model.path} glbFile={bot.model.glb} color={bot.color} className="relative h-full w-full" /> : null}
         <div className="absolute left-3 top-3 z-20">
           <span className="inline-flex items-center rounded-full border border-white/10 bg-black/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted backdrop-blur-sm">{bot.categoryLabel}</span>
         </div>
@@ -138,7 +142,7 @@ function BotCard({ bot, onOpen }: { bot: Bot; onOpen: () => void }) {
       <div className="flex flex-1 flex-col rounded-b-2xl p-4">
         <div className="flex items-center justify-between gap-3">
           <p className="text-sm font-bold uppercase tracking-widest" style={{ color: bot.color }}>{bot.name}</p>
-          <button type="button" onClick={onOpen} className="shrink-0 rounded-full border border-white/15 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary/80 transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">Read more +</button>
+          <span aria-hidden="true" className="text-lg leading-none text-text-muted/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-primary">↗</span>
         </div>
         <p className="mt-1 text-[11px] text-text-muted/70">{bot.role}</p>
         <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-foreground/80">{bot.specialisesIn}</p>
@@ -160,12 +164,13 @@ function AbilityHex({ ability, accent }: { ability: BotAbility; accent: string }
   const [open, setOpen] = useState(false);
   const clipPath = "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)";
   return (
-    <div className="group/ability relative flex w-[42px] flex-col items-center gap-1 outline-none">
+    <div className="group/ability relative flex w-[42px] flex-col items-center gap-1 outline-none" onClick={(event) => event.stopPropagation()}>
       <button
         type="button"
         aria-label={`${ability.name}: show ability details`}
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
+        onKeyDown={(event) => event.stopPropagation()}
         className="relative h-[37px] w-[42px] transition-transform duration-150 hover:-translate-y-0.5 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
       >
         <span className="absolute inset-0" style={{ clipPath, background: `color-mix(in srgb, ${accent} 55%, #2a1840)` }} />
@@ -196,13 +201,13 @@ function BotModal({ bot, onClose }: { bot: Bot | null; onClose: () => void }) {
           <motion.div role="dialog" aria-modal="true" aria-label={`${bot.name} details`} className="relative z-10 flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-bg-card shadow-2xl" initial={{ opacity: 0, y: 20, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: .98 }} transition={{ duration: .25, ease: "easeOut" }}>
             <div className="h-[3px] w-full shrink-0" style={{ background: bot.color }} />
             <button type="button" onClick={onClose} aria-label="Close" className="absolute right-3 top-5 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black/40 text-text-muted hover:border-white/20 hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">×</button>
-            <div className="grid grid-cols-1 overflow-y-auto md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-              <div className="relative flex aspect-square min-h-[280px] items-center justify-center overflow-hidden border-b border-white/[0.06] md:aspect-auto md:border-b-0 md:border-r" style={{ background: "#3D1F4A" }}>
+            <div className="grid min-h-0 grid-cols-1 md:grid-cols-[minmax(280px,.85fr)_minmax(0,1.15fr)]">
+              <div className="relative flex h-[34vh] min-h-[260px] max-h-[360px] items-center justify-center overflow-hidden border-b border-white/[0.06] md:h-[calc(90vh-3px)] md:max-h-none md:border-b-0 md:border-r" style={{ background: "#3D1F4A" }}>
                 <div className="pointer-events-none absolute inset-0 z-10 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(255,255,255,0.02)_2px,rgba(255,255,255,0.02)_4px)]" />
-                <BotModel modelPath={bot.model.path} glbFile={bot.model.glb} color={bot.color} />
+                <BotModel modelPath={bot.model.path} glbFile={bot.model.glb} color={bot.color} modelScale={2} fov={52} className="relative h-full w-full" />
                 <div className="absolute left-4 top-4 z-20"><span className="rounded-full border border-white/10 bg-black/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-text-muted backdrop-blur-sm">{bot.categoryLabel}</span></div>
               </div>
-              <div className="flex flex-col gap-5 p-6 sm:p-8">
+              <div className="flex min-h-0 max-h-[calc(90vh-34vh)] flex-col gap-5 overflow-y-auto p-6 sm:p-8 md:max-h-[calc(90vh-3px)]">
                 <div className="flex items-start justify-between gap-3 pr-10"><div><p className="text-xs font-bold uppercase tracking-widest" style={{ color: bot.color }}>{bot.name}</p><h3 className="mt-1 text-2xl font-bold text-foreground">{bot.role}</h3></div><StatusPill status={bot.status} /></div>
                 <DetailBlock label="Specialises In" text={bot.specialisesIn} />
                 <DetailBlock label="Bio" text={bot.bio} muted />
